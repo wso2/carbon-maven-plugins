@@ -32,7 +32,7 @@ import java.io.PrintWriter;
 import java.io.Writer;
 
 /**
- * ProfileGenerator takes parameters from the pom.xml and generates the profile.
+ * FeatureInstaller takes parameters from the pom.xml and generates the profile.
  */
 public class FeatureInstaller {
 
