@@ -82,6 +82,32 @@ public class P2ApplicationLaunchManager {
     }
 
     /**
+     * Sets the P2ApplicationLauncher's arguments to uninstall features.
+     *
+     * @param uninstallIUs       a comma separated list of IUs to uninstall. Each entry in the list is in the form
+     *                           <id> [ '/' <version> ]. If you are looking to uninstall a feature, the identifier
+     *                           of the feature has to be suffixed with ".feature.group".
+     * @param destination        the path of a folder in which the targeted product is located
+     * @param profile            the profile id containing the description of the targeted product
+     */
+    public void addArgumentsToUnInstallFeatures(String uninstallIUs, String destination,
+                                                String profile) {
+        launcher.addArguments(
+                "-profileProperties", "org.eclipse.update.install.features=false",
+                // a comma separated list of IUs to uninstall. Each entry in the list is in the form
+                // <id> [ '/' <version> ]
+                "-uninstallIU", uninstallIUs,
+                // the location of where the plug-ins and features will be stored. This value is only taken into account
+                // when a new profile is created. For an application where all the bundles are located into the
+                // plugins/ folder of the destination, set it to <destination>
+                // use a shared location for the install. The path defaults to ${user.home}/.p2
+                "-shared", destination + File.separator + "p2",
+                "-destination", destination + File.separator + profile,
+                "-profile", profile
+        );
+    }
+
+    /**
      * Generate/update the repository.
      *
      * @param forkedProcessTimeoutInSeconds int
