@@ -45,7 +45,8 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 /**
- * This class will be refactored in CARBON-15478
+ * The class contains operations related to Categories, which is out of the scope for current set of tasks. Thus
+ * the refactoring is done for a minimum for the moment.
  */
 public class P2Utils {
     private static String[] matchList = new String[]{"perfect", "equivalent", "compatible", "greaterOrEqual", "patch",
@@ -55,7 +56,7 @@ public class P2Utils {
         int min = -1;
         if (p2InfFile.exists()) {
 
-            try (BufferedReader in =  new BufferedReader(new FileReader(p2InfFile))){
+            try (BufferedReader in = new BufferedReader(new FileReader(p2InfFile))) {
                 String line;
                 while ((line = in.readLine()) != null) {
                     String[] split = line.split("=");
@@ -166,9 +167,6 @@ public class P2Utils {
         } catch (TransformerException e) {
             throw new TransformerException("Unable to create feature manifest", e);
         }
-//        } catch (Exception e) {
-//            throw new MojoExecutionException("Unable to create feature manifest", e);
-//        }
     }
 
     /**

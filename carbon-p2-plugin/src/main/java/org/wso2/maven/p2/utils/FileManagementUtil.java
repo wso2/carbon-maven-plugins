@@ -30,6 +30,9 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
+/**
+ * Util class which handle file manipulation operations.
+ */
 public class FileManagementUtil {
     private static final int BUFFER = 2048;
 
@@ -240,9 +243,6 @@ public class FileManagementUtil {
         while ((len = in.read(buf)) > 0) {
             out.write(buf, 0, len);
         }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
     }
 
     /**
