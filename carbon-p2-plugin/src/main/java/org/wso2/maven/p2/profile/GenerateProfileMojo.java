@@ -45,12 +45,7 @@ public class GenerateProfileMojo extends AbstractMojo {
      * Metadata repository name
      */
     @Parameter
-    private URL metadataRepository;
-    /**
-     * Artifact repository name
-     */
-    @Parameter
-    private URL artifactRepository;
+    private URL repositoryURL;
 
     /**
      * The product configuration, a .product file. This file manages all aspects
@@ -102,45 +97,6 @@ public class GenerateProfileMojo extends AbstractMojo {
         }
     }
 
-    private void regenerateCUs()
-            throws MojoExecutionException, MojoFailureException {
-        getLog().debug("Regenerating config.ini");
-        Properties props = new Properties();
-        String id = productConfiguration.getId();
-
-        setPropertyIfNotNull(props, "osgi.bundles", getFeaturesOsgiBundles());
-        setPropertyIfNotNull(props, "osgi.bundles.defaultStartLevel", "4");
-        if (profile == null) {
-            profile = "profile";
-        }
-        setPropertyIfNotNull(props, "eclipse.p2.profile", profile);
-        setPropertyIfNotNull(props, "eclipse.product", id);
-        setPropertyIfNotNull(props, "eclipse.p2.data.area", "@config.dir/../p2/");
-        setPropertyIfNotNull(props, "eclipse.application", productConfiguration.getApplication());
-
-
-        File configsFolder = new File(targetPath.toString(), "configuration");
-        configsFolder.mkdirs();
-
-        File configIni = new File(configsFolder, "config.ini");
-        try {
-            FileOutputStream fos = new FileOutputStream(configIni);
-            props.store(fos, "Product Runtime Configuration File");
-            fos.close();
-        } catch (IOException e) {
-            throw new MojoExecutionException("Error creating .eclipseproduct file.", e);
-        }
-
-    }
-
-    private String getFeaturesOsgiBundles() {
-        String bundles = "org.eclipse.equinox.common@2:start," +
-                "org.eclipse.update.configurator@3:start," +
-                "org.eclipse.core.runtime@start,org.eclipse.equinox.ds@1:start," +
-                "org.eclipse.equinox.simpleconfigurator@1:start";
-        return bundles;
-    }
-
     private void deployRepository() throws MojoFailureException, IOException {
         productConfiguration = ProductConfiguration.read(productConfigurationFile);
         P2ApplicationLauncher launcher = this.launcher;
@@ -149,8 +105,8 @@ public class GenerateProfileMojo extends AbstractMojo {
         launcher.setApplicationName("org.eclipse.equinox.p2.director");
 
         launcher.addArguments(
-                "-metadataRepository", metadataRepository.toExternalForm(),
-                "-artifactRepository", metadataRepository.toExternalForm(),
+                "-repositoryURL", repositoryURL.toExternalForm(),
+                "-artifactRepository", repositoryURL.toExternalForm(),
                 "-installIU", productConfiguration.getId(),
                 "-profileProperties", "org.eclipse.update.install.features=true",
                 "-profile", profile.toString(),
@@ -169,12 +125,6 @@ public class GenerateProfileMojo extends AbstractMojo {
 
         if (result != 0) {
             throw new MojoFailureException("P2 publisher return code was " + result);
-        }
-    }
-
-    private void setPropertyIfNotNull(Properties properties, String key, String value) {
-        if (value != null) {
-            properties.setProperty(key, value);
         }
     }
 }
