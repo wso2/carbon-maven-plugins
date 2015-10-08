@@ -27,11 +27,6 @@ public class PropertyReplacer {
         NORMAL, SEEN_DOLLAR, WITHIN_BRACKET
     }
 
-    private PropertyReplacer() {
-        // you can't instantiate this class
-    }
-
-
     public static String replaceProperties(final String origString, final Properties props) {
 
         final char[] chars = origString.toCharArray();
