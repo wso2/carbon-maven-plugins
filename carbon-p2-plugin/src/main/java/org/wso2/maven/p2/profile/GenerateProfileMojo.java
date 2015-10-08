@@ -30,12 +30,12 @@ import org.wso2.maven.p2.utils.FileManagementUtil;
 import org.wso2.maven.p2.utils.P2Constants;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Properties;
 
-
+/**
+ * Mojo responsible for generating a profile.
+ */
 @Mojo(name = "generate-profile")
 public class GenerateProfileMojo extends AbstractMojo {
 
@@ -55,15 +55,8 @@ public class GenerateProfileMojo extends AbstractMojo {
     @Parameter(defaultValue = "${productConfiguration}")
     private File productConfigurationFile;
 
-    /**
-     * @parameter
-     */
+    @Parameter
     private URL targetPath;
-
-    /**
-     * Parsed product configuration file
-     */
-    private ProductConfiguration productConfiguration;
 
     /**
      * The new profile to be created during p2 Director install &
@@ -98,7 +91,7 @@ public class GenerateProfileMojo extends AbstractMojo {
     }
 
     private void deployRepository() throws MojoFailureException, IOException {
-        productConfiguration = ProductConfiguration.read(productConfigurationFile);
+        ProductConfiguration productConfiguration = ProductConfiguration.read(productConfigurationFile);
         P2ApplicationLauncher launcher = this.launcher;
 
         launcher.setWorkingDirectory(project.getBasedir());
