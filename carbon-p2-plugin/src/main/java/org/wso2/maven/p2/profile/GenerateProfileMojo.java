@@ -15,7 +15,7 @@
 * specific language governing permissions and limitations
 * under the License.
 */
-package org.wso2.maven.p2;
+package org.wso2.maven.p2.profile;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -38,7 +38,7 @@ import java.util.Properties;
 /**
  * @goal materialize-product
  */
-public class MaterializeProductMojo extends AbstractMojo {
+public class GenerateProfileMojo extends AbstractMojo {
     /**
      * @parameter expression="${project}"
      * @required
