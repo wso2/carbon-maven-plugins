@@ -34,7 +34,6 @@ public class P2ApplicationLaunchManager {
      * The constructor which initializes this class. This class wraps the P2ApplicationLauncher and expose a set
      * of simple, easy to use methods to configure the P2ApplicationLauncher.
      *
-     *
      * @param launcher P2ApplicationLauncher which will be wrapped by this wrapper class
      */
     public P2ApplicationLaunchManager(P2ApplicationLauncher launcher) {

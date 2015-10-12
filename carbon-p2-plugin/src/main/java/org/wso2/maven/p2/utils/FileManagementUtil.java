@@ -38,6 +38,8 @@ public class FileManagementUtil {
 
 
     /**
+     * For a given location and the profile, returns the File object represented by config.ini
+     *
      * @param destination path pointing the [carbon product]/repository/components folder
      * @param profile     name of the profile
      * @return the config.ini file for the Profile
@@ -57,10 +59,10 @@ public class FileManagementUtil {
     public static void changeConfigIniProperty(File configIniFile, String propKey, String value) {
         Properties prop = new Properties();
 
-        try (InputStream inputStream = new FileInputStream(configIniFile)){
+        try (InputStream inputStream = new FileInputStream(configIniFile)) {
             prop.load(inputStream);
             prop.setProperty(propKey, value);
-            try(OutputStream outputStream = new FileOutputStream(configIniFile)) {
+            try (OutputStream outputStream = new FileOutputStream(configIniFile)) {
                 prop.store(outputStream, null);
             }
         } catch (IOException e) {
@@ -75,8 +77,8 @@ public class FileManagementUtil {
      * @param destZipFile path to the output zip file
      */
     public static void zipFolder(String srcFolder, String destZipFile) {
-        try(FileOutputStream fileWriter = new FileOutputStream(destZipFile);
-            ZipOutputStream zip = new ZipOutputStream(fileWriter)) {
+        try (FileOutputStream fileWriter = new FileOutputStream(destZipFile);
+             ZipOutputStream zip = new ZipOutputStream(fileWriter)) {
             addFolderContentsToZip(srcFolder, zip);
         } catch (IOException e) {
             e.printStackTrace();
@@ -93,7 +95,7 @@ public class FileManagementUtil {
             // Transfer bytes from in to out
             byte[] buf = new byte[1024];
             int len;
-            try (FileInputStream inputStream = new FileInputStream(srcFile)){
+            try (FileInputStream inputStream = new FileInputStream(srcFile)) {
 
                 if (path.trim().equals("")) {
                     zip.putNextEntry(new ZipEntry(folder.getName()));
@@ -173,8 +175,8 @@ public class FileManagementUtil {
             for (File child : children) {
                 if (child != null) {
                     String[] childrenOfChild = child.list();
-                    if(childrenOfChild != null) {
-                        if(childrenOfChild.length > 0) {
+                    if (childrenOfChild != null) {
+                        if (childrenOfChild.length > 0) {
                             deleteDirectories(child);
                         } else {
                             if (!child.delete()) {
@@ -254,9 +256,9 @@ public class FileManagementUtil {
      */
     public static void unzip(File archiveFile, File destination) throws IOException {
 
-        try(FileInputStream fis = new FileInputStream(archiveFile);
-            ZipInputStream zis = new
-                    ZipInputStream(new BufferedInputStream(fis))) {
+        try (FileInputStream fis = new FileInputStream(archiveFile);
+             ZipInputStream zis = new
+                     ZipInputStream(new BufferedInputStream(fis))) {
             ZipEntry entry;
 
             while ((entry = zis.getNextEntry()) != null) {
@@ -274,8 +276,8 @@ public class FileManagementUtil {
                         throw new IOException("Failed to create directories at " + file.getAbsolutePath());
                     }
                 }
-                try(FileOutputStream fos = new FileOutputStream(file);
-                    BufferedOutputStream dest = new BufferedOutputStream(fos, BUFFER)) {
+                try (FileOutputStream fos = new FileOutputStream(file);
+                     BufferedOutputStream dest = new BufferedOutputStream(fos, BUFFER)) {
                     while ((count = zis.read(data, 0, BUFFER)) != -1) {
                         dest.write(data, 0, count);
                     }
