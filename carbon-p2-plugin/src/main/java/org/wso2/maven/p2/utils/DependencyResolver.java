@@ -80,9 +80,10 @@ public class DependencyResolver {
             carbonArtifact.setArtifact(mavenArtifact);
             String key;
             if (carbonArtifact.getType().equals("jar")) {
-                resolveOSGIInfo(carbonArtifact);
-                key = carbonArtifact.getSymbolicName() + "_" + carbonArtifact.getBundleVersion();
-                bundles.put(key, carbonArtifact);
+                if(resolveOSGIInfo(carbonArtifact)) {
+                    key = carbonArtifact.getSymbolicName() + "_" + carbonArtifact.getBundleVersion();
+                    bundles.put(key, carbonArtifact);
+                }
             } else {
                 key = carbonArtifact.getArtifactId() + "_" + carbonArtifact.getVersion();
                 features.put(key, carbonArtifact);
@@ -91,25 +92,27 @@ public class DependencyResolver {
         return results;
     }
 
-    private static void resolveOSGIInfo(CarbonArtifact artifact) throws OSGIInformationExtractionException,
-            IOException {
+    private static boolean resolveOSGIInfo(CarbonArtifact artifact) throws IOException {
         String bundleVersionStr = "Bundle-Version";
         String bundleSymbolicNameStr = "Bundle-SymbolicName";
 
+        if(!artifact.getArtifact().getFile().exists()) {
+            return false;
+        }
         try (JarFile jarFile = new JarFile(artifact.getArtifact().getFile())) {
 
             Manifest manifest = jarFile.getManifest();
 
             String bundleSymbolicName = manifest.getMainAttributes().getValue(bundleSymbolicNameStr);
             String bundleVersion = manifest.getMainAttributes().getValue(bundleVersionStr);
+            //Returns false if the considered .jar is not an OSGI bundle
             if (bundleSymbolicName == null || bundleVersion == null) {
-                throw new OSGIInformationExtractionException("Artifact doesn't contain OSGI info: " +
-                        artifact.getGroupId() + ":" + artifact.getArtifactId() + ":" + artifact.getVersion());
+                return false;
             }
             String[] split = bundleSymbolicName.split(";");
             artifact.setSymbolicName(split[0]);
             artifact.setBundleVersion(bundleVersion);
-
+            return true;
         } catch (IOException e) {
             throw new IOException("Unable to retrieve OSGI bundle info: " + artifact.getGroupId() +
                     ":" + artifact.getArtifactId() + ":" + artifact.getVersion(), e);
