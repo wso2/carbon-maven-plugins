@@ -44,6 +44,8 @@ import java.util.List;
 
 /**
  * FeatureGenerator takes parameters from the pom.xml and generates the feature.
+ *
+ * @since 2.0.0
  */
 public class FeatureGenerator {
 
@@ -68,7 +70,9 @@ public class FeatureGenerator {
 
     /**
      * Constructor for the FeatureGenerator.
+     * <p>
      * Takes FeatureResourceBundle as a param to set private fields.
+     * </p>
      *
      * @param resourceBundle FeatureResourceBundle
      */

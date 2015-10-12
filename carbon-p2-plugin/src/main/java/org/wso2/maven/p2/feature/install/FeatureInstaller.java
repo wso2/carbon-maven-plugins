@@ -33,6 +33,8 @@ import java.io.Writer;
 
 /**
  * FeatureInstaller takes parameters from the pom.xml and generates the profile.
+ *
+ * @since 2.0.0
  */
 public class FeatureInstaller {
 

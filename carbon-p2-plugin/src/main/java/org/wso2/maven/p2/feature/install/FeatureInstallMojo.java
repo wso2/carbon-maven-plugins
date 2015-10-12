@@ -30,7 +30,10 @@ import java.net.URL;
 import java.util.List;
 
 /**
- * Write environment information for the current build to file.
+ * Install a given set of carbon features on a product. The artifacts and metadata of the features to be installed
+ * should reside in the repository given under {@code repositoryURL}
+ *
+ * @since 2.0.0
  */
 @Mojo(name = "install", defaultPhase = LifecyclePhase.PACKAGE)
 public class FeatureInstallMojo extends AbstractMojo {

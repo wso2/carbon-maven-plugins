@@ -35,6 +35,8 @@ import java.util.jar.Manifest;
 /**
  * DependencyResolver takes MavenProject object and resolve all the maven dependencies in the maven project into
  * internal bean representations.
+ *
+ * @since 2.0.0
  */
 public class DependencyResolver {
 

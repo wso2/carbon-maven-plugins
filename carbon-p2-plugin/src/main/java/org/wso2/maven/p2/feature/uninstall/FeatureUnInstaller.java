@@ -25,6 +25,8 @@ import java.util.List;
 
 /**
  * FeatureUninstaller takes configuration data from FeatureUninstallMojo and perform the uninstall task.
+ *
+ * @since 2.0.0
  */
 public class FeatureUnInstaller {
 
@@ -37,12 +39,22 @@ public class FeatureUnInstaller {
 
     private static final String PUBLISHER_APPLICATION = "org.eclipse.equinox.p2.director";
 
-
+    /**
+     * default constructor which is executed during object creation of this class.
+     *
+     * @throws MojoFailureException
+     */
     public void uninstallFeatures() throws MojoFailureException {
         String iUs = getIUsToUninstall();
         uninstallFeatures(iUs);
     }
 
+    /**
+     * Analyze the given set of features and generate the string containing metadata about all the features to be
+     * uninstalled.
+     *
+     * @return String representing metadata about the features to be uninstalled
+     */
     private String getIUsToUninstall() {
         String uninstallUIs = "";
         for (Feature feature : features) {
@@ -54,6 +66,12 @@ public class FeatureUnInstaller {
         return uninstallUIs;
     }
 
+    /**
+     * uninstall the set of features given as a collection of IUs
+     *
+     * @param uninstallUIs comma separated list of IUs
+     * @throws MojoFailureException
+     */
     private void uninstallFeatures(String uninstallUIs) throws MojoFailureException {
         P2ApplicationLaunchManager launcher = new P2ApplicationLaunchManager(this.launcher);
         launcher.setWorkingDirectory(project.getBasedir());

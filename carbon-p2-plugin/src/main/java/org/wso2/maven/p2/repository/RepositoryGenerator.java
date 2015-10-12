@@ -40,6 +40,8 @@ import java.util.List;
 
 /**
  * RepositoryGenerator takes parameters from the pom.xml and generates the repository.
+ *
+ * @since 2.0.0
  */
 public class RepositoryGenerator {
 
