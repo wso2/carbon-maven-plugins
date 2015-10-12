@@ -25,6 +25,7 @@ import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
+import org.eclipse.tycho.model.ProductConfiguration;
 import org.eclipse.tycho.p2.facade.internal.P2ApplicationLauncher;
 
 import java.io.File;
@@ -36,15 +37,12 @@ import java.net.URL;
 @Mojo(name = "publish-product")
 public class PublishProductMojo extends AbstractMojo {
 
-    @Parameter(required = true, defaultValue = "${project}")
+    @Parameter(defaultValue = "${project}" )
     protected MavenProject project;
 
     @Parameter
     private URL repositoryURL;
 
-    /**
-     * executable
-     */
     @Parameter
     private String executable;
 
@@ -52,9 +50,8 @@ public class PublishProductMojo extends AbstractMojo {
      * The product configuration, a .product file. This file manages all aspects
      * of a product definition from its constituent plug-ins to configuration
      * files to branding.
-     *
      */
-    @Parameter(defaultValue = "${productConfiguration}")
+    @Parameter
     private File productConfigurationFile;
 
     @Component
@@ -83,7 +80,7 @@ public class PublishProductMojo extends AbstractMojo {
         launcher.setApplicationName("org.eclipse.equinox.p2.publisher.ProductPublisher");
 
         launcher.addArguments(
-                "-repositoryURL", repositoryURL.toString(),
+                "-metadataRepository", repositoryURL.toString(),
                 "-artifactRepository", repositoryURL.toString(),
                 "-productFile", productConfigurationFile.getCanonicalPath(),
                 "-executables", executable.toString(),
