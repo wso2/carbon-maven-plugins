@@ -98,7 +98,7 @@ public class GenerateProfileMojo extends AbstractMojo {
         launcher.setApplicationName("org.eclipse.equinox.p2.director");
 
         launcher.addArguments(
-                "-repositoryURL", repositoryURL.toExternalForm(),
+                "-metadataRepository", repositoryURL.toExternalForm(),
                 "-artifactRepository", repositoryURL.toExternalForm(),
                 "-installIU", productConfiguration.getId(),
                 "-profileProperties", "org.eclipse.update.install.features=true",
