@@ -23,7 +23,6 @@ import org.apache.maven.model.DependencyManagement;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.repository.RepositorySystem;
 import org.wso2.maven.p2.beans.CarbonArtifact;
-import org.wso2.maven.p2.exceptions.OSGIInformationExtractionException;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -52,11 +51,10 @@ public class DependencyResolver {
      * CarbonArtifact&gt; containing osgi bundles specified as dependencies and 2nd item being HashMap&lt;String,
      * CarbonArtifact&gt; containing carbon features specified as dependencies.
      * @throws IOException
-     * @throws OSGIInformationExtractionException
      */
     public static List<HashMap<String, CarbonArtifact>> getDependenciesForProject(MavenProject project, RepositorySystem
             repositorySystem, List<ArtifactRepository> remoteRepositories, ArtifactRepository localRepository)
-            throws IOException, OSGIInformationExtractionException {
+            throws IOException {
 
         List<HashMap<String, CarbonArtifact>> results = new ArrayList<>();
         HashMap<String, CarbonArtifact> bundles = new HashMap<>();

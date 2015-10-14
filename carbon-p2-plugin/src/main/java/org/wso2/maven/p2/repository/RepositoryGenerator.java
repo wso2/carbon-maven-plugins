@@ -24,7 +24,6 @@ import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.util.FileUtils;
 import org.wso2.maven.p2.beans.CarbonArtifact;
 import org.wso2.maven.p2.exceptions.CarbonArtifactNotFoundException;
-import org.wso2.maven.p2.exceptions.OSGIInformationExtractionException;
 import org.wso2.maven.p2.utils.DependencyResolver;
 import org.wso2.maven.p2.utils.FileManagementUtil;
 import org.wso2.maven.p2.utils.P2ApplicationLaunchManager;
@@ -95,12 +94,12 @@ public class RepositoryGenerator {
             performMopUp();
         } catch (IOException | TransformerException | ParserConfigurationException e) {
             throw new MojoFailureException(e.getMessage(), e);
-        } catch (OSGIInformationExtractionException | CarbonArtifactNotFoundException e) {
+        } catch (CarbonArtifactNotFoundException e) {
             throw new MojoExecutionException(e.getMessage(), e);
         }
     }
 
-    private void resolveDependencies() throws IOException, OSGIInformationExtractionException {
+    private void resolveDependencies() throws IOException {
         this.log.info("Inspecting maven dependencies.");
         List<HashMap<String, CarbonArtifact>> artifacts = DependencyResolver.getDependenciesForProject(project,
                 resourceBundle.getRepositorySystem(), resourceBundle.getRemoteRepositories(),

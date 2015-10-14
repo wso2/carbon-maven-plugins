@@ -27,7 +27,6 @@ import org.codehaus.plexus.util.FileUtils;
 import org.wso2.maven.p2.beans.CarbonArtifact;
 import org.wso2.maven.p2.exceptions.CarbonArtifactNotFoundException;
 import org.wso2.maven.p2.exceptions.MissingRequiredPropertyException;
-import org.wso2.maven.p2.exceptions.OSGIInformationExtractionException;
 import org.wso2.maven.p2.feature.generate.utils.FeatureFileGeneratorUtils;
 import org.wso2.maven.p2.utils.BundleUtils;
 import org.wso2.maven.p2.utils.DependencyResolver;
@@ -103,7 +102,7 @@ public class FeatureGenerator {
             performMopUp();
         } catch (IOException | TransformerException | ParserConfigurationException | SAXException e) {
             throw new MojoFailureException(e.getMessage(), e);
-        } catch (OSGIInformationExtractionException | CarbonArtifactNotFoundException |
+        } catch (CarbonArtifactNotFoundException |
                 MissingRequiredPropertyException e) {
             throw new MojoExecutionException(e.getMessage(), e);
         }
@@ -114,9 +113,8 @@ public class FeatureGenerator {
      * internal bean structures
      *
      * @throws IOException
-     * @throws OSGIInformationExtractionException
      */
-    private void resolveMavenProjectDependencies() throws IOException, OSGIInformationExtractionException {
+    private void resolveMavenProjectDependencies() throws IOException {
         this.log.info("Inspecting maven dependencies.");
         List<HashMap<String, CarbonArtifact>> artifacts = DependencyResolver.getDependenciesForProject(project,
                 resourceBundle.getRepositorySystem(),
