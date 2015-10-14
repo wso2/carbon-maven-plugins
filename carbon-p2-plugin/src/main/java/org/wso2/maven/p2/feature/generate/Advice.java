@@ -42,4 +42,22 @@ public class Advice {
     public String getValue() {
         return value;
     }
+
+    /**
+     * Sets the name of the AdviceFile key.
+     *
+     * @param name String
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * Sets the value for a give AdviceFile key.
+     *
+     * @param value String
+     */
+    public void setValue(String value) {
+        this.value = value;
+    }
 }

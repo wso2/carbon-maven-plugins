@@ -70,7 +70,8 @@ public class FeatureInstaller {
      */
     private void updateProfileConfigIni() {
         File profileConfigIni = FileManagementUtil.getProfileConfigIniFile(destination, resourceBundle.getProfile());
-        FileManagementUtil.changeConfigIniProperty(profileConfigIni, "eclipse.p2.data.area", "@config.dir/../../p2/");
+        FileManagementUtil.changeConfigIniProperty(profileConfigIni, "eclipse.p2.data.area", "@config.dir/../../p2/",
+                resourceBundle.getLog());
     }
 
     /**
@@ -96,7 +97,7 @@ public class FeatureInstaller {
      *
      * @return formatted string to pass into P2ApplicationLauncher
      */
-    private String extractIUsToInstall()  {
+    private String extractIUsToInstall() {
         StringBuilder installIUs = new StringBuilder();
         for (Feature feature : resourceBundle.getFeatures()) {
             installIUs.append(feature.getId().trim()).append("/").append(feature.getVersion().trim()).append(",");
@@ -171,13 +172,12 @@ public class FeatureInstaller {
         }
 
         try (Writer writer = new OutputStreamWriter(new FileOutputStream(file), DEFAULT_ENCODING);
-             PrintWriter pw = new PrintWriter(writer)){
+             PrintWriter pw = new PrintWriter(writer)) {
             pw.write("-install\n");
             pw.write(profileLocation);
             pw.flush();
         } catch (IOException e) {
-            this.log.debug("Error while writing to file " + file.getName());
-            e.printStackTrace();    //What is the best practice for this.Log and ignore? According to the previous code
+            this.log.debug("Error while writing to file " + file.getName(), e);
         }
     }
 }

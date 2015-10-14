@@ -74,7 +74,7 @@ public class RepositoryResourceBundle {
     }
 
     public List<Feature> getFeatureArtifacts() {
-        if(featureArtifacts == null) {
+        if (featureArtifacts == null) {
             return new ArrayList<>();
         }
         return featureArtifacts;
@@ -85,7 +85,7 @@ public class RepositoryResourceBundle {
     }
 
     public List<Bundle> getBundleArtifacts() {
-        if(bundleArtifacts == null) {
+        if (bundleArtifacts == null) {
             return new ArrayList<>();
         }
         return bundleArtifacts;

@@ -30,13 +30,13 @@ import org.wso2.maven.p2.utils.FileManagementUtil;
 import org.wso2.maven.p2.utils.P2ApplicationLaunchManager;
 import org.wso2.maven.p2.utils.P2Utils;
 
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
 
 /**
  * RepositoryGenerator takes parameters from the pom.xml and generates the repository.
@@ -225,7 +225,8 @@ public class RepositoryGenerator {
     private void archiveGeneratedRepo() throws MojoExecutionException {
         if (resourceBundle.isArchive()) {
             this.log.info("Generating repository archive...");
-            FileManagementUtil.zipFolder(repoGenerationLocation.toString(), archiveFile.toString());
+            FileManagementUtil.zipFolder(repoGenerationLocation.toString(), archiveFile.toString(),
+                    resourceBundle.getLog());
             this.log.info("Repository Archive: " + archiveFile.toString());
             try {
                 FileManagementUtil.deleteDirectories(repoGenerationLocation);

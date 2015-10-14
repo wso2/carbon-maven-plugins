@@ -56,14 +56,15 @@ public class FeatureUnInstaller {
      * @return String representing metadata about the features to be uninstalled
      */
     private String getIUsToUninstall() {
-        String uninstallUIs = "";
+        if (features == null) {
+            return null;
+        }
+        StringBuilder uninstallUIs = new StringBuilder();
+
         for (Feature feature : features) {
-            uninstallUIs = uninstallUIs + feature.getId().trim() + "/" + feature.getVersion().trim() + ",";
+            uninstallUIs.append(feature.getId().trim()).append("/").append(feature.getVersion().trim()).append(",");
         }
-        if (uninstallUIs.length() != 0) {
-            uninstallUIs = uninstallUIs.substring(0, uninstallUIs.length() - 1);
-        }
-        return uninstallUIs;
+        return uninstallUIs.toString();
     }
 
     /**
@@ -73,12 +74,14 @@ public class FeatureUnInstaller {
      * @throws MojoFailureException
      */
     private void uninstallFeatures(String uninstallUIs) throws MojoFailureException {
-        P2ApplicationLaunchManager launcher = new P2ApplicationLaunchManager(this.launcher);
-        launcher.setWorkingDirectory(project.getBasedir());
-        launcher.setApplicationName(PUBLISHER_APPLICATION);
-        launcher.addArgumentsToUnInstallFeatures(uninstallUIs, destination,
-                profile);
-        launcher.performAction(forkedProcessTimeoutInSeconds);
+        if (project != null) {
+            P2ApplicationLaunchManager launcher = new P2ApplicationLaunchManager(this.launcher);
+            launcher.setWorkingDirectory(project.getBasedir());
+            launcher.setApplicationName(PUBLISHER_APPLICATION);
+            launcher.addArgumentsToUnInstallFeatures(uninstallUIs, destination,
+                    profile);
+            launcher.performAction(forkedProcessTimeoutInSeconds);
+        }
     }
 
     public void setDestination(String destination) {

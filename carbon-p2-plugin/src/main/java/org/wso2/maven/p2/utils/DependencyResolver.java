@@ -80,7 +80,7 @@ public class DependencyResolver {
             carbonArtifact.setArtifact(mavenArtifact);
             String key;
             if (carbonArtifact.getType().equals("jar")) {
-                if(resolveOSGIInfo(carbonArtifact)) {
+                if (resolveOSGIInfo(carbonArtifact)) {
                     key = carbonArtifact.getSymbolicName() + "_" + carbonArtifact.getBundleVersion();
                     bundles.put(key, carbonArtifact);
                 }
@@ -96,7 +96,7 @@ public class DependencyResolver {
         String bundleVersionStr = "Bundle-Version";
         String bundleSymbolicNameStr = "Bundle-SymbolicName";
 
-        if(!artifact.getArtifact().getFile().exists()) {
+        if (!artifact.getArtifact().getFile().exists()) {
             return false;
         }
         try (JarFile jarFile = new JarFile(artifact.getArtifact().getFile())) {

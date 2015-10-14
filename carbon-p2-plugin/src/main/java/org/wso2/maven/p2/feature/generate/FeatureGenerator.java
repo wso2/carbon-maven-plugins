@@ -34,13 +34,14 @@ import org.wso2.maven.p2.utils.DependencyResolver;
 import org.wso2.maven.p2.utils.FileManagementUtil;
 import org.xml.sax.SAXException;
 
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
+
 
 /**
  * FeatureGenerator takes parameters from the pom.xml and generates the feature.
@@ -271,7 +272,8 @@ public class FeatureGenerator {
      */
     private void createFeatureArchive() {
         this.log.info("Generating feature archive: " + featureZipFile.getAbsolutePath());
-        FileManagementUtil.zipFolder(rowOutputFolder.getAbsolutePath(), featureZipFile.getAbsolutePath());
+        FileManagementUtil.zipFolder(rowOutputFolder.getAbsolutePath(), featureZipFile.getAbsolutePath(),
+                resourceBundle.getLog());
     }
 
     private void deployArtifact() {

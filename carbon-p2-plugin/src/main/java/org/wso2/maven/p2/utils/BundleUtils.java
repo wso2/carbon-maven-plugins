@@ -56,8 +56,9 @@ public class BundleUtils {
         osgiVersion = version;
 
         /* check for dated snapshot versions with only major or major and minor */
-        Pattern DATED_SNAPSHOT = Pattern.compile("([0-9])(\\.([0-9]))?(\\.([0-9]))?\\-([0-9]{8}\\.[0-9]{6}\\-[0-9]*)");
-        m = DATED_SNAPSHOT.matcher(osgiVersion);
+        Pattern datedSnapshotPattern =
+                Pattern.compile("([0-9])(\\.([0-9]))?(\\.([0-9]))?\\-([0-9]{8}\\.[0-9]{6}\\-[0-9]*)");
+        m = datedSnapshotPattern.matcher(osgiVersion);
         if (m.matches()) {
             String major = m.group(1);
             String minor = (m.group(3) != null) ? m.group(3) : "0";
@@ -75,8 +76,8 @@ public class BundleUtils {
         }
 
         /* remove dots in the middle of the qualifier */
-        Pattern DOTS_IN_QUALIFIER = Pattern.compile("([0-9])(\\.[0-9])?\\.([0-9A-Za-z_-]+)\\.([0-9A-Za-z_-]+)");
-        m = DOTS_IN_QUALIFIER.matcher(osgiVersion);
+        Pattern dotsInQualifierPattern = Pattern.compile("([0-9])(\\.[0-9])?\\.([0-9A-Za-z_-]+)\\.([0-9A-Za-z_-]+)");
+        m = dotsInQualifierPattern.matcher(osgiVersion);
         if (m.matches()) {
             String s1 = m.group(1);
             String s2 = m.group(2);
@@ -100,8 +101,8 @@ public class BundleUtils {
          * 1.1        -> 1.1.0
          */
         //Pattern NEED_TO_FILL_ZEROS = Pattern.compile( "([0-9])(\\.([0-9]))?\\.([0-9A-Za-z_-]+)" );
-        Pattern NEED_TO_FILL_ZEROS = Pattern.compile("([0-9])(\\.([0-9]))?(\\.([0-9A-Za-z_-]+))?");
-        m = NEED_TO_FILL_ZEROS.matcher(osgiVersion);
+        Pattern needToFillZerosPattern = Pattern.compile("([0-9])(\\.([0-9]))?(\\.([0-9A-Za-z_-]+))?");
+        m = needToFillZerosPattern.matcher(osgiVersion);
         if (m.matches()) {
             String major = m.group(1);
             String minor = m.group(3);

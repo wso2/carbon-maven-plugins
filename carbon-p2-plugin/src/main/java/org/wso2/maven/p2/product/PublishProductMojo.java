@@ -25,10 +25,10 @@ import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
-import org.eclipse.tycho.model.ProductConfiguration;
 import org.eclipse.tycho.p2.facade.internal.P2ApplicationLauncher;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 
 /**
@@ -37,7 +37,7 @@ import java.net.URL;
 @Mojo(name = "publish-product")
 public class PublishProductMojo extends AbstractMojo {
 
-    @Parameter(defaultValue = "${project}" )
+    @Parameter(defaultValue = "${project}")
     protected MavenProject project;
 
     @Parameter
@@ -60,7 +60,6 @@ public class PublishProductMojo extends AbstractMojo {
     /**
      * Kill the forked test process after a certain number of seconds. If set to 0, wait forever for
      * the process, never timing out.
-     *
      */
     @Parameter(defaultValue = "${p2.timeout}")
     private int forkedProcessTimeoutInSeconds;
@@ -68,12 +67,12 @@ public class PublishProductMojo extends AbstractMojo {
     public void execute() throws MojoExecutionException, MojoFailureException {
         try {
             publishProduct();
-        }catch (Exception e) {
+        } catch (IOException e) {
             throw new MojoExecutionException("Cannot generate P2 metadata", e);
         }
     }
 
-    private void publishProduct()  throws Exception{
+    private void publishProduct() throws MojoFailureException, IOException {
         P2ApplicationLauncher launcher = this.launcher;
 
         launcher.setWorkingDirectory(project.getBasedir());
@@ -83,7 +82,7 @@ public class PublishProductMojo extends AbstractMojo {
                 "-metadataRepository", repositoryURL.toString(),
                 "-artifactRepository", repositoryURL.toString(),
                 "-productFile", productConfigurationFile.getCanonicalPath(),
-                "-executables", executable.toString(),
+                "-executables", executable,
                 "-publishArtifacts",
                 "-configs", "gtk.linux.x86",
                 "-flavor", "tooling",

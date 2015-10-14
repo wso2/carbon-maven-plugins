@@ -26,10 +26,10 @@ public class Feature {
     private String version;
 
     public String getId() {
-        if(id.endsWith(".feature")) {
+        if (id != null && id.endsWith(".feature")) {
             return id + ".group";
         }
-        if(!id.endsWith(".feature.group")) {
+        if (id != null && !id.endsWith(".feature.group")) {
             return id + ".feature.group";
         }
         return id;

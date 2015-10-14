@@ -34,7 +34,7 @@ public class Feature extends CarbonArtifact {
      * @return String feature id.
      */
     public String getId() {
-        if(id.endsWith(".feature")) {
+        if (id != null && id.endsWith(".feature")) {
             return id.substring(0, id.lastIndexOf(".feature"));
         }
         return id;
