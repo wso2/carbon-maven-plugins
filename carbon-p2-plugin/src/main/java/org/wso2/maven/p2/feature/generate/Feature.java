@@ -62,5 +62,4 @@ public class Feature extends CarbonArtifact {
     public void setOptional(boolean optional) {
         this.optional = optional;
     }
-
 }
