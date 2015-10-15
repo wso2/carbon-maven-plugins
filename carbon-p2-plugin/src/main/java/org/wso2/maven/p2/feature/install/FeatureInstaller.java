@@ -170,7 +170,7 @@ public class FeatureInstaller {
                 throw new MojoExecutionException("Failed to delete " + file.getAbsolutePath());
             }
         }
-
+        this.log.info("Updating " + file.getName());
         try (Writer writer = new OutputStreamWriter(new FileOutputStream(file), DEFAULT_ENCODING);
              PrintWriter pw = new PrintWriter(writer)) {
             pw.write("-install\n");

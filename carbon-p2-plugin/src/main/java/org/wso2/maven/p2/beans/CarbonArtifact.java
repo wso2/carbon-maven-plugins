@@ -174,17 +174,13 @@ public class CarbonArtifact {
         return compatibility;
     }
 
+    /*
+    * Though this is not usage for this method from the code, do not delete this as this is used by maven
+    * context to inject match.
+    *
+    */
     public void setCompatibility(String compatibility) {
         this.compatibility = compatibility;
-    }
-
-    /*
-     * Though this is not usage for this method from the code, do not delete this as this is used by maven
-     * context to inject match.
-     *
-     */
-    public void setMatch(String match) {
-        this.compatibility = match;
     }
 
     /**

@@ -23,6 +23,7 @@ import org.wso2.maven.p2.beans.CarbonArtifact;
  */
 public class Feature extends CarbonArtifact {
     private String id;
+    private boolean optional;
 
     /**
      * Returns the feature id represented by this Feature.
@@ -50,12 +51,16 @@ public class Feature extends CarbonArtifact {
     }
 
     /**
-     * Returns whether this particular feature is optional or not. This is considred when generating the feature.xml
+     * Returns whether this particular feature is optional or not. This is considered when generating the feature.xml
      *
      * @return true if this feature is optional
      */
     public boolean isOptional() {
-        return this.getCompatibility().equals("optional");
+        return this.optional;
+    }
+
+    public void setOptional(boolean optional) {
+        this.optional = optional;
     }
 
 }
