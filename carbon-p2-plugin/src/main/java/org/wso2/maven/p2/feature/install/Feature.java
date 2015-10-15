@@ -13,35 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.wso2.maven.p2;
+package org.wso2.maven.p2.feature.install;
 
-import org.apache.maven.plugin.MojoExecutionException;
-import org.wso2.maven.p2.generate.feature.Bundle;
-import org.wso2.maven.p2.generate.feature.ImportFeature;
-
+/**
+ * Bean class representing a feature.
+ */
 public class Feature {
-    
-    /**
-     * Id of the feature
-     *
-     * @parameter
-     * @required
-     */
-    private String id;
 
-    /**
-     * version of the feature
-     *
-     * @parameter
-     * @required
-     */
+    private String id;
     private String version;
 
-    public Feature(){
-        
-    }
-
     public String getId() {
+        if(id.endsWith(".feature")) {
+            return id + ".group";
+        }
+        if(!id.endsWith(".feature.group")) {
+            return id + ".feature.group";
+        }
         return id;
     }
 
@@ -50,21 +38,11 @@ public class Feature {
     }
 
     public String getVersion() {
-        return Bundle.getOSGIVersion(version);
+        return version;
     }
 
     public void setVersion(String version) {
         this.version = version;
     }
-    
-	protected static Feature getFeature(String bundleDefinition) throws MojoExecutionException{
-		String[] split = bundleDefinition.split(":");
-		if (split.length>1){
-			Feature feature=new Feature();
-			feature.setId(split[0]);
-			feature.setVersion(split[1]);
-			return feature;
-		}
-		throw new MojoExecutionException("Insufficient feature information provided to determine the feature: "+bundleDefinition) ; 
-	}
+
 }
