@@ -30,16 +30,6 @@ import org.wso2.maven.p2.utils.P2Utils;
 import org.wso2.maven.p2.utils.PropertyReplacer;
 import org.xml.sax.SAXException;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -57,6 +47,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
 
 /**
  * Generate output files that are needed to generate a particular feature.
@@ -76,7 +77,7 @@ public class FeatureFileGeneratorUtils {
     public static void createPropertiesFile(FeatureResourceBundle resourceBundle, File featurePropertyFile)
             throws IOException, MissingRequiredPropertyException {
         Properties props = getProperties(resourceBundle);
-        if (props != null && !props.isEmpty()) {
+        if (!props.isEmpty()) {
             try (OutputStream propertyFileStream = new FileOutputStream(featurePropertyFile)) {
                 resourceBundle.getLog().info("Generating feature properties");
                 props.store(propertyFileStream, "Properties of " + resourceBundle.getId());
@@ -113,12 +114,14 @@ public class FeatureFileGeneratorUtils {
         File propertyFileFromResourceDir = resourceBundle.getPropertyFileInResourceDir();
         URL propertyFileFromConfig = resourceBundle.getPropertyFile();
         if (propertyFileFromResourceDir.exists()) {
-            InputStream propertyFileStream = new FileInputStream(propertyFileFromResourceDir);
-            props.load(propertyFileStream);
+            try (InputStream propertyFileStream = new FileInputStream(propertyFileFromResourceDir)) {
+                props.load(propertyFileStream);
+            }
         }
         if (propertyFileFromConfig != null) {
-            InputStream propertyFileStream = propertyFileFromConfig.openStream();
-            props.load(propertyFileStream);
+            try (InputStream propertyFileStream = propertyFileFromConfig.openStream()) {
+                props.load(propertyFileStream);
+            }
         }
         if (!props.containsKey("copyright") && !props.containsKey("license")) {
             throw new MissingRequiredPropertyException("Mandatory properties are not specified in the property files");
@@ -152,7 +155,8 @@ public class FeatureFileGeneratorUtils {
      * @throws IOException
      */
     public static void createP2Inf(FeatureResourceBundle resourceBundle, File p2InfFile) throws IOException {
-        try (Writer writer = new OutputStreamWriter(new FileOutputStream(p2InfFile.getAbsolutePath()), DEFAULT_ENCODING);
+        try (Writer writer = new OutputStreamWriter(new FileOutputStream(p2InfFile.getAbsolutePath()),
+                DEFAULT_ENCODING);
              PrintWriter pw = new PrintWriter(writer)) {
             List<Advice> list = resourceBundle.getAdviceFileContent();
             List<String> p2infStringList = null;
@@ -305,14 +309,12 @@ public class FeatureFileGeneratorUtils {
             }
         }
 
-        if (includedFeatures != null) {
-            for (Feature includedFeature : includedFeatures) {
-                Element includeElement = document.createElement("includes");
-                includeElement.setAttribute("id", includedFeature.getId());
-                includeElement.setAttribute("version", includedFeature.getVersion());
-                includeElement.setAttribute("optional", Boolean.toString(includedFeature.isOptional()));
-                rootElement.appendChild(includeElement);
-            }
+        for (Feature includedFeature : includedFeatures) {
+            Element includeElement = document.createElement("includes");
+            includeElement.setAttribute("id", includedFeature.getId());
+            includeElement.setAttribute("version", includedFeature.getVersion());
+            includeElement.setAttribute("optional", Boolean.toString(includedFeature.isOptional()));
+            rootElement.appendChild(includeElement);
         }
 
         for (Feature feature : missingImportFeatures) {
@@ -393,14 +395,12 @@ public class FeatureFileGeneratorUtils {
 
         NodeList existingPlugins = document.getDocumentElement().getElementsByTagName("plugin");
 
-        if (existingPlugins != null) {
-            for (int i = 0; i < existingPlugins.getLength(); i++) {
-                Node node = existingPlugins.item(i);
-                Node namedItem = node.getAttributes().getNamedItem("id");
-                if (namedItem != null && namedItem.getTextContent() != null &&
-                        missingPlugins.containsKey(namedItem.getTextContent())) {
-                    missingPlugins.remove(namedItem.getTextContent());
-                }
+        for (int i = 0; i < existingPlugins.getLength(); i++) {
+            Node node = existingPlugins.item(i);
+            Node namedItem = node.getAttributes().getNamedItem("id");
+            if (namedItem != null && namedItem.getTextContent() != null &&
+                    missingPlugins.containsKey(namedItem.getTextContent())) {
+                missingPlugins.remove(namedItem.getTextContent());
             }
         }
 
@@ -416,8 +416,8 @@ public class FeatureFileGeneratorUtils {
      * @param itemType                 String type, either "feature" or "plugin"
      * @return ArrayList<Feature>
      */
-    private static ArrayList<Feature> getMissingImportFeatures(List<Feature> processedImportItemsList, Document document,
-                                                               String itemType) {
+    private static ArrayList<Feature> getMissingImportFeatures(List<Feature> processedImportItemsList,
+                                                               Document document, String itemType) {
         if (processedImportItemsList == null) {
             return new ArrayList<>();
         }
@@ -426,7 +426,7 @@ public class FeatureFileGeneratorUtils {
             missingImportItems.put(item.getId(), item);
         }
         NodeList requireNodeList = document.getDocumentElement().getElementsByTagName("require");
-        if (requireNodeList == null || requireNodeList.getLength() == 0) {
+        if (requireNodeList.getLength() == 0) {
             return new ArrayList<>(missingImportItems.values());
         }
 

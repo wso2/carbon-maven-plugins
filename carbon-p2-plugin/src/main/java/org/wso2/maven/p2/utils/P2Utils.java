@@ -24,6 +24,16 @@ import org.w3c.dom.Element;
 import org.wso2.maven.p2.repository.CatFeature;
 import org.wso2.maven.p2.repository.Category;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.regex.Pattern;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -34,28 +44,23 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.regex.Pattern;
+
 
 /**
- * This class will be refactored in CARBON-15478
+ * The class contains operations related to Categories, which is out of the scope for current set of tasks. Thus
+ * the refactoring is done for a minimum for the moment.
  */
 public class P2Utils {
     private static String[] matchList = new String[]{"perfect", "equivalent", "compatible", "greaterOrEqual", "patch",
             "optional"};
+    private static final String DEFAULT_ENCODING = "UTF-8";
 
     public static int getLastIndexOfProperties(File p2InfFile) throws IOException {
         int min = -1;
         if (p2InfFile.exists()) {
 
-            try (BufferedReader in =  new BufferedReader(new FileReader(p2InfFile))){
+            try (InputStreamReader reader = new InputStreamReader(new FileInputStream(p2InfFile), DEFAULT_ENCODING);
+                 BufferedReader in = new BufferedReader(reader)) {
                 String line;
                 while ((line = in.readLine()) != null) {
                     String[] split = line.split("=");
@@ -166,9 +171,6 @@ public class P2Utils {
         } catch (TransformerException e) {
             throw new TransformerException("Unable to create feature manifest", e);
         }
-//        } catch (Exception e) {
-//            throw new MojoExecutionException("Unable to create feature manifest", e);
-//        }
     }
 
     /**

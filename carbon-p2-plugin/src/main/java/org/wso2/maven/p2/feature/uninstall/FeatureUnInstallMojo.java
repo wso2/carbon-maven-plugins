@@ -28,6 +28,11 @@ import org.eclipse.tycho.p2.facade.internal.P2ApplicationLauncher;
 
 import java.util.List;
 
+/**
+ * Mojo which will uninstall a given set of carbon features from a product.
+ *
+ * @since 2.0.0
+ */
 @Mojo(name = "uninstall", defaultPhase = LifecyclePhase.PACKAGE)
 public class FeatureUnInstallMojo extends AbstractMojo {
 

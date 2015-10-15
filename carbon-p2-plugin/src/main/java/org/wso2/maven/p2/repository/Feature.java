@@ -24,10 +24,20 @@ import org.wso2.maven.p2.beans.CarbonArtifact;
 public class Feature extends CarbonArtifact {
     private String id;
 
+    /**
+     * Returns the feature id represented by this feature.
+     *
+     * @return String feature id
+     */
     public String getId() {
         return id;
     }
 
+    /**
+     * Sets the feture id represented by this feature.
+     *
+     * @param id String
+     */
     public void setId(String id) {
         this.id = id;
     }

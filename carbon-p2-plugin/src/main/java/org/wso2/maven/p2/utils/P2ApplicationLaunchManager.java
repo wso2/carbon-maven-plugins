@@ -23,11 +23,19 @@ import java.io.File;
 
 /**
  * Wrapper class containing P2ApplicationLauncher which makes configuring the P2ApplicationLauncher easier.
+ *
+ * @since 2.0.0
  */
 public class P2ApplicationLaunchManager {
 
     private final P2ApplicationLauncher launcher;
 
+    /**
+     * The constructor which initializes this class. This class wraps the P2ApplicationLauncher and expose a set
+     * of simple, easy to use methods to configure the P2ApplicationLauncher.
+     *
+     * @param launcher P2ApplicationLauncher which will be wrapped by this wrapper class
+     */
     public P2ApplicationLaunchManager(P2ApplicationLauncher launcher) {
         this.launcher = launcher;
     }

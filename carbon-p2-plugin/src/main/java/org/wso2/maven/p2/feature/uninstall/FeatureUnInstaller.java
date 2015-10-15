@@ -25,6 +25,8 @@ import java.util.List;
 
 /**
  * FeatureUninstaller takes configuration data from FeatureUninstallMojo and perform the uninstall task.
+ *
+ * @since 2.0.0
  */
 public class FeatureUnInstaller {
 
@@ -37,30 +39,49 @@ public class FeatureUnInstaller {
 
     private static final String PUBLISHER_APPLICATION = "org.eclipse.equinox.p2.director";
 
-
+    /**
+     * default constructor which is executed during object creation of this class.
+     *
+     * @throws MojoFailureException
+     */
     public void uninstallFeatures() throws MojoFailureException {
         String iUs = getIUsToUninstall();
         uninstallFeatures(iUs);
     }
 
+    /**
+     * Analyze the given set of features and generate the string containing metadata about all the features to be
+     * uninstalled.
+     *
+     * @return String representing metadata about the features to be uninstalled
+     */
     private String getIUsToUninstall() {
-        String uninstallUIs = "";
+        if (features == null) {
+            return null;
+        }
+        StringBuilder uninstallUIs = new StringBuilder();
+
         for (Feature feature : features) {
-            uninstallUIs = uninstallUIs + feature.getId().trim() + "/" + feature.getVersion().trim() + ",";
+            uninstallUIs.append(feature.getId().trim()).append("/").append(feature.getVersion().trim()).append(",");
         }
-        if (uninstallUIs.length() != 0) {
-            uninstallUIs = uninstallUIs.substring(0, uninstallUIs.length() - 1);
-        }
-        return uninstallUIs;
+        return uninstallUIs.toString();
     }
 
+    /**
+     * uninstall the set of features given as a collection of IUs
+     *
+     * @param uninstallUIs comma separated list of IUs
+     * @throws MojoFailureException
+     */
     private void uninstallFeatures(String uninstallUIs) throws MojoFailureException {
-        P2ApplicationLaunchManager launcher = new P2ApplicationLaunchManager(this.launcher);
-        launcher.setWorkingDirectory(project.getBasedir());
-        launcher.setApplicationName(PUBLISHER_APPLICATION);
-        launcher.addArgumentsToUnInstallFeatures(uninstallUIs, destination,
-                profile);
-        launcher.performAction(forkedProcessTimeoutInSeconds);
+        if (project != null) {
+            P2ApplicationLaunchManager launcher = new P2ApplicationLaunchManager(this.launcher);
+            launcher.setWorkingDirectory(project.getBasedir());
+            launcher.setApplicationName(PUBLISHER_APPLICATION);
+            launcher.addArgumentsToUnInstallFeatures(uninstallUIs, destination,
+                    profile);
+            launcher.performAction(forkedProcessTimeoutInSeconds);
+        }
     }
 
     public void setDestination(String destination) {

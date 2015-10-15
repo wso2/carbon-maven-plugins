@@ -18,9 +18,16 @@ package org.wso2.maven.p2.exceptions;
 
 /**
  * CarbonArtifactNotFoundException is thrown when a CarbonArtifact is not found.
+ *
+ * @since 2.0.0
  */
 public class CarbonArtifactNotFoundException extends Exception {
 
+    /**
+     * Constructs the CarbonArtifactNotFoundException.
+     *
+     * @param message message of the exception.
+     */
     public CarbonArtifactNotFoundException(String message) {
         super(message);
     }

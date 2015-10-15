@@ -17,6 +17,8 @@
 */
 package org.wso2.maven.p2.utils;
 
+import org.apache.maven.plugin.logging.Log;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -30,11 +32,16 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
+/**
+ * Util class which handle file manipulation operations.
+ */
 public class FileManagementUtil {
     private static final int BUFFER = 2048;
 
 
     /**
+     * For a given location and the profile, returns the File object represented by config.ini
+     *
      * @param destination path pointing the [carbon product]/repository/components folder
      * @param profile     name of the profile
      * @return the config.ini file for the Profile
@@ -51,17 +58,17 @@ public class FileManagementUtil {
      * @param propKey       property key
      * @param value         property value
      */
-    public static void changeConfigIniProperty(File configIniFile, String propKey, String value) {
+    public static void changeConfigIniProperty(File configIniFile, String propKey, String value, Log log) {
         Properties prop = new Properties();
 
-        try (InputStream inputStream = new FileInputStream(configIniFile)){
+        try (InputStream inputStream = new FileInputStream(configIniFile)) {
             prop.load(inputStream);
             prop.setProperty(propKey, value);
-            try(OutputStream outputStream = new FileOutputStream(configIniFile)) {
+            try (OutputStream outputStream = new FileOutputStream(configIniFile)) {
                 prop.store(outputStream, null);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            log.warn(e);
         }
     }
 
@@ -71,26 +78,26 @@ public class FileManagementUtil {
      * @param srcFolder   source folder
      * @param destZipFile path to the output zip file
      */
-    public static void zipFolder(String srcFolder, String destZipFile) {
-        try(FileOutputStream fileWriter = new FileOutputStream(destZipFile);
-            ZipOutputStream zip = new ZipOutputStream(fileWriter)) {
-            addFolderContentsToZip(srcFolder, zip);
+    public static void zipFolder(String srcFolder, String destZipFile, Log log) {
+        try (FileOutputStream fileWriter = new FileOutputStream(destZipFile);
+             ZipOutputStream zip = new ZipOutputStream(fileWriter)) {
+            addFolderContentsToZip(srcFolder, zip, log);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.warn(e);
         }
 
 
     }
 
-    private static void addToZip(String path, String srcFile, ZipOutputStream zip) {
+    private static void addToZip(String path, String srcFile, ZipOutputStream zip, Log log) {
         File folder = new File(srcFile);
         if (folder.isDirectory()) {
-            addFolderToZip(path, srcFile, zip);
+            addFolderToZip(path, srcFile, zip, log);
         } else {
             // Transfer bytes from in to out
             byte[] buf = new byte[1024];
             int len;
-            try (FileInputStream inputStream = new FileInputStream(srcFile)){
+            try (FileInputStream inputStream = new FileInputStream(srcFile)) {
 
                 if (path.trim().equals("")) {
                     zip.putNextEntry(new ZipEntry(folder.getName()));
@@ -102,12 +109,12 @@ public class FileManagementUtil {
                 }
                 inputStream.close();
             } catch (IOException e) {
-                e.printStackTrace();
+                log.warn(e);
             }
         }
     }
 
-    private static void addFolderContentsToZip(String srcFolder, ZipOutputStream zip) {
+    private static void addFolderContentsToZip(String srcFolder, ZipOutputStream zip, Log log) {
         File folder = new File(srcFolder);
         String fileList[] = folder.list();
         if (fileList != null) {
@@ -121,16 +128,16 @@ public class FileManagementUtil {
                         zip.putNextEntry(new ZipEntry(fileList[i] + "/"));
                         zip.closeEntry();
                     }
-                    addToZip("", srcFolder + "/" + fileList[i], zip);
+                    addToZip("", srcFolder + "/" + fileList[i], zip, log);
                     i++;
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                log.warn(e);
             }
         }
     }
 
-    private static void addFolderToZip(String path, String srcFolder, ZipOutputStream zip) {
+    private static void addFolderToZip(String path, String srcFolder, ZipOutputStream zip, Log log) {
         File folder = new File(srcFolder);
         String fileList[] = folder.list();
         if (fileList != null) {
@@ -146,13 +153,13 @@ public class FileManagementUtil {
                     }
                     if (new File(folder, fileList[i]).isDirectory()) {
                         zip.putNextEntry(new ZipEntry(newPath + "/" + fileList[i] + "/"));
-                        //					zip.closeEntry();
+                        //zip.closeEntry();
                     }
-                    addToZip(newPath, srcFolder + "/" + fileList[i], zip);
+                    addToZip(newPath, srcFolder + "/" + fileList[i], zip, log);
                     i++;
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                log.warn(e);
             }
         }
     }
@@ -170,8 +177,8 @@ public class FileManagementUtil {
             for (File child : children) {
                 if (child != null) {
                     String[] childrenOfChild = child.list();
-                    if(childrenOfChild != null) {
-                        if(childrenOfChild.length > 0) {
+                    if (childrenOfChild != null) {
+                        if (childrenOfChild.length > 0) {
                             deleteDirectories(child);
                         } else {
                             if (!child.delete()) {
@@ -232,17 +239,15 @@ public class FileManagementUtil {
             }
         }
 
-        InputStream in = new FileInputStream(src);
-        OutputStream out = new FileOutputStream(dst);
-        // Transfer bytes from in to out
-        byte[] buf = new byte[1024];
-        int len;
-        while ((len = in.read(buf)) > 0) {
-            out.write(buf, 0, len);
+        try (InputStream in = new FileInputStream(src);
+             OutputStream out = new FileOutputStream(dst)) {
+            // Transfer bytes from in to out
+            byte[] buf = new byte[1024];
+            int len;
+            while ((len = in.read(buf)) > 0) {
+                out.write(buf, 0, len);
+            }
         }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
     }
 
     /**
@@ -254,9 +259,9 @@ public class FileManagementUtil {
      */
     public static void unzip(File archiveFile, File destination) throws IOException {
 
-        try(FileInputStream fis = new FileInputStream(archiveFile);
-            ZipInputStream zis = new
-                    ZipInputStream(new BufferedInputStream(fis))) {
+        try (FileInputStream fis = new FileInputStream(archiveFile);
+             ZipInputStream zis = new
+                     ZipInputStream(new BufferedInputStream(fis))) {
             ZipEntry entry;
 
             while ((entry = zis.getNextEntry()) != null) {
@@ -274,8 +279,8 @@ public class FileManagementUtil {
                         throw new IOException("Failed to create directories at " + file.getAbsolutePath());
                     }
                 }
-                try(FileOutputStream fos = new FileOutputStream(file);
-                    BufferedOutputStream dest = new BufferedOutputStream(fos, BUFFER)) {
+                try (FileOutputStream fos = new FileOutputStream(file);
+                     BufferedOutputStream dest = new BufferedOutputStream(fos, BUFFER)) {
                     while ((count = zis.read(data, 0, BUFFER)) != -1) {
                         dest.write(data, 0, count);
                     }

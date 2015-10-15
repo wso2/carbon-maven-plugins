@@ -15,102 +15,74 @@
 * specific language governing permissions and limitations
 * under the License.
 */
-package org.wso2.maven.p2;
+package org.wso2.maven.p2.product;
 
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
+import org.apache.maven.plugins.annotations.Component;
+import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
-import org.codehaus.plexus.archiver.ArchiverException;
-import org.codehaus.plexus.archiver.UnArchiver;
-import org.eclipse.tycho.model.ProductConfiguration;
 import org.eclipse.tycho.p2.facade.internal.P2ApplicationLauncher;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 
 /**
- * @goal publish-product
+ * Publish a given product using the .product file to the repository.
  */
+@Mojo(name = "publish-product")
 public class PublishProductMojo extends AbstractMojo {
-	/**
-	 * @parameter expression="${project}"
-	 * @required
-	 */
-	protected MavenProject project;
-	/**
-	 * Metadata repository name
-	 *     @parameter
-	 */
-	private URL metadataRepository;
-	/**
-	 * Artifact repository name
-	 *      @parameter
-	 */
-	private URL artifactRepository;
+
+    @Parameter(defaultValue = "${project}")
+    protected MavenProject project;
+
+    @Parameter
+    private URL repositoryURL;
+
+    @Parameter
+    private String executable;
 
     /**
-	 * executable
-	 *      @parameter
-	 */
-	private String executable;
-
-    /**
-     * @component role="org.codehaus.plexus.archiver.UnArchiver" role-hint="zip"
+     * The product configuration, a .product file. This file manages all aspects
+     * of a product definition from its constituent plug-ins to configuration
+     * files to branding.
      */
-    private UnArchiver deflater;
+    @Parameter
+    private File productConfigurationFile;
 
-
-	/**
-	 * The product configuration, a .product file. This file manages all aspects
-	 * of a product definition from its constituent plug-ins to configuration
-	 * files to branding.
-	 *
-	 * @parameter expression="${productConfiguration}"
-	 */
-	private File productConfigurationFile;
-	/**
-     * Parsed product configuration file
-     */
-    private ProductConfiguration productConfiguration;
-
-
-    /** @component */
+    @Component
     private P2ApplicationLauncher launcher;
 
     /**
      * Kill the forked test process after a certain number of seconds. If set to 0, wait forever for
      * the process, never timing out.
-     *
-     * @parameter expression="${p2.timeout}"
      */
+    @Parameter(defaultValue = "${p2.timeout}")
     private int forkedProcessTimeoutInSeconds;
 
+    public void execute() throws MojoExecutionException, MojoFailureException {
+        try {
+            publishProduct();
+        } catch (IOException e) {
+            throw new MojoExecutionException("Cannot generate P2 metadata", e);
+        }
+    }
 
-	public void execute() throws MojoExecutionException, MojoFailureException {
-		try {
-
-			publishProduct();
-
-        }catch (Exception e) {
-			throw new MojoExecutionException("Cannot generate P2 metadata", e);
-		}
-	}
-
-	private void publishProduct()  throws Exception{
-
-        productConfiguration = ProductConfiguration.read( productConfigurationFile );
+    private void publishProduct() throws MojoFailureException, IOException {
         P2ApplicationLauncher launcher = this.launcher;
 
         launcher.setWorkingDirectory(project.getBasedir());
         launcher.setApplicationName("org.eclipse.equinox.p2.publisher.ProductPublisher");
 
         launcher.addArguments(
-                "-metadataRepository", metadataRepository.toString(),
-                "-artifactRepository", metadataRepository.toString(),
+                "-metadataRepository", repositoryURL.toString(),
+                "-artifactRepository", repositoryURL.toString(),
                 "-productFile", productConfigurationFile.getCanonicalPath(),
-                "-executables", executable.toString(),
+                "-executables", executable,
                 "-publishArtifacts",
                 "-configs", "gtk.linux.x86",
                 "-flavor", "tooling",
@@ -120,8 +92,5 @@ public class PublishProductMojo extends AbstractMojo {
         if (result != 0) {
             throw new MojoFailureException("P2 publisher return code was " + result);
         }
-	}
-
-
-
+    }
 }
