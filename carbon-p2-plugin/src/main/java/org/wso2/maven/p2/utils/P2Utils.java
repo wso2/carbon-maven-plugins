@@ -21,8 +21,8 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.wso2.maven.p2.CatFeature;
-import org.wso2.maven.p2.Category;
+import org.wso2.maven.p2.repository.CatFeature;
+import org.wso2.maven.p2.repository.Category;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
