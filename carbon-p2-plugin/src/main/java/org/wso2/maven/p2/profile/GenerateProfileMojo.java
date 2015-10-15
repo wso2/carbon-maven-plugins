@@ -27,6 +27,7 @@ import org.apache.maven.project.MavenProject;
 import org.eclipse.tycho.model.ProductConfiguration;
 import org.eclipse.tycho.p2.facade.internal.P2ApplicationLauncher;
 import org.wso2.maven.p2.utils.FileManagementUtil;
+import org.wso2.maven.p2.utils.P2ApplicationLaunchManager;
 import org.wso2.maven.p2.utils.P2Constants;
 
 import java.io.File;
@@ -93,32 +94,10 @@ public class GenerateProfileMojo extends AbstractMojo {
 
     private void deployRepository() throws MojoFailureException, IOException {
         ProductConfiguration productConfiguration = ProductConfiguration.read(productConfigurationFile);
-        P2ApplicationLauncher launcher = this.launcher;
-
-        launcher.setWorkingDirectory(project.getBasedir());
-        launcher.setApplicationName("org.eclipse.equinox.p2.director");
-
-        launcher.addArguments(
-                "-metadataRepository", repositoryURL.toExternalForm(),
-                "-artifactRepository", repositoryURL.toExternalForm(),
-                "-installIU", productConfiguration.getId(),
-                "-profileProperties", "org.eclipse.update.install.features=true",
-                "-profile", profile,
-                "-bundlepool", targetPath.toExternalForm(),
-                //to support shared installation in carbon
-                "-shared", targetPath.toExternalForm() + File.separator + "p2",
-                //target is set to a separate directory per Profile
-                "-destination", targetPath.toExternalForm() + File.separator + profile,
-                "-p2.os", "linux",
-                "-p2.ws", "gtk",
-                "-p2.arch", "x86",
-                "-roaming"
-        );
-
-        int result = launcher.execute(forkedProcessTimeoutInSeconds);
-
-        if (result != 0) {
-            throw new MojoFailureException("P2 publisher return code was " + result);
-        }
+        P2ApplicationLaunchManager p2LaunchManager = new P2ApplicationLaunchManager(this.launcher);
+        p2LaunchManager.setWorkingDirectory(project.getBasedir());
+        p2LaunchManager.setApplicationName("org.eclipse.equinox.p2.director");
+        p2LaunchManager.addGenerateProfileArguments(repositoryURL, productConfiguration.getId(), profile, targetPath);
+        p2LaunchManager.performAction(forkedProcessTimeoutInSeconds);
     }
 }

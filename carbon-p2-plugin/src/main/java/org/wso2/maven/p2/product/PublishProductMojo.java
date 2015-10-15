@@ -26,6 +26,7 @@ import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 import org.eclipse.tycho.p2.facade.internal.P2ApplicationLauncher;
+import org.wso2.maven.p2.utils.P2ApplicationLaunchManager;
 
 import java.io.File;
 import java.io.IOException;
@@ -73,24 +74,10 @@ public class PublishProductMojo extends AbstractMojo {
     }
 
     private void publishProduct() throws MojoFailureException, IOException {
-        P2ApplicationLauncher launcher = this.launcher;
-
-        launcher.setWorkingDirectory(project.getBasedir());
-        launcher.setApplicationName("org.eclipse.equinox.p2.publisher.ProductPublisher");
-
-        launcher.addArguments(
-                "-metadataRepository", repositoryURL.toString(),
-                "-artifactRepository", repositoryURL.toString(),
-                "-productFile", productConfigurationFile.getCanonicalPath(),
-                "-executables", executable,
-                "-publishArtifacts",
-                "-configs", "gtk.linux.x86",
-                "-flavor", "tooling",
-                "-append");
-
-        int result = launcher.execute(forkedProcessTimeoutInSeconds);
-        if (result != 0) {
-            throw new MojoFailureException("P2 publisher return code was " + result);
-        }
+        P2ApplicationLaunchManager p2LaunchManager = new P2ApplicationLaunchManager(this.launcher);
+        p2LaunchManager.setWorkingDirectory(project.getBasedir());
+        p2LaunchManager.setApplicationName("org.eclipse.equinox.p2.publisher.ProductPublisher");
+        p2LaunchManager.addPublishProductArguments(repositoryURL, productConfigurationFile, executable);
+        p2LaunchManager.performAction(forkedProcessTimeoutInSeconds);
     }
 }

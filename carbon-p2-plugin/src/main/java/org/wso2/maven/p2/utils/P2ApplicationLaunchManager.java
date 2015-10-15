@@ -20,6 +20,8 @@ import org.apache.maven.plugin.MojoFailureException;
 import org.eclipse.tycho.p2.facade.internal.P2ApplicationLauncher;
 
 import java.io.File;
+import java.io.IOException;
+import java.net.URL;
 
 /**
  * Wrapper class containing P2ApplicationLauncher which makes configuring the P2ApplicationLauncher easier.
@@ -92,11 +94,11 @@ public class P2ApplicationLaunchManager {
     /**
      * Sets the P2ApplicationLauncher's arguments to uninstall features.
      *
-     * @param uninstallIUs       a comma separated list of IUs to uninstall. Each entry in the list is in the form
-     *                           <id> [ '/' <version> ]. If you are looking to uninstall a feature, the identifier
-     *                           of the feature has to be suffixed with ".feature.group".
-     * @param destination        the path of a folder in which the targeted product is located
-     * @param profile            the profile id containing the description of the targeted product
+     * @param uninstallIUs a comma separated list of IUs to uninstall. Each entry in the list is in the form
+     *                     <id> [ '/' <version> ]. If you are looking to uninstall a feature, the identifier
+     *                     of the feature has to be suffixed with ".feature.group".
+     * @param destination  the path of a folder in which the targeted product is located
+     * @param profile      the profile id containing the description of the targeted product
      */
     public void addArgumentsToUnInstallFeatures(String uninstallIUs, String destination,
                                                 String profile) {
@@ -119,9 +121,9 @@ public class P2ApplicationLaunchManager {
      * Sets the P2ApplicationLauncher's arguments to generate P2 repository. For this scenario both metadata repository
      * and artifact repository are same.
      *
-     * @param sourceDir              the location of the update site
-     * @param metadataRepoLocation   the URI to the metadata repository where the installable units should be published
-     * @param repositoryName         name of the artifact repository where the artifacts should be published
+     * @param sourceDir            the location of the update site
+     * @param metadataRepoLocation the URI to the metadata repository where the installable units should be published
+     * @param repositoryName       name of the artifact repository where the artifacts should be published
      */
     public void addRepoGenerationArguments(String sourceDir, String metadataRepoLocation,
                                            String repositoryName) {
@@ -152,6 +154,55 @@ public class P2ApplicationLaunchManager {
                 "-compress",
                 "-append");
 
+    }
+
+    /**
+     * Sets the P2ApplicationLauncher's arguments and configure it to publish a give product.
+     *
+     * @param repositoryURL            the URL to the metadata repository where the product should be published
+     * @param productConfigurationFile File object pointing the .product file
+     * @param executable               location of the equinox executable jar
+     * @throws IOException
+     */
+    public void addPublishProductArguments(URL repositoryURL, File productConfigurationFile, String executable)
+            throws IOException {
+        launcher.addArguments(
+                "-metadataRepository", repositoryURL.toString(),
+                "-artifactRepository", repositoryURL.toString(),
+                "-productFile", productConfigurationFile.getCanonicalPath(),
+                "-executables", executable,
+                "-publishArtifacts",
+                "-configs", "gtk.linux.x86",
+                "-flavor", "tooling",
+                "-append");
+
+    }
+
+    /**
+     * Sets the P2ApplicationLauncher's arguments and configure it to generate a profile.
+     *
+     * @param repositoryURL the URL to the metadata repository where the product should be published
+     * @param id            product id taken from .product file
+     * @param profile       name of the new profile
+     * @param targetPath    location of the components directory of the carbon distribution
+     */
+    public void addGenerateProfileArguments(URL repositoryURL, String id, String profile, URL targetPath) {
+        launcher.addArguments(
+                "-metadataRepository", repositoryURL.toExternalForm(),
+                "-artifactRepository", repositoryURL.toExternalForm(),
+                "-installIU", id,
+                "-profileProperties", "org.eclipse.update.install.features=true",
+                "-profile", profile,
+                "-bundlepool", targetPath.toExternalForm(),
+                //to support shared installation in carbon
+                "-shared", targetPath.toExternalForm() + File.separator + "p2",
+                //target is set to a separate directory per Profile
+                "-destination", targetPath.toExternalForm() + File.separator + profile,
+                "-p2.os", "linux",
+                "-p2.ws", "gtk",
+                "-p2.arch", "x86",
+                "-roaming"
+        );
     }
 
     /**
