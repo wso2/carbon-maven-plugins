@@ -33,7 +33,7 @@
     </scm>
 
     <modules>
-        <module>carbon-p2-plugin</module>
+        <module>carbon-feature-plugin</module>
     </modules>
 
 
@@ -86,6 +86,8 @@
         <tycho.version>0.13.0</tycho.version>
         <org.apache.maven.project.version>2.2.1</org.apache.maven.project.version>
         <junit.version>3.8.1</junit.version>
+        <maven.plugin.plugin.version>3.2</maven.plugin.plugin.version>
+        <maven.plugin.annotation.version>3.3</maven.plugin.annotation.version>
     </properties>
 
     <build>
