@@ -312,7 +312,7 @@ public class FeatureFileGeneratorUtils {
         for (Feature includedFeature : includedFeatures) {
             Element includeElement = document.createElement("includes");
             includeElement.setAttribute("id", includedFeature.getId());
-            includeElement.setAttribute("version", includedFeature.getVersion());
+            includeElement.setAttribute("version", includedFeature.getFeatureVersion());
             includeElement.setAttribute("optional", Boolean.toString(includedFeature.isOptional()));
             rootElement.appendChild(includeElement);
         }
@@ -321,7 +321,7 @@ public class FeatureFileGeneratorUtils {
             if (feature.isOptional()) {
                 Element includeElement = document.createElement("includes");
                 includeElement.setAttribute("id", feature.getId());
-                includeElement.setAttribute("version", feature.getVersion());
+                includeElement.setAttribute("version", feature.getFeatureVersion());
                 includeElement.setAttribute("optional", Boolean.toString(feature.isOptional()));
                 rootElement.appendChild(includeElement);
             }

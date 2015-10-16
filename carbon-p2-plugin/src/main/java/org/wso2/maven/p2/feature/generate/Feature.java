@@ -17,6 +17,7 @@
 package org.wso2.maven.p2.feature.generate;
 
 import org.wso2.maven.p2.beans.CarbonArtifact;
+import org.wso2.maven.p2.utils.BundleUtils;
 
 /**
  * Bean class representing a Feature object provided as an input param to FeatureGenMojo
@@ -61,5 +62,9 @@ public class Feature extends CarbonArtifact {
 
     public void setOptional(boolean optional) {
         this.optional = optional;
+    }
+
+    public String getFeatureVersion() {
+        return BundleUtils.getOSGIVersion(super.getVersion());
     }
 }
