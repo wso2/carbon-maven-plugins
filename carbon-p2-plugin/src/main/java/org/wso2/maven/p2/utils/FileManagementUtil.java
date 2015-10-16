@@ -48,8 +48,6 @@ public class FileManagementUtil {
     public static File getProfileConfigIniFile(String destination, String profile) {
         return Paths.get(destination + File.separator + profile + File.separator + "configuration" +
                 File.separator + "config.ini").toFile();
-//        return new File(destination + File.separator + profile + File.separator + "configuration" +
-//                File.separator + "config.ini");
     }
 
     /**
