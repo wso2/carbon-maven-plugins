@@ -434,10 +434,7 @@ public class FeatureFileGeneratorUtils {
         if (requireNode instanceof Element) {
             Element requireElement = (Element) requireNode;
             NodeList importNodes = requireElement.getElementsByTagName("import");
-            //Findbugs finds the following code as an unnecessary null check
-//            if (importNodes == null) {
-//                return new ArrayList<T>(missingImportItems.values());
-//            }
+
             for (int i = 0; i < importNodes.getLength(); i++) {
                 Node node = importNodes.item(i);
                 Node namedItem = node.getAttributes().getNamedItem(itemType);
