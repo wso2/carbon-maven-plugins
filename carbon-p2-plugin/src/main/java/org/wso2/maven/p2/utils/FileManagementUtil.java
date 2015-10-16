@@ -25,6 +25,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.file.Paths;
 import java.util.Properties;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
@@ -45,8 +46,10 @@ public class FileManagementUtil {
      * @return the config.ini file for the Profile
      */
     public static File getProfileConfigIniFile(String destination, String profile) {
-        return new File(destination + File.separator + profile + File.separator + "configuration" +
-                File.separator + "config.ini");
+        return Paths.get(destination + File.separator + profile + File.separator + "configuration" +
+                File.separator + "config.ini").toFile();
+//        return new File(destination + File.separator + profile + File.separator + "configuration" +
+//                File.separator + "config.ini");
     }
 
     /**
