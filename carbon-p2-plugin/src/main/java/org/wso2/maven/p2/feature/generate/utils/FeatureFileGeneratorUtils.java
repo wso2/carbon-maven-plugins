@@ -299,7 +299,7 @@ public class FeatureFileGeneratorUtils {
             if (!feature.isOptional()) {
                 Element plugin = document.createElement("import");
                 plugin.setAttribute("feature", feature.getId());
-                plugin.setAttribute("version", feature.getVersion());
+                plugin.setAttribute("version", feature.getFeatureVersion());
                 if (P2Utils.isPatch(feature.getCompatibility())) {
                     plugin.setAttribute("patch", "true");
                 } else {
