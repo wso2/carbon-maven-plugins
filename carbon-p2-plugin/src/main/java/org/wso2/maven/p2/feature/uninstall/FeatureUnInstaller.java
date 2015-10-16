@@ -78,8 +78,7 @@ public class FeatureUnInstaller {
             P2ApplicationLaunchManager launcher = new P2ApplicationLaunchManager(this.launcher);
             launcher.setWorkingDirectory(project.getBasedir());
             launcher.setApplicationName(PUBLISHER_APPLICATION);
-            launcher.addArgumentsToUnInstallFeatures(uninstallUIs, destination,
-                    profile);
+            launcher.addArgumentsToUnInstallFeatures(uninstallUIs, destination, profile);
             launcher.performAction(forkedProcessTimeoutInSeconds);
         }
     }
