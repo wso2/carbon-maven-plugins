@@ -28,7 +28,6 @@ import org.apache.maven.project.MavenProjectHelper;
 import org.apache.maven.repository.RepositorySystem;
 
 import java.io.File;
-import java.net.URL;
 import java.util.List;
 import java.util.Properties;
 
@@ -72,7 +71,7 @@ public class FeatureGeneratorMojo extends AbstractMojo {
      * path to properties file
      */
     @Parameter
-    private URL propertyFile;
+    private File propertyFile;
 
     /**
      * list of properties precedence over propertyFile

@@ -100,7 +100,9 @@ public class DependencyResolver {
         try (JarFile jarFile = new JarFile(artifact.getArtifact().getFile())) {
 
             Manifest manifest = jarFile.getManifest();
-
+            if (manifest == null) {
+                return false;
+            }
             String bundleSymbolicName = manifest.getMainAttributes().getValue(bundleSymbolicNameStr);
             String bundleVersion = manifest.getMainAttributes().getValue(bundleVersionStr);
             //Returns false if the considered .jar is not an OSGI bundle

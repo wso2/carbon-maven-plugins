@@ -42,7 +42,6 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -112,14 +111,14 @@ public class FeatureFileGeneratorUtils {
             MissingRequiredPropertyException {
         Properties props = new Properties();
         File propertyFileFromResourceDir = resourceBundle.getPropertyFileInResourceDir();
-        URL propertyFileFromConfig = resourceBundle.getPropertyFile();
+        File propertyFileFromConfig = resourceBundle.getPropertyFile();
         if (propertyFileFromResourceDir.exists()) {
             try (InputStream propertyFileStream = new FileInputStream(propertyFileFromResourceDir)) {
                 props.load(propertyFileStream);
             }
         }
-        if (propertyFileFromConfig != null) {
-            try (InputStream propertyFileStream = propertyFileFromConfig.openStream()) {
+        if (propertyFileFromConfig != null && propertyFileFromConfig.exists()) {
+            try (InputStream propertyFileStream = new FileInputStream(propertyFileFromConfig)) {
                 props.load(propertyFileStream);
             }
         }

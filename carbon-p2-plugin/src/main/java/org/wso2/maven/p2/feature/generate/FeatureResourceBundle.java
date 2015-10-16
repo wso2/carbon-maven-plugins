@@ -23,7 +23,6 @@ import org.apache.maven.project.MavenProjectHelper;
 import org.apache.maven.repository.RepositorySystem;
 
 import java.io.File;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -45,7 +44,7 @@ public class FeatureResourceBundle {
     private String licenceUrl;
     private String licence;
     private File manifest;
-    private URL propertiesFile;
+    private File propertiesFile;
     private Properties properties;
     private List<Bundle> bundles;
     private List<Feature> importFeatures;
@@ -135,11 +134,11 @@ public class FeatureResourceBundle {
         this.manifest = manifest;
     }
 
-    public URL getPropertyFile() {
+    public File getPropertyFile() {
         return propertiesFile;
     }
 
-    public void setPropertyFile(URL propertiesFile) {
+    public void setPropertyFile(File propertiesFile) {
         this.propertiesFile = propertiesFile;
     }
 
