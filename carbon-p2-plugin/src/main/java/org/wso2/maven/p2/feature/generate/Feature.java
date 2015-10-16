@@ -23,20 +23,43 @@ import org.wso2.maven.p2.beans.CarbonArtifact;
  */
 public class Feature extends CarbonArtifact {
     private String id;
+    private boolean optional;
 
+    /**
+     * Returns the feature id represented by this Feature.
+     * <p>
+     *     If the name of the feature id ends with '.feature', then '.feature' word is removed and the result is
+     *     returned.
+     * </p>
+     *
+     * @return String feature id.
+     */
     public String getId() {
-        if(id.endsWith(".feature")) {
+        if (id != null && id.endsWith(".feature")) {
             return id.substring(0, id.lastIndexOf(".feature"));
         }
         return id;
     }
 
+    /**
+     * Sets the feature version for the given feature.
+     *
+     * @param id String
+     */
     public void setId(String id) {
         this.id = id;
     }
 
+    /**
+     * Returns whether this particular feature is optional or not. This is considered when generating the feature.xml
+     *
+     * @return true if this feature is optional
+     */
     public boolean isOptional() {
-        return this.getCompatibility().equals("optional");
+        return this.optional;
     }
 
+    public void setOptional(boolean optional) {
+        this.optional = optional;
+    }
 }

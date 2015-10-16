@@ -27,23 +27,25 @@ import org.codehaus.plexus.util.FileUtils;
 import org.wso2.maven.p2.beans.CarbonArtifact;
 import org.wso2.maven.p2.exceptions.CarbonArtifactNotFoundException;
 import org.wso2.maven.p2.exceptions.MissingRequiredPropertyException;
-import org.wso2.maven.p2.exceptions.OSGIInformationExtractionException;
 import org.wso2.maven.p2.feature.generate.utils.FeatureFileGeneratorUtils;
 import org.wso2.maven.p2.utils.BundleUtils;
 import org.wso2.maven.p2.utils.DependencyResolver;
 import org.wso2.maven.p2.utils.FileManagementUtil;
 import org.xml.sax.SAXException;
 
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
+
 
 /**
  * FeatureGenerator takes parameters from the pom.xml and generates the feature.
+ *
+ * @since 2.0.0
  */
 public class FeatureGenerator {
 
@@ -68,7 +70,9 @@ public class FeatureGenerator {
 
     /**
      * Constructor for the FeatureGenerator.
+     * <p>
      * Takes FeatureResourceBundle as a param to set private fields.
+     * </p>
      *
      * @param resourceBundle FeatureResourceBundle
      */
@@ -98,7 +102,7 @@ public class FeatureGenerator {
             performMopUp();
         } catch (IOException | TransformerException | ParserConfigurationException | SAXException e) {
             throw new MojoFailureException(e.getMessage(), e);
-        } catch (OSGIInformationExtractionException | CarbonArtifactNotFoundException |
+        } catch (CarbonArtifactNotFoundException |
                 MissingRequiredPropertyException e) {
             throw new MojoExecutionException(e.getMessage(), e);
         }
@@ -109,9 +113,8 @@ public class FeatureGenerator {
      * internal bean structures
      *
      * @throws IOException
-     * @throws OSGIInformationExtractionException
      */
-    private void resolveMavenProjectDependencies() throws IOException, OSGIInformationExtractionException {
+    private void resolveMavenProjectDependencies() throws IOException {
         this.log.info("Inspecting maven dependencies.");
         List<HashMap<String, CarbonArtifact>> artifacts = DependencyResolver.getDependenciesForProject(project,
                 resourceBundle.getRepositorySystem(),
@@ -267,7 +270,8 @@ public class FeatureGenerator {
      */
     private void createFeatureArchive() {
         this.log.info("Generating feature archive: " + featureZipFile.getAbsolutePath());
-        FileManagementUtil.zipFolder(rowOutputFolder.getAbsolutePath(), featureZipFile.getAbsolutePath());
+        FileManagementUtil.zipFolder(rowOutputFolder.getAbsolutePath(), featureZipFile.getAbsolutePath(),
+                resourceBundle.getLog());
     }
 
     private void deployArtifact() {

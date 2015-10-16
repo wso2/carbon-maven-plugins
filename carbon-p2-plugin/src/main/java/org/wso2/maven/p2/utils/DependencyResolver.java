@@ -23,7 +23,6 @@ import org.apache.maven.model.DependencyManagement;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.repository.RepositorySystem;
 import org.wso2.maven.p2.beans.CarbonArtifact;
-import org.wso2.maven.p2.exceptions.OSGIInformationExtractionException;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -35,6 +34,8 @@ import java.util.jar.Manifest;
 /**
  * DependencyResolver takes MavenProject object and resolve all the maven dependencies in the maven project into
  * internal bean representations.
+ *
+ * @since 2.0.0
  */
 public class DependencyResolver {
 
@@ -50,11 +51,10 @@ public class DependencyResolver {
      * CarbonArtifact&gt; containing osgi bundles specified as dependencies and 2nd item being HashMap&lt;String,
      * CarbonArtifact&gt; containing carbon features specified as dependencies.
      * @throws IOException
-     * @throws OSGIInformationExtractionException
      */
     public static List<HashMap<String, CarbonArtifact>> getDependenciesForProject(MavenProject project, RepositorySystem
             repositorySystem, List<ArtifactRepository> remoteRepositories, ArtifactRepository localRepository)
-            throws IOException, OSGIInformationExtractionException {
+            throws IOException {
 
         List<HashMap<String, CarbonArtifact>> results = new ArrayList<>();
         HashMap<String, CarbonArtifact> bundles = new HashMap<>();
@@ -78,9 +78,10 @@ public class DependencyResolver {
             carbonArtifact.setArtifact(mavenArtifact);
             String key;
             if (carbonArtifact.getType().equals("jar")) {
-                resolveOSGIInfo(carbonArtifact);
-                key = carbonArtifact.getSymbolicName() + "_" + carbonArtifact.getBundleVersion();
-                bundles.put(key, carbonArtifact);
+                if (resolveOSGIInfo(carbonArtifact)) {
+                    key = carbonArtifact.getSymbolicName() + "_" + carbonArtifact.getBundleVersion();
+                    bundles.put(key, carbonArtifact);
+                }
             } else {
                 key = carbonArtifact.getArtifactId() + "_" + carbonArtifact.getVersion();
                 features.put(key, carbonArtifact);
@@ -89,25 +90,27 @@ public class DependencyResolver {
         return results;
     }
 
-    private static void resolveOSGIInfo(CarbonArtifact artifact) throws OSGIInformationExtractionException,
-            IOException {
+    private static boolean resolveOSGIInfo(CarbonArtifact artifact) throws IOException {
         String bundleVersionStr = "Bundle-Version";
         String bundleSymbolicNameStr = "Bundle-SymbolicName";
 
+        if (!artifact.getArtifact().getFile().exists()) {
+            return false;
+        }
         try (JarFile jarFile = new JarFile(artifact.getArtifact().getFile())) {
 
             Manifest manifest = jarFile.getManifest();
 
             String bundleSymbolicName = manifest.getMainAttributes().getValue(bundleSymbolicNameStr);
             String bundleVersion = manifest.getMainAttributes().getValue(bundleVersionStr);
+            //Returns false if the considered .jar is not an OSGI bundle
             if (bundleSymbolicName == null || bundleVersion == null) {
-                throw new OSGIInformationExtractionException("Artifact doesn't contain OSGI info: " +
-                        artifact.getGroupId() + ":" + artifact.getArtifactId() + ":" + artifact.getVersion());
+                return false;
             }
             String[] split = bundleSymbolicName.split(";");
             artifact.setSymbolicName(split[0]);
             artifact.setBundleVersion(bundleVersion);
-
+            return true;
         } catch (IOException e) {
             throw new IOException("Unable to retrieve OSGI bundle info: " + artifact.getGroupId() +
                     ":" + artifact.getArtifactId() + ":" + artifact.getVersion(), e);

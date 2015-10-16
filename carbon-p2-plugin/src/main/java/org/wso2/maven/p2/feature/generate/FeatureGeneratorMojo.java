@@ -38,7 +38,7 @@ import java.util.Properties;
  * Mojo class that act as the <I>generate</I> maven goal.
  */
 @Mojo(name = "generate", defaultPhase = LifecyclePhase.PACKAGE)
-public class FeatureGenMojo extends AbstractMojo {
+public class FeatureGeneratorMojo extends AbstractMojo {
 
     @Parameter(defaultValue = "${project.artifactId}")
     private String id;

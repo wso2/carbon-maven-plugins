@@ -24,22 +24,23 @@ import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.util.FileUtils;
 import org.wso2.maven.p2.beans.CarbonArtifact;
 import org.wso2.maven.p2.exceptions.CarbonArtifactNotFoundException;
-import org.wso2.maven.p2.exceptions.OSGIInformationExtractionException;
 import org.wso2.maven.p2.utils.DependencyResolver;
 import org.wso2.maven.p2.utils.FileManagementUtil;
 import org.wso2.maven.p2.utils.P2ApplicationLaunchManager;
 import org.wso2.maven.p2.utils.P2Utils;
 
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
 
 /**
  * RepositoryGenerator takes parameters from the pom.xml and generates the repository.
+ *
+ * @since 2.0.0
  */
 public class RepositoryGenerator {
 
@@ -93,12 +94,12 @@ public class RepositoryGenerator {
             performMopUp();
         } catch (IOException | TransformerException | ParserConfigurationException e) {
             throw new MojoFailureException(e.getMessage(), e);
-        } catch (OSGIInformationExtractionException | CarbonArtifactNotFoundException e) {
+        } catch (CarbonArtifactNotFoundException e) {
             throw new MojoExecutionException(e.getMessage(), e);
         }
     }
 
-    private void resolveDependencies() throws IOException, OSGIInformationExtractionException {
+    private void resolveDependencies() throws IOException {
         this.log.info("Inspecting maven dependencies.");
         List<HashMap<String, CarbonArtifact>> artifacts = DependencyResolver.getDependenciesForProject(project,
                 resourceBundle.getRepositorySystem(), resourceBundle.getRemoteRepositories(),
@@ -223,7 +224,8 @@ public class RepositoryGenerator {
     private void archiveGeneratedRepo() throws MojoExecutionException {
         if (resourceBundle.isArchive()) {
             this.log.info("Generating repository archive...");
-            FileManagementUtil.zipFolder(repoGenerationLocation.toString(), archiveFile.toString());
+            FileManagementUtil.zipFolder(repoGenerationLocation.toString(), archiveFile.toString(),
+                    resourceBundle.getLog());
             this.log.info("Repository Archive: " + archiveFile.toString());
             try {
                 FileManagementUtil.deleteDirectories(repoGenerationLocation);

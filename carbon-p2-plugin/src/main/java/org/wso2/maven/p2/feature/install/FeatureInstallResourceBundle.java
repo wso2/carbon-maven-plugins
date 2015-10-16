@@ -25,8 +25,11 @@ import java.util.List;
 
 /**
  * Bean class containing all the parameters entered to the mojo through plugin configuration.
+ *
  * The purpose of this class is to make any configuration property accessible from any class by simply passing this
  * bean as a parameter.
+ *
+ * @since 2.0.0
  */
 public class FeatureInstallResourceBundle {
 

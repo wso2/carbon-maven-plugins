@@ -31,6 +31,8 @@ import java.util.Properties;
 /**
  * Bean class containing all the parameters entered to the mojo through plugin configuration. The purpose of this class
  * is to make any configuration property accessible from any class by simply passing this bean as a parameter.
+ *
+ * @since 2.0.0
  */
 public class FeatureResourceBundle {
 
@@ -59,7 +61,7 @@ public class FeatureResourceBundle {
     private Log log;
 
     public String getId() {
-        if(id.endsWith(".feature")) {
+        if (id != null && id.endsWith(".feature")) {
             return id.substring(0, id.indexOf(".feature"));
         }
         return id;
@@ -154,11 +156,12 @@ public class FeatureResourceBundle {
     }
 
     public List<Bundle> getBundles() {
-        if(this.bundles == null) {
+        if (this.bundles == null) {
             return new ArrayList<>();
         }
         return this.bundles;
     }
+
     public List<Feature> getImportFeatures() {
         return importFeatures;
     }
@@ -168,7 +171,7 @@ public class FeatureResourceBundle {
     }
 
     public List<Feature> getIncludeFeatures() {
-        if(includedFeatures == null) {
+        if (includedFeatures == null) {
             return new ArrayList<>();
         }
         return includedFeatures;
@@ -236,6 +239,6 @@ public class FeatureResourceBundle {
 
     public File getPropertyFileInResourceDir() {
         File propertyFile = new File(getProject().getBasedir() + "/src/main/resources/feature.properties");
-        return  propertyFile;
+        return propertyFile;
     }
 }

@@ -15,6 +15,8 @@
  */
 package org.wso2.maven.p2.feature.install;
 
+import org.wso2.maven.p2.utils.BundleUtils;
+
 /**
  * Bean class representing a feature.
  */
@@ -24,10 +26,10 @@ public class Feature {
     private String version;
 
     public String getId() {
-        if(id.endsWith(".feature")) {
+        if (id != null && id.endsWith(".feature")) {
             return id + ".group";
         }
-        if(!id.endsWith(".feature.group")) {
+        if (id != null && !id.endsWith(".feature.group")) {
             return id + ".feature.group";
         }
         return id;
@@ -38,7 +40,7 @@ public class Feature {
     }
 
     public String getVersion() {
-        return version;
+        return BundleUtils.getOSGIVersion(version);
     }
 
     public void setVersion(String version) {

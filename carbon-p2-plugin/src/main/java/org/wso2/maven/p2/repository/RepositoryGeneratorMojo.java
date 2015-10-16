@@ -36,51 +36,20 @@ import java.util.List;
 @Mojo(name = "generate-repo", defaultPhase = LifecyclePhase.PACKAGE)
 public class RepositoryGeneratorMojo extends AbstractMojo {
 
-    /**
-     * Name of the repository
-     */
     @Parameter
     private String name;
 
-    /**
-     * URL of the Repository
-     */
     @Parameter
     private URL targetRepository;
 
-
-    /**
-     * Source folder
-     */
     @Parameter(required = true)
     private List<Feature> features;
 
-    /**
-     * Source folder
-     */
     @Parameter
     private List<Bundle> bundles;
 
-    /**
-     * Source folder
-     */
     @Parameter
     private List categories;
-
-    /**
-     * flag indicating whether the artifacts should be published to the repository. When this flag is not set,
-     * the actual bytes underlying the artifact will not be copied, but the repository index will be created.
-     * When this option is not specified, it is recommended to set the artifactRepository to be in the same location
-     * as the source (-source)
-     */
-//    @Parameter
-//    private boolean publishArtifacts;
-//
-//    /**
-//     * Type of Artifact (War,Jar,etc)
-//     */
-//    @Parameter
-//    private boolean publishArtifactRepository;
 
     @Parameter(defaultValue = "${project}")
     private MavenProject project;
@@ -109,6 +78,12 @@ public class RepositoryGeneratorMojo extends AbstractMojo {
     @Parameter(defaultValue = "${p2.timeout}")
     private int forkedProcessTimeoutInSeconds;
 
+    /**
+     * Overridden method, which will be picked up by maven execution context and execute when this mojo is referred.
+     *
+     * @throws MojoExecutionException
+     * @throws MojoFailureException
+     */
     public void execute() throws MojoExecutionException, MojoFailureException {
         RepositoryGenerator generator = constructRepoGenerator();
         generator.generate();

@@ -31,6 +31,8 @@ import java.util.List;
  * Bean class containing all the parameters entered to the mojo through plugin configuration.
  * The purpose of this class is to make any configuration property accessible from any class by simply passing this
  * bean as a parameter.
+ *
+ * @since 2.0.0
  */
 public class RepositoryResourceBundle {
 
@@ -72,7 +74,7 @@ public class RepositoryResourceBundle {
     }
 
     public List<Feature> getFeatureArtifacts() {
-        if(featureArtifacts == null) {
+        if (featureArtifacts == null) {
             return new ArrayList<>();
         }
         return featureArtifacts;
@@ -83,7 +85,7 @@ public class RepositoryResourceBundle {
     }
 
     public List<Bundle> getBundleArtifacts() {
-        if(bundleArtifacts == null) {
+        if (bundleArtifacts == null) {
             return new ArrayList<>();
         }
         return bundleArtifacts;

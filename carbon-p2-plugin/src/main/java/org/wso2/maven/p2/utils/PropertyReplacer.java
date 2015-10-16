@@ -18,16 +18,14 @@ package org.wso2.maven.p2.utils;
 
 import java.util.Properties;
 
+/**
+ * Util class which get the property variable of the form ${variable} to actual value.
+ */
 public class PropertyReplacer {
     // States of the state machine
     private enum State {
         NORMAL, SEEN_DOLLAR, WITHIN_BRACKET
     }
-
-    private PropertyReplacer() {
-        // you can't instantiate this class
-    }
-
 
     public static String replaceProperties(final String origString, final Properties props) {
 
