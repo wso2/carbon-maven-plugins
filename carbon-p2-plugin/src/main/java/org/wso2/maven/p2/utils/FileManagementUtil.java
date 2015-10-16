@@ -69,7 +69,7 @@ public class FileManagementUtil {
                 prop.store(outputStream, null);
             }
         } catch (IOException e) {
-            log.warn(e);
+            log.warn("Error occurred while updating " + configIniFile.getName(), e);
         }
     }
 
@@ -84,7 +84,7 @@ public class FileManagementUtil {
              ZipOutputStream zip = new ZipOutputStream(fileWriter)) {
             addFolderContentsToZip(srcFolder, zip, log);
         } catch (IOException e) {
-            log.warn(e);
+            log.warn("Error occurred while archiving " + srcFolder, e);
         }
 
 
@@ -110,7 +110,7 @@ public class FileManagementUtil {
                 }
                 inputStream.close();
             } catch (IOException e) {
-                log.warn(e);
+                log.warn("Error occurred while archiving " + srcFile, e);
             }
         }
     }
@@ -133,7 +133,7 @@ public class FileManagementUtil {
                     i++;
                 }
             } catch (IOException e) {
-                log.warn(e);
+                log.warn("Error occurred while archiving " + srcFolder, e);
             }
         }
     }
@@ -160,7 +160,7 @@ public class FileManagementUtil {
                     i++;
                 }
             } catch (IOException e) {
-                log.warn(e);
+                log.warn("Error occurred while archiving " + srcFolder, e);
             }
         }
     }
