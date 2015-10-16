@@ -269,7 +269,7 @@ public class FeatureFileGeneratorUtils {
             rootElement.appendChild(license);
         }
 
-        ArrayList<Bundle> processedMissingPlugins = getMissingPlugins(resourceBundle.getBundles(), document);
+        List<Bundle> processedMissingPlugins = getMissingPlugins(resourceBundle.getBundles(), document);
 
         List<Feature> missingImportFeatures = getMissingImportFeatures(resourceBundle.
                 getImportFeatures(), document, "feature");
@@ -384,7 +384,7 @@ public class FeatureFileGeneratorUtils {
      * @param document Document representing the give manifest
      * @return ArrayList&lt;Bundle&gt; missing plugins
      */
-    private static ArrayList<Bundle> getMissingPlugins(List<Bundle> bundles, Document document) {
+    private static List<Bundle> getMissingPlugins(List<Bundle> bundles, Document document) {
         if (bundles == null || bundles.size() == 0) {
             return new ArrayList<>();
         }
@@ -416,7 +416,7 @@ public class FeatureFileGeneratorUtils {
      * @param itemType                 String type, either "feature" or "plugin"
      * @return ArrayList<Feature>
      */
-    private static ArrayList<Feature> getMissingImportFeatures(List<Feature> processedImportItemsList,
+    private static List<Feature> getMissingImportFeatures(List<Feature> processedImportItemsList,
                                                                Document document, String itemType) {
         if (processedImportItemsList == null) {
             return new ArrayList<>();
