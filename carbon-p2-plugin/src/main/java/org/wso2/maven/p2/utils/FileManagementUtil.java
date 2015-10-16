@@ -217,8 +217,7 @@ public class FileManagementUtil {
             String[] children = srcDir.list();
             if (children != null) {
                 for (String child : children) {
-                    copyDirectory(new File(srcDir, child),
-                            new File(dstDir, child));
+                    copyDirectory(new File(srcDir, child), new File(dstDir, child));
                 }
             }
         } else {
