@@ -72,19 +72,6 @@
 
     <build>
         <plugins>
-            <!--<plugin>-->
-                <!--<groupId>org.jvnet.maven.incrementalbuild</groupId>-->
-                <!--<artifactId>incremental-build-plugin</artifactId>-->
-                <!--<version>1.3</version>-->
-                <!--<executions>-->
-                    <!--<execution>-->
-                        <!--<goals>-->
-                            <!--<goal>incremental-build</goal>-->
-                        <!--</goals>-->
-                    <!--</execution>-->
-                <!--</executions>-->
-            <!--</plugin>-->
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -168,26 +155,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <!--<plugin>-->
-                <!--<groupId>org.codehaus.mojo</groupId>-->
-                <!--<artifactId>findbugs-maven-plugin</artifactId>-->
-                <!--<configuration>-->
-                    <!--<effort>Max</effort>-->
-                    <!--<threshold>Low</threshold>-->
-                    <!--<xmlOutput>true</xmlOutput>-->
-                    <!--<findbugsXmlOutputDirectory>/home/dinushab/jira/migration</findbugsXmlOutputDirectory>-->
-                    <!--&lt;!&ndash;<findbugsXmlOutputDirectory>${project.build.directory}/findbugs</findbugsXmlOutputDirectory>&ndash;&gt;-->
-                <!--</configuration>-->
-                <!--<executions>-->
-                    <!--<execution>-->
-                        <!--<id>analyze-compile</id>-->
-                        <!--<phase>compile</phase>-->
-                        <!--<goals>-->
-                            <!--<goal>check</goal>-->
-                        <!--</goals>-->
-                    <!--</execution>-->
-                <!--</executions>-->
-            <!--</plugin>-->
         </plugins>
     </build>
 
