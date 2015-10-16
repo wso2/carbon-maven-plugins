@@ -33,7 +33,7 @@
     </scm>
 
     <modules>
-        <module>carbon-p2-plugin</module>
+        <module>carbon-feature-plugin</module>
     </modules>
 
 
