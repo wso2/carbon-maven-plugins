@@ -58,6 +58,12 @@ public class FeatureInstaller {
         this.destination = resourceBundle.getDestination();
     }
 
+    /**
+     * Performs the installation operation.
+     *
+     * @throws MojoExecutionException
+     * @throws MojoFailureException
+     */
     public void install() throws MojoExecutionException, MojoFailureException {
         writeEclipseIni();
         installFeatures();

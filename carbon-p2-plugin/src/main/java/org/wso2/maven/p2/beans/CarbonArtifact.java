@@ -71,10 +71,24 @@ public class CarbonArtifact {
         this.artifactId = artifactId;
     }
 
+    /**
+     * Returns the maven version for this artifact.
+     *
+     * <b>Important:</b> This is not the OSGI version
+     *
+     * @return String
+     */
     public String getVersion() {
         return version;
     }
 
+    /**
+     * Sets the maven version for this artifact.
+     *
+     * <b>Important:</b> This is not the OSGI version
+     *
+     * @param version String
+     */
     public void setVersion(String version) {
         this.version = version;
     }

@@ -25,6 +25,13 @@ public class Feature {
     private String id;
     private String version;
 
+    /**
+     * Returns the feature id representing this feature. If the given id ends with feature, <i>.group</i> is appended.
+     * If the given does not ends with <i>.feature.group</i>, then <i>.feature.group</i> is appended. This is
+     * necessary for the director application to work.
+     *
+     * @return String
+     */
     public String getId() {
         if (id != null && id.endsWith(".feature")) {
             return id + ".group";
@@ -35,14 +42,30 @@ public class Feature {
         return id;
     }
 
+    /**
+     * Sets the feature id.
+     *
+     * @param id String
+     */
     public void setId(String id) {
         this.id = id;
     }
 
+    /**
+     * Returns the version of this feature in OSGI format.
+     * i.e: If the maven version for this feature is 4.2.0-SNAPSHOT, the OSGI representation is 4.2.0.SNAPSHOT.
+     *
+     * @return String
+     */
     public String getVersion() {
         return BundleUtils.getOSGIVersion(version);
     }
 
+    /**
+     * Sets the version of this feature.
+     *
+     * @param version String
+     */
     public void setVersion(String version) {
         this.version = version;
     }

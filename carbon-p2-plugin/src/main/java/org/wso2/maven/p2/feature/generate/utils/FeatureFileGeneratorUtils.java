@@ -275,7 +275,7 @@ public class FeatureFileGeneratorUtils {
                 getImportFeatures(), document, "feature");
         List<Feature> includedFeatures = resourceBundle.getIncludeFeatures();
 
-        //region Updating feature.xml with missing plugins
+        //region updating feature.xml with missing plugins
         for (Bundle bundle : processedMissingPlugins) {
             Element plugin = document.createElement("plugin");
             plugin.setAttribute("id", bundle.getSymbolicName());
@@ -285,7 +285,7 @@ public class FeatureFileGeneratorUtils {
         }
         //endregion
 
-        //region Updating feature.xml with missing  import plugins and features
+        //region updating feature.xml with missing  import plugins and features
         NodeList requireNodes = document.getElementsByTagName("require");
         Node require;
         if (requireNodes == null || requireNodes.getLength() == 0) {

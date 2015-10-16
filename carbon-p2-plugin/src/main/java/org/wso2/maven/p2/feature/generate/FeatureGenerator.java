@@ -252,6 +252,7 @@ public class FeatureGenerator {
     private void copyIncludedFeatures() throws IOException {
         List<Feature> features = resourceBundle.getIncludeFeatures();
         if (features.size() > 0) {
+            this.log.info("Extracting features:");
             for (Feature includedFeature : features) {
                 try {
                     this.log.info("Extracting feature " + includedFeature.getGroupId() + ":" +

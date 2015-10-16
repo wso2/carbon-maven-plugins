@@ -29,8 +29,8 @@ public class Feature extends CarbonArtifact {
     /**
      * Returns the feature id represented by this Feature.
      * <p>
-     *     If the name of the feature id ends with '.feature', then '.feature' word is removed and the result is
-     *     returned.
+     * If the name of the feature id ends with '.feature', then '.feature' word is removed and the result is
+     * returned.
      * </p>
      *
      * @return String feature id.
@@ -60,10 +60,25 @@ public class Feature extends CarbonArtifact {
         return this.optional;
     }
 
+    /**
+     * Sets whether this feature is optional or not. This is applicable only to included features.
+     * <p/>
+     * Note: There is no usage of this method in the plugin code. However, this is used by plexus container to inject
+     * the value.
+     *
+     * @param optional boolean
+     */
     public void setOptional(boolean optional) {
         this.optional = optional;
     }
 
+    /**
+     * Returns the Feature version in OSGI format.
+     * <p/>
+     * i.e: If the maven version for this artifact is 4.2.0-SNAPSHOT, this will return 4.2.0.SNAPSHOT
+     *
+     * @return String
+     */
     public String getFeatureVersion() {
         return BundleUtils.getOSGIVersion(super.getVersion());
     }

@@ -23,18 +23,38 @@ public class Feature {
     private String id;
     private String version;
 
+    /**
+     * Gets the id of the feature to be uninstalled.
+     *
+     * @return String
+     */
     public String getId() {
         return id;
     }
 
+    /**
+     * Sets the id of the feature to be uninstalled.
+     *
+     * @param id String
+     */
     public void setId(String id) {
         this.id = id;
     }
 
+    /**
+     * Gets the version of the feature to be uninstalled.
+     *
+     * @return String
+     */
     public String getVersion() {
         return version;
     }
 
+    /**
+     * Sets the version of the feature to be uninstalled.
+     *
+     * @param version String
+     */
     public void setVersion(String version) {
         this.version = version;
     }
