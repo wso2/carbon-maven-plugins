@@ -1,13 +1,11 @@
-# carbon-maven-plugins
 ================
 #WSO2 Carbon Maven Plugins
 ================
 This repository provides supplementary maven plugins for WSO2 carbon developers.
 
-##WSO2 Maven Plugins
-###carbon-feature-plugin
+##carbon-feature-plugin
 
-Carbon-Feature-Plugin (formerly known as carbon-p2-plugin) is a maven plugin developed within the WSO2 and maintained by WSO2 carbon team. The Carbon Feature Plugin is used within WSO2 extensively in carbon platform for few major purposes. Namely;
+Carbon-Feature-Plugin (formerly known as carbon-p2-plugin) is a maven plugin developed within the WSO2 and maintained by WSO2 carbon team. The Carbon Feature Plugin is used extensively within WSO2 carbon platform to;
 * Generate Carbon features
 * Generate p2 repositories
 * Publish a product into p2 repository
