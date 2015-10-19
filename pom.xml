@@ -86,7 +86,6 @@
                 <artifactId>maven-plugin-annotations</artifactId>
                 <version>${maven.plugin.annotation.version}</version>
             </dependency>
-
         </dependencies>
     </dependencyManagement>
 
@@ -96,7 +95,7 @@
         <tycho.version>0.13.0</tycho.version>
         <org.apache.maven.project.version>2.2.1</org.apache.maven.project.version>
         <junit.version>3.8.1</junit.version>
-        <maven.plugin.plugin.version>3.2</maven.plugin.plugin.version>
+        <maven.plugin.plugin.version>3.4</maven.plugin.plugin.version>
         <maven.plugin.annotation.version>3.3</maven.plugin.annotation.version>
     </properties>
 
