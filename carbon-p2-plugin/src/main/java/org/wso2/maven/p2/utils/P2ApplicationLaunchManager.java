@@ -108,6 +108,45 @@ public class P2ApplicationLaunchManager {
     }
 
     /**
+     * Sets the P2ApplicationLauncher's arguments to generate P2 repository. For this scenario both metadata repository
+     * and artifact repository are same.
+     *
+     * @param sourceDir              the location of the update site
+     * @param metadataRepoLocation   the URI to the metadata repository where the installable units should be published
+     * @param repositoryName         name of the artifact repository where the artifacts should be published
+     */
+    public void addRepoGenerationArguments(String sourceDir, String metadataRepoLocation,
+                                           String repositoryName) {
+        launcher.addArguments("-source", sourceDir,
+                "-metadataRepository", metadataRepoLocation,
+                "-metadataRepositoryName", repositoryName,
+                "-artifactRepository", metadataRepoLocation,
+                "-artifactRepositoryName", repositoryName,
+                "-publishArtifacts",
+                "-publishArtifactRepository",
+                "-compress",
+                "-append");
+    }
+
+    /**
+     * Sets the P2ApplicationLauncher's arguments and configure it to categorizing a set of Installable Units in a given
+     * repository.
+     *
+     * @param metadataRepositoryLocation a comma separated list of metadata repository URLs where the software to be
+     *                                   installed can be found.
+     * @param categoryDefinitionFile     The category file which drives the categorization of installable units in the
+     *                                   repository
+     */
+    public void addUpdateRepoWithCategoryArguments(String metadataRepositoryLocation, String categoryDefinitionFile) {
+        launcher.addArguments("-metadataRepository", metadataRepositoryLocation,
+                "-categoryDefinition", categoryDefinitionFile,
+                "-categoryQualifier",
+                "-compress",
+                "-append");
+
+    }
+
+    /**
      * Generate/update the repository.
      *
      * @param forkedProcessTimeoutInSeconds int

@@ -13,18 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.wso2.maven.p2;
+package org.wso2.maven.p2.repository;
 
+
+import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.project.MavenProject;
+import org.wso2.maven.p2.utils.BundleUtils;
 
 import java.util.Properties;
 import java.util.regex.Pattern;
 
-import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.project.MavenProject;
-
-// This class will be refactored in CARBON-15478 and CARBON-15479
+/**
+ * Bean class representing a CatFeature object provided as an input param to RepositoryGeneratorMojo.
+ */
 public class CatFeature {
-    
+
     /**
      * Id of the feature
      *
@@ -40,16 +43,16 @@ public class CatFeature {
      * @required
      */
     private String version;
-    
+
     /**
      * @parameter default-value="${project}"
      */
     private MavenProject project;
-    
+
     private boolean versionReplaced = false;
 
-    public CatFeature(){
-        
+    public CatFeature() {
+
     }
 
     public String getId() {
@@ -61,26 +64,25 @@ public class CatFeature {
     }
 
     public String getVersion() throws MojoExecutionException {
-    	if (!versionReplaced) {
-    		replaceProjectKeysInVersion(project);
-    	}
-        //return Bundle.getOSGIVersion(version);
-        return "";
+        if (!versionReplaced) {
+            replaceProjectKeysInVersion(project);
+        }
+        return BundleUtils.getOSGIVersion(version);
     }
 
     public void setVersion(String version) {
         this.version = version;
     }
-    
-	public void replaceProjectKeysInVersion(MavenProject project) throws MojoExecutionException{
-		if (version == null) {
-			throw new MojoExecutionException("Could not find the version for featureId: " + getId());
-		}
-		Properties properties = project.getProperties();
-		for(Object key:properties.keySet()){
-			version=version.replaceAll(Pattern.quote("${"+key+"}"), properties.get(key).toString());
-		}
-		versionReplaced = true;
-	}
-    
+
+    public void replaceProjectKeysInVersion(MavenProject project) throws MojoExecutionException {
+        if (version == null) {
+            throw new MojoExecutionException("Could not find the version for featureId: " + getId());
+        }
+        Properties properties = project.getProperties();
+        for (Object key : properties.keySet()) {
+            version = version.replaceAll(Pattern.quote("${" + key + "}"), properties.get(key).toString());
+        }
+        versionReplaced = true;
+    }
+
 }
