@@ -35,6 +35,7 @@ import org.xml.sax.SAXException;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -292,7 +293,7 @@ public class FeatureGenerator {
         List<Resource> resources = project.getResources();
         for (Resource resource : resources) {
             String sourcePath = resource.getDirectory();
-            if (new File(sourcePath).exists()) {
+            if (Paths.get(sourcePath).toFile().exists()) {
                 DirectoryScanner scanner = new DirectoryScanner();
                 scanner.setBasedir(resource.getDirectory());
                 if (resource.getIncludes() != null && !resource.getIncludes().isEmpty()) {

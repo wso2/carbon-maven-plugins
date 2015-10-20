@@ -60,10 +60,9 @@ public class FeatureUnInstaller {
             return null;
         }
         StringBuilder uninstallUIs = new StringBuilder();
-
-        for (Feature feature : features) {
-            uninstallUIs.append(feature.getId().trim()).append("/").append(feature.getVersion().trim()).append(",");
-        }
+        features.forEach(feature ->
+                uninstallUIs.append(feature.getId().trim()).append("/").append(feature.getVersion().trim()).
+                        append(","));
         return uninstallUIs.toString();
     }
 

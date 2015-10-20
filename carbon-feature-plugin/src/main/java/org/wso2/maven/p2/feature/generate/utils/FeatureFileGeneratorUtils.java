@@ -99,9 +99,7 @@ public class FeatureFileGeneratorUtils {
         Properties propertiesFromFiles = getMergedPropertiesFromFiles(resourceBundle);
 
         if (props != null) {
-            for (Object key : props.keySet().toArray()) {
-                propertiesFromFiles.setProperty(key.toString(), props.getProperty(key.toString()));
-            }
+            props.forEach((key, value) -> propertiesFromFiles.setProperty(key.toString(), value.toString()));
         }
         resourceBundle.setProperties(propertiesFromFiles);
         return propertiesFromFiles;
@@ -170,10 +168,9 @@ public class FeatureFileGeneratorUtils {
             Properties properties = new Properties();
             properties.setProperty("feature.version", BundleUtils.getOSGIVersion(resourceBundle.getVersion()));
             if (p2infStringList != null && p2infStringList.size() > 0) {
-                for (String str : p2infStringList) {
-                    // writing the strings after replacing ${feature.version}
-                    pw.write(PropertyReplacer.replaceProperties(str, properties) + LINE_SEPARATOR);
-                }
+                // writing the strings after replacing ${feature.version}
+                p2infStringList.forEach(p2InfEntry ->
+                        pw.write(PropertyReplacer.replaceProperties(p2InfEntry, properties) + LINE_SEPARATOR));
             }
             if (list.size() != 0) {
                 int nextIndex = P2Utils.getLastIndexOfProperties(p2InfFile) + 1;
@@ -294,19 +291,17 @@ public class FeatureFileGeneratorUtils {
             require = requireNodes.item(0);
         }
 
-        for (Feature feature : missingImportFeatures) {
-            if (!feature.isOptional()) {
-                Element plugin = document.createElement("import");
-                plugin.setAttribute("feature", feature.getId());
-                plugin.setAttribute("version", feature.getFeatureVersion());
-                if (P2Utils.isPatch(feature.getCompatibility())) {
-                    plugin.setAttribute("patch", "true");
-                } else {
-                    plugin.setAttribute("match", P2Utils.getMatchRule(feature.getCompatibility()));
-                }
-                require.appendChild(plugin);
+        missingImportFeatures.stream().filter(feature -> !feature.isOptional()).forEach(feature -> {
+            Element plugin = document.createElement("import");
+            plugin.setAttribute("feature", feature.getId());
+            plugin.setAttribute("version", feature.getFeatureVersion());
+            if (P2Utils.isPatch(feature.getCompatibility())) {
+                plugin.setAttribute("patch", "true");
+            } else {
+                plugin.setAttribute("match", P2Utils.getMatchRule(feature.getCompatibility()));
             }
-        }
+            require.appendChild(plugin);
+        });
 
         for (Feature includedFeature : includedFeatures) {
             Element includeElement = document.createElement("includes");
@@ -416,7 +411,7 @@ public class FeatureFileGeneratorUtils {
      * @return ArrayList<Feature>
      */
     private static List<Feature> getMissingImportFeatures(List<Feature> processedImportItemsList,
-                                                               Document document, String itemType) {
+                                                          Document document, String itemType) {
         if (processedImportItemsList == null) {
             return new ArrayList<>();
         }

@@ -25,7 +25,6 @@ import org.wso2.maven.p2.utils.P2ApplicationLaunchManager;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
@@ -105,9 +104,8 @@ public class FeatureInstaller {
      */
     private String extractIUsToInstall() {
         StringBuilder installIUs = new StringBuilder();
-        for (Feature feature : resourceBundle.getFeatures()) {
-            installIUs.append(feature.getId().trim()).append("/").append(feature.getVersion().trim()).append(",");
-        }
+        resourceBundle.getFeatures().forEach(feature ->
+                installIUs.append(feature.getId().trim()).append("/").append(feature.getVersion().trim()).append(","));
 
         return installIUs.toString();
     }
@@ -132,11 +130,7 @@ public class FeatureInstaller {
 
         File profileFolder = new File(profileFolderName);
         if (profileFolder.isDirectory()) {
-            String[] profileFileList = profileFolder.list(new FilenameFilter() {
-                public boolean accept(File dir, String name) {
-                    return name.endsWith(".profile");
-                }
-            });
+            String[] profileFileList = profileFolder.list((dir, name) -> name.endsWith(".profile"));
 
             //deleting old profile files
             if (profileFileList != null) {

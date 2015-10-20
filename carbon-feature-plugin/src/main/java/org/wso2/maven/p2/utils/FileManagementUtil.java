@@ -97,7 +97,6 @@ public class FileManagementUtil {
             byte[] buf = new byte[1024];
             int len;
             try (FileInputStream inputStream = new FileInputStream(srcFile)) {
-
                 if (path.trim().equals("")) {
                     zip.putNextEntry(new ZipEntry(folder.getName()));
                 } else {
