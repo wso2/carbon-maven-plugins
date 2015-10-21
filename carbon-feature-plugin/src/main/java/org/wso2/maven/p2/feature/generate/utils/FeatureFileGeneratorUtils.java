@@ -383,9 +383,7 @@ public class FeatureFileGeneratorUtils {
             return new ArrayList<>();
         }
         HashMap<String, Bundle> missingPlugins = new HashMap<>();
-        for (Bundle bundle : bundles) {
-            missingPlugins.put(bundle.getArtifactId(), bundle);
-        }
+        bundles.forEach(bundle -> missingPlugins.put(bundle.getArtifactId(), bundle));
 
         NodeList existingPlugins = document.getDocumentElement().getElementsByTagName("plugin");
 

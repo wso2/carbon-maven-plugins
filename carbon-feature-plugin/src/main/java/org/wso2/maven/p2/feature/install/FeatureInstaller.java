@@ -29,6 +29,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.Writer;
+import java.nio.file.Paths;
 
 /**
  * FeatureInstaller takes parameters from the pom.xml and generates the profile.
@@ -155,9 +156,9 @@ public class FeatureInstaller {
     private void writeEclipseIni() throws MojoExecutionException {
         String profileLocation = resourceBundle.getDestination() + File.separator + resourceBundle.getProfile();
 
-        File eclipseIni = new File(profileLocation + File.separator + "null.ini");
+        File eclipseIni = Paths.get(profileLocation + File.separator + "null.ini").toFile();
         if (!eclipseIni.exists()) {
-            eclipseIni = new File(profileLocation + File.separator + "eclipse.ini");
+            eclipseIni = Paths.get(profileLocation + File.separator + "eclipse.ini").toFile();
         }
         if (eclipseIni.exists()) {
             updateFile(eclipseIni, profileLocation);
