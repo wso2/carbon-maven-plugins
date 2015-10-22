@@ -172,7 +172,7 @@ public class FeatureFileGeneratorUtils {
                 p2infStringList.forEach(p2InfEntry ->
                         pw.write(PropertyReplacer.replaceProperties(p2InfEntry, properties) + LINE_SEPARATOR));
             }
-            if (list.size() != 0) {
+            if (list != null && list.size() != 0) {
                 int nextIndex = P2Utils.getLastIndexOfProperties(p2InfFile) + 1;
                 for (Advice category : list) {
                     pw.write(LINE_SEPARATOR + "properties." + nextIndex + ".name=" + category.getName());
