@@ -25,11 +25,11 @@ import org.wso2.maven.p2.utils.P2ApplicationLaunchManager;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.Writer;
+import java.nio.file.Paths;
 
 /**
  * FeatureInstaller takes parameters from the pom.xml and generates the profile.
@@ -105,9 +105,8 @@ public class FeatureInstaller {
      */
     private String extractIUsToInstall() {
         StringBuilder installIUs = new StringBuilder();
-        for (Feature feature : resourceBundle.getFeatures()) {
-            installIUs.append(feature.getId().trim()).append("/").append(feature.getVersion().trim()).append(",");
-        }
+        resourceBundle.getFeatures().forEach(feature ->
+                installIUs.append(feature.getId().trim()).append("/").append(feature.getVersion().trim()).append(","));
 
         return installIUs.toString();
     }
@@ -132,11 +131,7 @@ public class FeatureInstaller {
 
         File profileFolder = new File(profileFolderName);
         if (profileFolder.isDirectory()) {
-            String[] profileFileList = profileFolder.list(new FilenameFilter() {
-                public boolean accept(File dir, String name) {
-                    return name.endsWith(".profile");
-                }
-            });
+            String[] profileFileList = profileFolder.list((dir, name) -> name.endsWith(".profile"));
 
             //deleting old profile files
             if (profileFileList != null) {
@@ -161,9 +156,9 @@ public class FeatureInstaller {
     private void writeEclipseIni() throws MojoExecutionException {
         String profileLocation = resourceBundle.getDestination() + File.separator + resourceBundle.getProfile();
 
-        File eclipseIni = new File(profileLocation + File.separator + "null.ini");
+        File eclipseIni = Paths.get(profileLocation + File.separator + "null.ini").toFile();
         if (!eclipseIni.exists()) {
-            eclipseIni = new File(profileLocation + File.separator + "eclipse.ini");
+            eclipseIni = Paths.get(profileLocation + File.separator + "eclipse.ini").toFile();
         }
         if (eclipseIni.exists()) {
             updateFile(eclipseIni, profileLocation);
