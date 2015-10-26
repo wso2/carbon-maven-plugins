@@ -81,8 +81,8 @@ public class RepositoryGeneratorMojo extends AbstractMojo {
     /**
      * Overridden method, which will be picked up by maven execution context and execute when this mojo is referred.
      *
-     * @throws MojoExecutionException
-     * @throws MojoFailureException
+     * @throws MojoExecutionException when mojo execution exception occurs
+     * @throws MojoFailureException when mojo failure exception occurs
      */
     public void execute() throws MojoExecutionException, MojoFailureException {
         RepositoryGenerator generator = constructRepoGenerator();

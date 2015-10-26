@@ -61,8 +61,8 @@ public class FeatureInstaller {
     /**
      * Performs the installation operation.
      *
-     * @throws MojoExecutionException
-     * @throws MojoFailureException
+     * @throws MojoExecutionException when mojo execution exception occurs
+     * @throws MojoFailureException when mojo failure exception occurs
      */
     public void install() throws MojoExecutionException, MojoFailureException {
         writeEclipseIni();
@@ -83,7 +83,7 @@ public class FeatureInstaller {
     /**
      * Calls the P2ApplicationLauncher and install the features.
      *
-     * @throws MojoFailureException
+     * @throws MojoFailureException when mojo failure exception occurs
      */
     private void installFeatures() throws MojoFailureException {
         String installIUs = extractIUsToInstall();
@@ -114,7 +114,7 @@ public class FeatureInstaller {
     /**
      * Delete old profile files located at ${destination}/p2/org.eclipse.equinox.p2.engine/profileRegistry
      *
-     * @throws MojoExecutionException
+     * @throws MojoExecutionException when mojo execution exception occurs
      */
     private void deleteOldProfiles() throws MojoExecutionException {
         //In not specified to delete, then return the method.
@@ -151,7 +151,7 @@ public class FeatureInstaller {
      * Truncate and write the null.ini file with the new profile location. If null.ini is not found, then truncate
      * and write new profile location in eclipse.ini.
      *
-     * @throws MojoExecutionException
+     * @throws MojoExecutionException when mojo execution exception occurs
      */
     private void writeEclipseIni() throws MojoExecutionException {
         String profileLocation = resourceBundle.getDestination() + File.separator + resourceBundle.getProfile();

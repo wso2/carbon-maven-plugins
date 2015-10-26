@@ -175,7 +175,7 @@ public class P2Utils {
      * Returns a blank Document
      *
      * @return org.w3c.dom.Document object
-     * @throws ParserConfigurationException
+     * @throws ParserConfigurationException when parser config error occurs
      */
     public static Document getManifestDocument() throws ParserConfigurationException {
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();

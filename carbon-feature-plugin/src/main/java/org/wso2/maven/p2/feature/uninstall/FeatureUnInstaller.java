@@ -42,7 +42,7 @@ public class FeatureUnInstaller {
     /**
      * default constructor which is executed during object creation of this class.
      *
-     * @throws MojoFailureException
+     * @throws MojoFailureException when mojo failure exception occurs
      */
     public void uninstallFeatures() throws MojoFailureException {
         String iUs = getIUsToUninstall();
@@ -70,7 +70,7 @@ public class FeatureUnInstaller {
      * uninstall the set of features given as a collection of IUs
      *
      * @param uninstallUIs comma separated list of IUs
-     * @throws MojoFailureException
+     * @throws MojoFailureException when mojo failure exception occurs
      */
     private void uninstallFeatures(String uninstallUIs) throws MojoFailureException {
         if (project != null) {

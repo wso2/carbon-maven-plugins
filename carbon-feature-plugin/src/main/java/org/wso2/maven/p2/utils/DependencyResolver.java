@@ -50,7 +50,7 @@ public class DependencyResolver {
      * @return Return a List&lt;HashMap&lt;String, CarbonArtifact&gt;&gt;, 1st item being HashMap&lt;String,
      * CarbonArtifact&gt; containing osgi bundles specified as dependencies and 2nd item being HashMap&lt;String,
      * CarbonArtifact&gt; containing carbon features specified as dependencies.
-     * @throws IOException
+     * @throws IOException when io error occurs
      */
     public static List<HashMap<String, CarbonArtifact>> getDependenciesForProject(MavenProject project, RepositorySystem
             repositorySystem, List<ArtifactRepository> remoteRepositories, ArtifactRepository localRepository)

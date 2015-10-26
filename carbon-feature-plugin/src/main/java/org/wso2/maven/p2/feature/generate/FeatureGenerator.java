@@ -73,7 +73,6 @@ public class FeatureGenerator {
      * Constructor for the FeatureGenerator.
      * <p>
      * Takes FeatureResourceBundle as a param to set private fields.
-     * </p>
      *
      * @param resourceBundle FeatureResourceBundle
      */
@@ -87,8 +86,8 @@ public class FeatureGenerator {
     /**
      * Generates the Feature. This overrides the parent generate method of Generator abstract class.
      *
-     * @throws MojoExecutionException
-     * @throws MojoFailureException
+     * @throws MojoExecutionException when mojo execution exception occurs
+     * @throws MojoFailureException when mojo failure exception occurs
      */
     public void generate() throws MojoExecutionException, MojoFailureException {
         try {

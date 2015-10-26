@@ -56,6 +56,7 @@ public class FileManagementUtil {
      * @param configIniFile File object representing the config.ini
      * @param propKey       property key
      * @param value         property value
+     * @param log           log value
      */
     public static void changeConfigIniProperty(File configIniFile, String propKey, String value, Log log) {
         Properties prop = new Properties();
@@ -76,6 +77,7 @@ public class FileManagementUtil {
      *
      * @param srcFolder   source folder
      * @param destZipFile path to the output zip file
+     * @param log         log value
      */
     public static void zipFolder(String srcFolder, String destZipFile, Log log) {
         try (FileOutputStream fileWriter = new FileOutputStream(destZipFile);
@@ -166,7 +168,7 @@ public class FileManagementUtil {
      * Delete a given directory.
      *
      * @param dir directory to be deleted
-     * @throws IOException
+     * @throws IOException when io error occurs
      */
     public static void deleteDirectories(File dir) throws IOException {
         File[] children = dir.listFiles();
@@ -201,7 +203,7 @@ public class FileManagementUtil {
      *
      * @param srcDir source directory
      * @param dstDir destination directory
-     * @throws IOException
+     * @throws IOException when io error occurs
      */
     public static void copyDirectory(File srcDir, File dstDir) throws IOException {
         if (srcDir.isDirectory()) {
@@ -227,7 +229,7 @@ public class FileManagementUtil {
      *
      * @param src source file
      * @param dst destination file
-     * @throws IOException
+     * @throws IOException when io error occurs
      */
     public static void copy(File src, File dst) throws IOException {
         if (dst.getParentFile() != null && !dst.getParentFile().exists()) {
@@ -252,7 +254,7 @@ public class FileManagementUtil {
      *
      * @param archiveFile archive file to be unzipped
      * @param destination location to put the unzipped file
-     * @throws IOException
+     * @throws IOException when io error occurs
      */
     public static void unzip(File archiveFile, File destination) throws IOException {
 
