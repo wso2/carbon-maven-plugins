@@ -67,8 +67,8 @@ public class P2ApplicationLaunchManager {
      *                           metadata and artifacts resides in the same repo) URLs where the software to be
      *                           installed can be found.
      * @param installIUs         a comma separated list of IUs to install. Each entry in the list is in the form
-     *                           <id> [ '/' <version> ]. If you are looking to install a feature, the identifier
-     *                           of the feature has to be suffixed with ".feature.group".
+     *                           &lt; id &gt; [ '/' &lt; version &gt; ]. If you are looking to install a feature,
+     *                           the identifier of the feature has to be suffixed with ".feature.group".
      * @param destination        the path of a folder in which the targeted product is located.
      * @param profile            the profile id containing the description of the targeted product. This ID is
      *                           defined by the eclipse.p2.profile property contained in the config.ini of the
@@ -95,8 +95,8 @@ public class P2ApplicationLaunchManager {
      * Sets the P2ApplicationLauncher's arguments to uninstall features.
      *
      * @param uninstallIUs a comma separated list of IUs to uninstall. Each entry in the list is in the form
-     *                     <id> [ '/' <version> ]. If you are looking to uninstall a feature, the identifier
-     *                     of the feature has to be suffixed with ".feature.group".
+     *                     &lt; id &gt; [ '/' &lt; version &gt; ]. If you are looking to uninstall a feature, the
+     *                     identifier of the feature has to be suffixed with ".feature.group".
      * @param destination  the path of a folder in which the targeted product is located
      * @param profile      the profile id containing the description of the targeted product
      */
@@ -162,7 +162,7 @@ public class P2ApplicationLaunchManager {
      * @param repositoryURL            the URL to the metadata repository where the product should be published
      * @param productConfigurationFile File object pointing the .product file
      * @param executable               location of the equinox executable jar
-     * @throws IOException
+     * @throws IOException when io error occur
      */
     public void addPublishProductArguments(URL repositoryURL, File productConfigurationFile, String executable)
             throws IOException {
@@ -209,7 +209,7 @@ public class P2ApplicationLaunchManager {
      * Generate/update the repository.
      *
      * @param forkedProcessTimeoutInSeconds int
-     * @throws MojoFailureException
+     * @throws MojoFailureException when mojo failure occurs
      */
     public void performAction(int forkedProcessTimeoutInSeconds) throws MojoFailureException {
         int result = launcher.execute(forkedProcessTimeoutInSeconds);

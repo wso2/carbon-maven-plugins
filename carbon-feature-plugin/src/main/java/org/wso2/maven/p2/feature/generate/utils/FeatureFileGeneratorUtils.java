@@ -71,7 +71,8 @@ public class FeatureFileGeneratorUtils {
      *
      * @param resourceBundle      containing the project resources
      * @param featurePropertyFile File Object representing the feature property file
-     * @throws IOException
+     * @throws IOException when unable to create the feature.properties file
+     * @throws MissingRequiredPropertyException when required properties are missing
      */
     public static void createPropertiesFile(FeatureResourceBundle resourceBundle, File featurePropertyFile)
             throws IOException, MissingRequiredPropertyException {
@@ -91,7 +92,8 @@ public class FeatureFileGeneratorUtils {
      *
      * @param resourceBundle containing the project resources
      * @return Properties object containing properties passed in to the tool as properties and via the properties file
-     * @throws IOException
+     * @throws IOException when io error occurs
+     * @throws MissingRequiredPropertyException when required properties are missing
      */
     private static Properties getProperties(FeatureResourceBundle resourceBundle) throws IOException,
             MissingRequiredPropertyException {
@@ -131,7 +133,7 @@ public class FeatureFileGeneratorUtils {
      *
      * @param resourceBundle      containing the project resources
      * @param featureManifestFile File Object representing the manifest file
-     * @throws IOException
+     * @throws IOException when io error occurs
      */
     public static void createManifestMFFile(FeatureResourceBundle resourceBundle, File featureManifestFile)
             throws IOException {
@@ -149,7 +151,7 @@ public class FeatureFileGeneratorUtils {
      *
      * @param resourceBundle containing the project resources
      * @param p2InfFile      File object representing the p2inf file
-     * @throws IOException
+     * @throws IOException when io error occurs
      */
     public static void createP2Inf(FeatureResourceBundle resourceBundle, File p2InfFile) throws IOException {
         try (Writer writer = new OutputStreamWriter(new FileOutputStream(p2InfFile.getAbsolutePath()),
@@ -193,7 +195,7 @@ public class FeatureFileGeneratorUtils {
      *
      * @param absolutePath Path to the advice file
      * @return List&lt;String&gt; containing items in the given advice file
-     * @throws IOException
+     * @throws IOException when io error occurs
      */
     private static List<String> readAdviceFile(String absolutePath) throws IOException {
         List<String> stringList = new ArrayList<>();
@@ -215,10 +217,10 @@ public class FeatureFileGeneratorUtils {
      *
      * @param resourceBundle containing the project resources
      * @param featureXmlFile File object representing the feature xml file
-     * @throws TransformerException
-     * @throws IOException
-     * @throws SAXException
-     * @throws ParserConfigurationException
+     * @throws TransformerException when transform error occurs
+     * @throws IOException when io error occurs
+     * @throws SAXException when SAX parsing error occurs
+     * @throws ParserConfigurationException when parser error occurs
      */
     public static void createFeatureXml(FeatureResourceBundle resourceBundle, File featureXmlFile)
             throws TransformerException, IOException, SAXException, ParserConfigurationException {
@@ -342,9 +344,9 @@ public class FeatureFileGeneratorUtils {
      *
      * @param manifest java.io.File pointing an existing manifest file.
      * @return Document object representing a given manifest file or a newly generated manifest file
-     * @throws ParserConfigurationException
-     * @throws SAXException
-     * @throws IOException
+     * @throws ParserConfigurationException when parser error occurs
+     * @throws SAXException when SAX error occurs
+     * @throws IOException when io error occurs
      */
     private static Document getManifestDocument(File manifest) throws ParserConfigurationException,
             SAXException, IOException {
@@ -406,7 +408,7 @@ public class FeatureFileGeneratorUtils {
      * @param processedImportItemsList list of import plugins/import features configured in the pom.xml
      * @param document                 Document representing the give manifest
      * @param itemType                 String type, either "feature" or "plugin"
-     * @return ArrayList<Feature>
+     * @return ArrayList<Feature> missing import features list
      */
     private static List<Feature> getMissingImportFeatures(List<Feature> processedImportItemsList,
                                                           Document document, String itemType) {

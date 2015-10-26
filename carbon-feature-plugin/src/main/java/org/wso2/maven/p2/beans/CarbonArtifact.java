@@ -20,7 +20,7 @@ import org.apache.maven.artifact.Artifact;
 
 /**
  * Bean class representing CarbonArtifacts.
- * <p/>
+ * <p>
  * This class is extended by all the Bean classes which represent any artifact created from the carbon feature plugin.
  *
  * @since 2.0.0
