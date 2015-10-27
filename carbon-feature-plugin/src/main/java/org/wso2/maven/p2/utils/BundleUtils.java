@@ -21,6 +21,8 @@ import java.util.regex.Pattern;
 
 /**
  * Utility class composed of utility methods pertaining to a Bundles.
+ *
+ * @since 2.0.0
  */
 public class BundleUtils {
 

@@ -47,6 +47,8 @@ import javax.xml.transform.stream.StreamResult;
 /**
  * The class contains operations related to Categories, which is out of the scope for current set of tasks. Thus
  * the refactoring is done for a minimum for the moment.
+ *
+ * @since 2.0.0
  */
 public class P2Utils {
     private static String[] matchList = new String[]{"perfect", "equivalent", "compatible", "greaterOrEqual", "patch",

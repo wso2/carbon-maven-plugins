@@ -31,7 +31,7 @@ import java.util.List;
 
 /**
  * Install a given set of carbon features on a product. The artifacts and metadata of the features to be installed
- * should reside in the repository given under {@code repositoryURL}
+ * should reside in the repository given under {@code repositoryURL}.
  *
  * @since 2.0.0
  */

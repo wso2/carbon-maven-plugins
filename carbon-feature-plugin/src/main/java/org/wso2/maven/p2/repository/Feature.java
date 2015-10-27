@@ -19,7 +19,9 @@ package org.wso2.maven.p2.repository;
 import org.wso2.maven.p2.beans.CarbonArtifact;
 
 /**
- * Bean class representing a Feature object provided as an input param to RepositoryGeneratorMojo
+ * Bean class representing a Feature object provided as an input param to RepositoryGeneratorMojo.
+ *
+ * @since 2.0.0
  */
 public class Feature extends CarbonArtifact {
     private String id;

@@ -21,7 +21,9 @@ import org.apache.maven.project.MavenProject;
 import java.util.ArrayList;
 
 /**
- * Bean class representing a Category object provided as an input param to RepositoryGeneratorMojo
+ * Bean class representing a Category object provided as an input param to RepositoryGeneratorMojo.
+ *
+ * @since 2.0.0
  */
 public class Category {
 

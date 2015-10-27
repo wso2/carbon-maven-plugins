@@ -60,6 +60,8 @@ import javax.xml.transform.stream.StreamResult;
 
 /**
  * Generate output files that are needed to generate a particular feature.
+ *
+ * @since 2.0.0
  */
 public class FeatureFileGeneratorUtils {
 

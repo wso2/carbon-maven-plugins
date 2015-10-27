@@ -25,6 +25,8 @@ import java.util.regex.Pattern;
 
 /**
  * Bean class representing a CatFeature object provided as an input param to RepositoryGeneratorMojo.
+ *
+ * @since 2.0.0
  */
 public class CatFeature {
 
