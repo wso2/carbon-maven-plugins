@@ -33,6 +33,8 @@ import java.util.Properties;
 
 /**
  * Mojo class that act as the <I>generate</I> maven goal.
+ *
+ * @since 2.0.0
  */
 @Mojo(name = "generate", defaultPhase = LifecyclePhase.PACKAGE)
 public class FeatureGeneratorMojo extends AbstractMojo {

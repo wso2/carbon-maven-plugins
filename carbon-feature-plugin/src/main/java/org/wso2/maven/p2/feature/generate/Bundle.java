@@ -20,6 +20,8 @@ import org.wso2.maven.p2.beans.CarbonArtifact;
 
 /**
  * Bean class representing a Bundle object provided as an input param to FeatureGenMojo.
+ *
+ * @since 2.0.0
  */
 public class Bundle extends CarbonArtifact {
     /**

@@ -25,6 +25,8 @@ import java.util.List;
 
 /**
  * Util class responsible for resolving maven artifacts.
+ *
+ * @since 2.0.0
  */
 public class MavenUtils {
 

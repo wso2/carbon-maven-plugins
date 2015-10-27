@@ -33,6 +33,8 @@ import java.util.zip.ZipOutputStream;
 
 /**
  * Util class which handle file manipulation operations.
+ *
+ * @since 2.0.0
  */
 public class FileManagementUtil {
     private static final int BUFFER = 2048;

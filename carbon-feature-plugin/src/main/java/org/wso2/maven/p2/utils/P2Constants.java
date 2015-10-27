@@ -17,6 +17,8 @@ package org.wso2.maven.p2.utils;
 
 /**
  * Contains P2 related constants. File is kept to preserve the history in case if needed later.
+ *
+ * @since 2.0.0
  */
 public class P2Constants {
 //    public static final String[] OSGI_FILES = new String[]{"org.eclipse.equinox:org.eclipse.equinox.common",

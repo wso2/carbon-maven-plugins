@@ -32,6 +32,8 @@ import java.net.URL;
 
 /**
  * Publish a given product using the .product file to the repository.
+ *
+ * @since 2.0.0
  */
 @Mojo(name = "publish-product")
 public class PublishProductMojo extends AbstractMojo {

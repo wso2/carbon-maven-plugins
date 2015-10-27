@@ -34,6 +34,8 @@ import java.net.URL;
 
 /**
  * Mojo responsible for generating a profile.
+ *
+ * @since 2.0.0
  */
 @Mojo(name = "generate-profile")
 public class GenerateProfileMojo extends AbstractMojo {

@@ -20,6 +20,8 @@ import java.util.Properties;
 
 /**
  * Util class which get the property variable of the form ${variable} to actual value.
+ *
+ * @since 2.0.0
  */
 public class PropertyReplacer {
     // States of the state machine

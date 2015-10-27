@@ -19,6 +19,8 @@ import org.wso2.maven.p2.utils.BundleUtils;
 
 /**
  * Bean class representing a feature.
+ *
+ * @since 2.0.0
  */
 public class Feature {
 

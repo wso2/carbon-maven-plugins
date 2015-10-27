@@ -17,7 +17,9 @@
 package org.wso2.maven.p2.feature.uninstall;
 
 /**
- * Bean class representing a Feature object provided as an input param to FeatureGenMojo
+ * Bean class representing a Feature object provided as an input param to FeatureGenMojo.
+ *
+ * @since 2.0.0
  */
 public class Feature {
     private String id;

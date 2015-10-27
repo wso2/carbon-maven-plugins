@@ -32,6 +32,8 @@ import java.util.List;
 
 /**
  * Write environment information for the current build to file.
+ *
+ * @since 2.0.0
  */
 @Mojo(name = "generate-repo", defaultPhase = LifecyclePhase.PACKAGE)
 public class RepositoryGeneratorMojo extends AbstractMojo {
