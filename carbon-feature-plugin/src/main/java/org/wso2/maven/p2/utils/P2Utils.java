@@ -53,6 +53,14 @@ public class P2Utils {
             "optional"};
     private static final String DEFAULT_ENCODING = "UTF-8";
 
+    /**
+     * Traverse the given p2Inf file, find the last index of the property entries in the file and returns. This us
+     * used when updating the p2inf with new properties.
+     *
+     * @param p2InfFile p2Inf Flie object
+     * @return last index of the properties
+     * @throws IOException throws if unable to read the p2Inf file
+     */
     public static int getLastIndexOfProperties(File p2InfFile) throws IOException {
         int min = -1;
         if (p2InfFile.exists()) {
@@ -85,7 +93,8 @@ public class P2Utils {
     }
 
     /**
-     *  Takes a match string and returns the correct matching string correspond to it
+     * Takes a match string and returns the correct matching string correspond to it
+     *
      * @param matchStr matching string
      * @return the correct matching rule corresponds to the given matching string
      */
@@ -101,10 +110,26 @@ public class P2Utils {
         return null;
     }
 
+    /**
+     * Returns whether the given matching string matches the patch matching rule.
+     *
+     * @param matchStr matching string to check
+     * @return whether the given matching rule matches with <i>patch</i> matching rule
+     */
     public static boolean isPatch(String matchStr) {
         return matchStr.equalsIgnoreCase("patch");
     }
 
+    /**
+     * Create the category file.
+     *
+     * @param project      Maven project
+     * @param categories   categories list
+     * @param categoryFile category file
+     * @throws ParserConfigurationException throws if fail to generate a manifest document
+     * @throws TransformerException         throws when fail to transform the category file
+     * @throws MojoExecutionException       throws if fail to process features
+     */
     public static void createCategoryFile(MavenProject project, List categories, File categoryFile)
             throws ParserConfigurationException, TransformerException, MojoExecutionException {
 
@@ -177,7 +202,7 @@ public class P2Utils {
     }
 
     /**
-     * Returns a blank Document
+     * Returns a blank document.
      *
      * @return org.w3c.dom.Document object
      * @throws ParserConfigurationException throws when fail to build a new xml document
