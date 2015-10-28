@@ -20,8 +20,9 @@ import org.apache.maven.artifact.Artifact;
 
 /**
  * Bean class representing CarbonArtifacts.
- * <p/>
+ * <p>
  * This class is extended by all the Bean classes which represent any artifact created from the carbon feature plugin.
+ * </p>
  *
  * @since 2.0.0
  */
@@ -73,9 +74,9 @@ public class CarbonArtifact {
 
     /**
      * Returns the maven version for this artifact.
-     *
+     * <p>
      * <b>Important:</b> This is not the OSGI version
-     *
+     *</p>
      * @return String
      */
     public String getVersion() {
@@ -84,9 +85,9 @@ public class CarbonArtifact {
 
     /**
      * Sets the maven version for this artifact.
-     *
+     * <p>
      * <b>Important:</b> This is not the OSGI version
-     *
+     *</p>
      * @param version String
      */
     public void setVersion(String version) {

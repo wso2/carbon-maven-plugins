@@ -56,6 +56,7 @@ public class FileManagementUtil {
      * @param configIniFile File object representing the config.ini
      * @param propKey       property key
      * @param value         property value
+     * @param log Logger to log any warnings
      */
     public static void changeConfigIniProperty(File configIniFile, String propKey, String value, Log log) {
         Properties prop = new Properties();
@@ -76,6 +77,7 @@ public class FileManagementUtil {
      *
      * @param srcFolder   source folder
      * @param destZipFile path to the output zip file
+     * @param log Logger to log any warnings
      */
     public static void zipFolder(String srcFolder, String destZipFile, Log log) {
         try (FileOutputStream fileWriter = new FileOutputStream(destZipFile);

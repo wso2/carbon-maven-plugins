@@ -72,6 +72,7 @@ public class FeatureFileGeneratorUtils {
      * @param resourceBundle      containing the project resources
      * @param featurePropertyFile File Object representing the feature property file
      * @throws IOException throws when unable to create the feature property file.
+     * @throws MissingRequiredPropertyException throws if mandatory properties are not found in provided property files
      */
     public static void createPropertiesFile(FeatureResourceBundle resourceBundle, File featurePropertyFile)
             throws IOException, MissingRequiredPropertyException {
