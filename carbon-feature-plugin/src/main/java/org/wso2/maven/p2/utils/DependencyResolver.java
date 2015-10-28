@@ -47,10 +47,10 @@ public class DependencyResolver {
      * @param repositorySystem   RepositorySystem object
      * @param remoteRepositories collection of remote repositories
      * @param localRepository    local repository representation
-     * @return Return a List&lt;HashMap&lt;String, CarbonArtifact&gt;&gt;, 1st item being HashMap&lt;String,
-     * CarbonArtifact&gt; containing osgi bundles specified as dependencies and 2nd item being HashMap&lt;String,
-     * CarbonArtifact&gt; containing carbon features specified as dependencies.
-     * @throws IOException
+     * @return Return a {@code List<HashMap<String, CarbonArtifact>>}, 1st item being {@code HashMap<String,
+     * CarbonArtifact>} containing osgi bundles specified as dependencies and 2nd item being {@code HashMap<String,
+     * CarbonArtifact>} containing carbon features specified as dependencies.
+     * @throws IOException throws when unable to retrieve a given maven artifact
      */
     public static List<HashMap<String, CarbonArtifact>> getDependenciesForProject(MavenProject project, RepositorySystem
             repositorySystem, List<ArtifactRepository> remoteRepositories, ArtifactRepository localRepository)
@@ -114,7 +114,7 @@ public class DependencyResolver {
             artifact.setBundleVersion(bundleVersion);
             return true;
         } catch (IOException e) {
-            throw new IOException("Unable to retrieve OSGI bundle info: " + artifact.getGroupId() +
+            throw new IOException("Unable to retrieve maven artifact: " + artifact.getGroupId() +
                     ":" + artifact.getArtifactId() + ":" + artifact.getVersion(), e);
         }
     }

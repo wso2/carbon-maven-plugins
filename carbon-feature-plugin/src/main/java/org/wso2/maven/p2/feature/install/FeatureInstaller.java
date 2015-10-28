@@ -61,14 +61,19 @@ public class FeatureInstaller {
     /**
      * Performs the installation operation.
      *
-     * @throws MojoExecutionException
-     * @throws MojoFailureException
+     * @throws MojoExecutionException throws when the tool breaks for any configuration issues
+     * @throws MojoFailureException   throws when any runtime exception occurs. i.e: fail to read write file, fail to
+     *                                install any given feature.
      */
     public void install() throws MojoExecutionException, MojoFailureException {
-        writeEclipseIni();
-        installFeatures();
-        updateProfileConfigIni();
-        deleteOldProfiles();
+        try {
+            writeEclipseIni();
+            installFeatures();
+            updateProfileConfigIni();
+            deleteOldProfiles();
+        } catch (IOException e) {
+            throw new MojoFailureException(e.getMessage(), e);
+        }
     }
 
     /**
@@ -83,7 +88,7 @@ public class FeatureInstaller {
     /**
      * Calls the P2ApplicationLauncher and install the features.
      *
-     * @throws MojoFailureException
+     * @throws MojoFailureException throws when the director application fail to install any given feature.
      */
     private void installFeatures() throws MojoFailureException {
         String installIUs = extractIUsToInstall();
@@ -115,9 +120,9 @@ public class FeatureInstaller {
     /**
      * Delete old profile files located at ${destination}/p2/org.eclipse.equinox.p2.engine/profileRegistry
      *
-     * @throws MojoExecutionException
+     * @throws IOException throws when fail to delete old profile files
      */
-    private void deleteOldProfiles() throws MojoExecutionException {
+    private void deleteOldProfiles() throws IOException {
         //In not specified to delete, then return the method.
         if (!resourceBundle.isDeleteOldProfileFiles()) {
             return;
@@ -143,7 +148,7 @@ public class FeatureInstaller {
                 for (int i = 0; i < (profileFileList.length - 1); i++) {
                     File profileFile = new File(profileFolderName, profileFileList[i]);
                     if (profileFile.exists() && !profileFile.delete()) {
-                        throw new MojoExecutionException("Failed to delete old profile file: " +
+                        throw new IOException("Failed to delete old profile file: " +
                                 profileFile.getAbsolutePath());
                     }
                 }
@@ -156,9 +161,9 @@ public class FeatureInstaller {
      * Truncate and write the null.ini file with the new profile location. If null.ini is not found, then truncate
      * and write new profile location in eclipse.ini.
      *
-     * @throws MojoExecutionException
+     * @throws IOException throws when fail to eclipse.ini file/fail to delete old files.
      */
-    private void writeEclipseIni() throws MojoExecutionException {
+    private void writeEclipseIni() throws IOException {
         String profileLocation = resourceBundle.getDestination() + File.separator + resourceBundle.getProfile();
 
         File eclipseIni = new File(profileLocation + File.separator + "null.ini");
@@ -170,10 +175,10 @@ public class FeatureInstaller {
         }
     }
 
-    private void updateFile(File file, String profileLocation) throws MojoExecutionException {
+    private void updateFile(File file, String profileLocation) throws IOException {
         if (file.exists()) {
             if (!file.delete()) {
-                throw new MojoExecutionException("Failed to delete " + file.getAbsolutePath());
+                throw new IOException("Failed to delete " + file.getAbsolutePath());
             }
         }
         this.log.info("Updating " + file.getName());

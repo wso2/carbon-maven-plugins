@@ -84,6 +84,11 @@ public class P2Utils {
         return false;
     }
 
+    /**
+     *  Takes a match string and returns the correct matching string correspond to it
+     * @param matchStr matching string
+     * @return the correct matching rule corresponds to the given matching string
+     */
     public static String getMatchRule(String matchStr) {
         if (isPatch(matchStr)) {
             return "perfect";
@@ -175,7 +180,7 @@ public class P2Utils {
      * Returns a blank Document
      *
      * @return org.w3c.dom.Document object
-     * @throws ParserConfigurationException
+     * @throws ParserConfigurationException throws when fail to build a new xml document
      */
     public static Document getManifestDocument() throws ParserConfigurationException {
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();

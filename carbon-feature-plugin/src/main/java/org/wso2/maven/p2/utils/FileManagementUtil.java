@@ -167,7 +167,7 @@ public class FileManagementUtil {
      * Delete a given directory.
      *
      * @param dir directory to be deleted
-     * @throws IOException
+     * @throws IOException throws when fail to delete a given directory
      */
     public static void deleteDirectories(File dir) throws IOException {
         File[] children = dir.listFiles();
@@ -202,13 +202,13 @@ public class FileManagementUtil {
      *
      * @param srcDir source directory
      * @param dstDir destination directory
-     * @throws IOException
+     * @throws IOException throws when fail to create the directory structure when copying files
      */
     public static void copyDirectory(File srcDir, File dstDir) throws IOException {
         if (srcDir.isDirectory()) {
             if (!dstDir.exists()) {
                 if (!dstDir.mkdirs()) {
-                    throw new IOException("Failed to delete " + dstDir.getAbsolutePath());
+                    throw new IOException("Failed to create direcotory " + dstDir.getAbsolutePath());
                 }
             }
 
@@ -228,7 +228,7 @@ public class FileManagementUtil {
      *
      * @param src source file
      * @param dst destination file
-     * @throws IOException
+     * @throws IOException throws when fail to copy a given file
      */
     public static void copy(File src, File dst) throws IOException {
         if (dst.getParentFile() != null && !dst.getParentFile().exists()) {
@@ -253,7 +253,7 @@ public class FileManagementUtil {
      *
      * @param archiveFile archive file to be unzipped
      * @param destination location to put the unzipped file
-     * @throws IOException
+     * @throws IOException throws when fail to create the directory structure when unzipping a file.
      */
     public static void unzip(File archiveFile, File destination) throws IOException {
 
