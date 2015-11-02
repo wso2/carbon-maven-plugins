@@ -190,7 +190,7 @@ public class CarbonArtifact {
     }
 
     /*
-    * Though this is not usage for this method from the code, do not delete this as this is used by maven
+    * Though there is no usage for this method from the code, do not delete this as this is used by maven
     * context to inject match.
     *
     */
