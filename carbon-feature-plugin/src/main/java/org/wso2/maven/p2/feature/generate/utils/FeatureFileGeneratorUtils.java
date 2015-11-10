@@ -73,7 +73,8 @@ public class FeatureFileGeneratorUtils {
      *
      * @param resourceBundle      containing the project resources
      * @param featurePropertyFile File Object representing the feature property file
-     * @throws IOException
+     * @throws IOException throws when unable to create the feature property file.
+     * @throws MissingRequiredPropertyException throws if mandatory properties are not found in provided property files
      */
     public static void createPropertiesFile(FeatureResourceBundle resourceBundle, File featurePropertyFile)
             throws IOException, MissingRequiredPropertyException {
@@ -93,7 +94,8 @@ public class FeatureFileGeneratorUtils {
      *
      * @param resourceBundle containing the project resources
      * @return Properties object containing properties passed in to the tool as properties and via the properties file
-     * @throws IOException
+     * @throws IOException                      throws if unable to read a given property file
+     * @throws MissingRequiredPropertyException throws if mandatory properties are not found in provided property files
      */
     private static Properties getProperties(FeatureResourceBundle resourceBundle) throws IOException,
             MissingRequiredPropertyException {
@@ -107,6 +109,18 @@ public class FeatureFileGeneratorUtils {
         return propertiesFromFiles;
     }
 
+    /**
+     * Merge the properties from the properties files that are found in;
+     * <ul>
+     * <li>predefined location</li>
+     * <li>properties file given through plugin configuration<li/>
+     * </ul>
+     *
+     * @param resourceBundle resourceBundle containing mojo resources.
+     * @return Properties containing all the properties found in the aforementioned properties files.
+     * @throws IOException                      throws if unable to read a given property file
+     * @throws MissingRequiredPropertyException throws if mandatory properties are not found in provided property files
+     */
     private static Properties getMergedPropertiesFromFiles(FeatureResourceBundle resourceBundle) throws IOException,
             MissingRequiredPropertyException {
         Properties props = new Properties();
@@ -133,7 +147,7 @@ public class FeatureFileGeneratorUtils {
      *
      * @param resourceBundle      containing the project resources
      * @param featureManifestFile File Object representing the manifest file
-     * @throws IOException
+     * @throws IOException throws when unable to create the manifest file
      */
     public static void createManifestMFFile(FeatureResourceBundle resourceBundle, File featureManifestFile)
             throws IOException {
@@ -151,7 +165,7 @@ public class FeatureFileGeneratorUtils {
      *
      * @param resourceBundle containing the project resources
      * @param p2InfFile      File object representing the p2inf file
-     * @throws IOException
+     * @throws IOException throws when unable to read or create p2.inf file
      */
     public static void createP2Inf(FeatureResourceBundle resourceBundle, File p2InfFile) throws IOException {
         try (Writer writer = new OutputStreamWriter(new FileOutputStream(p2InfFile.getAbsolutePath()),
@@ -195,7 +209,7 @@ public class FeatureFileGeneratorUtils {
      *
      * @param absolutePath Path to the advice file
      * @return List&lt;String&gt; containing items in the given advice file
-     * @throws IOException
+     * @throws IOException throws when an error occurs when reading p2.inf file
      */
     private static List<String> readAdviceFile(String absolutePath) throws IOException {
         List<String> stringList = new ArrayList<>();
@@ -217,10 +231,10 @@ public class FeatureFileGeneratorUtils {
      *
      * @param resourceBundle containing the project resources
      * @param featureXmlFile File object representing the feature xml file
-     * @throws TransformerException
-     * @throws IOException
-     * @throws SAXException
-     * @throws ParserConfigurationException
+     * @throws TransformerException         throws when xml transformation fails
+     * @throws IOException                  throws when unable to read/write feature.xml file
+     * @throws SAXException                 throws when failing to parse the feature.xml file
+     * @throws ParserConfigurationException throws when failing to parse the feature.xml file
      */
     public static void createFeatureXml(FeatureResourceBundle resourceBundle, File featureXmlFile)
             throws TransformerException, IOException, SAXException, ParserConfigurationException {
@@ -345,8 +359,8 @@ public class FeatureFileGeneratorUtils {
      * @param manifest java.io.File pointing an existing manifest file.
      * @return Document object representing a given manifest file or a newly generated manifest file
      * @throws ParserConfigurationException
-     * @throws SAXException
-     * @throws IOException
+     * @throws SAXException                 throws when failing to parse the feature.xml file
+     * @throws IOException                  throws when unable to read/write feature.xml file
      */
     private static Document getManifestDocument(File manifest) throws ParserConfigurationException,
             SAXException, IOException {
@@ -402,13 +416,13 @@ public class FeatureFileGeneratorUtils {
     }
 
     /**
-     * Cross check import bundles/import features in the given manifest file against the plugins configured in the
+     * Cross check import features in the given manifest file against the plugins configured in the
      * pom.xml file. Returns a list of import bundles/import features found in the pom.xml but not in the manifest file.
      *
      * @param processedImportItemsList list of import plugins/import features configured in the pom.xml
      * @param document                 Document representing the give manifest
      * @param itemType                 String type, either "feature" or "plugin"
-     * @return ArrayList<Feature>
+     * @return ArrayList<Feature>      List of features in the plugin configuration but not in the given manifest file
      */
     private static List<Feature> getMissingImportFeatures(List<Feature> processedImportItemsList,
                                                           Document document, String itemType) {
