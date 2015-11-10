@@ -87,8 +87,9 @@ public class FeatureGenerator {
     /**
      * Generates the Feature. This overrides the parent generate method of Generator abstract class.
      *
-     * @throws MojoExecutionException
-     * @throws MojoFailureException
+     * @throws MojoExecutionException throws when the tool breaks for any configuration issues
+     * @throws MojoFailureException   throws when any runtime exception occurs. i.e: fail to read write file, fail to
+     *                                parse a configuration xml
      */
     public void generate() throws MojoExecutionException, MojoFailureException {
         try {
