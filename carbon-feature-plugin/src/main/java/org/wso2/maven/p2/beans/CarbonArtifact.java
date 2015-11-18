@@ -34,7 +34,7 @@ public class CarbonArtifact {
     private String type;
     private String bundleVersion;
     private Artifact artifact;
-    private String compatibility = "equivalent";
+    private String compatibility = "compatible";
 
     /**
      * Returns the maven group id for the carbon artifact.
