@@ -144,7 +144,7 @@ public class FeatureGenerator {
      */
     private void populateBundleDataFromCache() throws CarbonArtifactNotFoundException {
         for (Bundle bundle : resourceBundle.getBundles()) {
-            String key = bundle.getSymbolicName() + "_" + bundle.getVersion();
+            String key = bundle.getSymbolicName() + "_" + bundle.getOSGIVersion();
             CarbonArtifact artifact = dependentBundles.get(key);
             if (artifact == null) {
                 throw new CarbonArtifactNotFoundException("Bundle " + key + " is not found in project dependency list");
