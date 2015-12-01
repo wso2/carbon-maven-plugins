@@ -24,7 +24,7 @@ import org.wso2.maven.p2.utils.BundleUtils;
  */
 public class Bundle extends CarbonArtifact {
     /**
-     * Returns the OSGI content in a string format.
+     * Returns the OSGi content in a string format.
      * <p>
      * {symbolic name} : {bundle version}
      * </p>
@@ -35,6 +35,11 @@ public class Bundle extends CarbonArtifact {
         return getSymbolicName() + ":" + getBundleVersion();
     }
 
+    /**
+     * Returns the OSGi version of the bundle.
+     *
+     * @return String
+     */
     public String getOSGIVersion() {
         return BundleUtils.getOSGIVersion(super.getVersion());
     }
