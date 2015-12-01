@@ -17,6 +17,7 @@
 package org.wso2.maven.p2.feature.generate;
 
 import org.wso2.maven.p2.beans.CarbonArtifact;
+import org.wso2.maven.p2.utils.BundleUtils;
 
 /**
  * Bean class representing a Bundle object provided as an input param to FeatureGenMojo.
@@ -25,7 +26,7 @@ import org.wso2.maven.p2.beans.CarbonArtifact;
  */
 public class Bundle extends CarbonArtifact {
     /**
-     * Returns the OSGI content in a string format.
+     * Returns the OSGi content in a string format.
      * <p>
      * {symbolic name} : {bundle version}
      * </p>
@@ -34,5 +35,14 @@ public class Bundle extends CarbonArtifact {
      */
     public String toOSGIString() {
         return getSymbolicName() + ":" + getBundleVersion();
+    }
+
+    /**
+     * Returns the OSGi version of the bundle.
+     *
+     * @return String
+     */
+    public String getOSGIVersion() {
+        return BundleUtils.getOSGIVersion(super.getVersion());
     }
 }
