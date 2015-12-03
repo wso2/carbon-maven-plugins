@@ -148,6 +148,10 @@ public class FeatureGenerator {
             String key = bundle.getSymbolicName() + "_" + bundle.getOSGIVersion();
             CarbonArtifact artifact = dependentBundles.get(key);
             if (artifact == null) {
+                key = bundle.getSymbolicName() + "_" + bundle.getVersion();
+                artifact = dependentBundles.get(key);
+            }
+            if (artifact == null) {
                 throw new CarbonArtifactNotFoundException("Bundle " + key + " is not found in project dependency list");
             }
             artifact.copyTo(bundle);
