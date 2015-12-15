@@ -19,12 +19,3 @@ These goals are achieved through 6 maven goals defined in the plugin;
 
 All these goals are getting executed during the package phase of the default life cycle of maven build(except for generate maven goal, as it follow a different life cycle). The user has the flexibility to configure the behavior of the plugin by passing correct parameters to these maven goals.
 
-
-##How to Contribute
-* Please report issues at [WSO2 JIRA](https://wso2.org/jira/browse/Carbon).
-* Send your pull requests to [master branch](https://github.com/wso2/carbon-maven-plugins/tree/master)
-
-##Contact us
-WSO2 developers can be contacted via the mailing lists:
-* WSO2 Developers List : dev@wso2.org
-* WSO2 Architecture List : architecture@wso2.org
