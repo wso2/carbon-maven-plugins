@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
- ~ Copyright (c) 2015 WSO2 Inc. (http://wso2.com) All Rights Reserved.
+ ~ Copyright (c) 2009-2011, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
  ~
  ~ Licensed under the Apache License, Version 2.0 (the "License");
  ~ you may not use this file except in compliance with the License.
@@ -13,19 +14,20 @@
  ~ See the License for the specific language governing permissions and
  ~ limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <parent>
         <groupId>org.wso2</groupId>
         <artifactId>wso2</artifactId>
-        <version>2</version>
+        <version>1</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.wso2.carbon.maven</groupId>
     <artifactId>carbon-maven-plugins</artifactId>
     <packaging>pom</packaging>
-    <version>2.1.0-SNAPSHOT</version>
+    <version>1.5.6-SNAPSHOT</version>
     <name>Carbon Maven Plugins - Parent Pom</name>
     <url>http://wso2.org</url>
 
@@ -40,10 +42,8 @@
         <module>carbon-feature-plugin</module>
     </modules>
 
-
     <dependencyManagement>
         <dependencies>
-
             <dependency>
                 <groupId>org.apache.maven</groupId>
                 <artifactId>maven-plugin-api</artifactId>
@@ -80,31 +80,10 @@
                 <version>${junit.version}</version>
                 <scope>test</scope>
             </dependency>
-            <dependency>
-                <groupId>org.apache.maven.plugin-tools</groupId>
-                <artifactId>maven-plugin-annotations</artifactId>
-                <version>${maven.plugin.annotation.version}</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 
-    <properties>
-        <org.apache.maven.core.version>3.0</org.apache.maven.core.version>
-        <org.apache.maven.plugin.api.version>3.0</org.apache.maven.plugin.api.version>
-        <tycho.version>0.13.0</tycho.version>
-        <org.apache.maven.project.version>2.2.1</org.apache.maven.project.version>
-        <junit.version>3.8.1</junit.version>
-        <maven.plugin.plugin.version>3.4</maven.plugin.plugin.version>
-        <maven.plugin.annotation.version>3.3</maven.plugin.annotation.version>
-    </properties>
-
     <build>
-        <extensions>
-            <extension>
-                <groupId>org.apache.maven.wagon</groupId>
-                <artifactId>wagon-ssh</artifactId>
-            </extension>
-        </extensions>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -119,5 +98,14 @@
             </plugin>
         </plugins>
     </build>
+
+    <properties>
+        <org.apache.maven.plugin.api.version>3.0</org.apache.maven.plugin.api.version>
+        <org.apache.maven.core.version>3.0</org.apache.maven.core.version>
+        <junit.version>3.8.1</junit.version>
+        <tycho.version>0.13.0</tycho.version>
+        <org.apache.maven.project.version>2.2.1</org.apache.maven.project.version>
+        <maven.plugin.plugin.version>3.4</maven.plugin.plugin.version>
+    </properties>
 
 </project>
