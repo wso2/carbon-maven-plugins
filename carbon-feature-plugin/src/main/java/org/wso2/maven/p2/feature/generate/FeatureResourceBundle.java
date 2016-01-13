@@ -23,6 +23,8 @@ import org.apache.maven.project.MavenProjectHelper;
 import org.apache.maven.repository.RepositorySystem;
 
 import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -237,7 +239,7 @@ public class FeatureResourceBundle {
     }
 
     public File getPropertyFileInResourceDir() {
-        File propertyFile = new File(getProject().getBasedir() + "/src/main/resources/feature.properties");
-        return propertyFile;
+        Path baseDirPath = getProject().getBasedir().toPath();
+        return baseDirPath.resolve(Paths.get("src", "main", "resources", "feature.properties")).toFile();
     }
 }
