@@ -169,8 +169,8 @@ public class FeatureGenerator {
             String key = feature.getId() + ".feature" + "_" + feature.getVersion();
             CarbonArtifact artifact = dependentFeatures.get(key);
             if (artifact == null) {
-                throw new
-                        CarbonArtifactNotFoundException("Feature " + key + " is not found in project dependency list");
+                throw new CarbonArtifactNotFoundException("Feature " +
+                        key + " is not found in project dependency list");
             }
             artifact.copyTo(feature);
         }
