@@ -43,7 +43,6 @@ import org.wso2.maven.p2.generate.utils.P2Utils;
  */
 public class ProfileGenMojo extends AbstractMojo {
 
-
     /**
      * Destination to which the features should be installed
      *
@@ -59,8 +58,6 @@ public class ProfileGenMojo extends AbstractMojo {
      * @required
      */
     private String profile;
-
-
 
     /**
      * URL of the Metadata Repository
@@ -90,6 +87,13 @@ public class ProfileGenMojo extends AbstractMojo {
      * @parameter default-value="true"
      */
     private boolean deleteOldProfileFiles = true;
+
+    /**
+     * Flag to indicate whether to uninstall defined features
+     *
+     * @parameter default-value="false"
+     */
+    private boolean uninstall = false;
 
     /**
      * Location of the p2 repository
@@ -148,7 +152,6 @@ public class ProfileGenMojo extends AbstractMojo {
      */
     private int forkedProcessTimeoutInSeconds;
 
-
     private File FOLDER_TARGET;
     private File FOLDER_TEMP;
     private File FOLDER_TEMP_REPO_GEN;
@@ -165,9 +168,13 @@ public class ProfileGenMojo extends AbstractMojo {
             }
             createAndSetupPaths();
             rewriteEclipseIni();
-//          	verifySetupP2RepositoryURL();
             this.getLog().info("Running Equinox P2 Director Application");
-            installFeatures(getIUsToInstall());
+            if (uninstall) {
+                uninstallFeatures(getIUsToInstall());
+            } else {
+                installFeatures(getIUsToInstall());
+            }
+
             //updating profile's config.ini p2.data.area property using relative path
             File profileConfigIni = FileManagementUtil.getProfileConfigIniFile(destination, profile);
             FileManagementUtil.changeConfigIniProperty(profileConfigIni, "eclipse.p2.data.area", "@config.dir/../../p2/");
@@ -179,8 +186,7 @@ public class ProfileGenMojo extends AbstractMojo {
         } catch (Exception e) {
             throw new MojoExecutionException(e.getMessage(), e);
         }
-//        createArchive();
-//        deployArtifact();
+
         performMopUp();
     }
 
@@ -223,6 +229,17 @@ public class ProfileGenMojo extends AbstractMojo {
         }
     }
 
+    private void uninstallFeatures(String uninstallUIs) throws Exception {
+        P2ApplicationLauncher launcher = this.launcher;
+        launcher.setWorkingDirectory(project.getBasedir());
+        launcher.setApplicationName(getPublisherApplication());
+        removeArguments(launcher, uninstallUIs);
+        int result = launcher.execute(forkedProcessTimeoutInSeconds);
+        if (result != 0) {
+            throw new MojoFailureException("P2 publisher return code was " + result);
+        }
+    }
+
     private void addArguments(P2ApplicationLauncher launcher, String installUIs) throws IOException, MalformedURLException {
         launcher.addArguments(
                 "-metadataRepository", metadataRepository.toExternalForm(), //
@@ -236,6 +253,16 @@ public class ProfileGenMojo extends AbstractMojo {
                 "-destination", destination + File.separator + profile,
                 "-profile", profile.toString(),
                 "-roaming"
+        );
+    }
+
+    private void removeArguments(P2ApplicationLauncher launcher, String uninstallUIs) {
+        launcher.addArguments(
+                "-profileProperties", "org.eclipse.update.install.features=false",
+                "-uninstallIU", uninstallUIs,
+                "-shared", destination + File.separator + "p2",
+                "-destination", destination + File.separator + profile,
+                "-profile", profile
         );
     }
 
