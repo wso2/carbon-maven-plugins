@@ -35,7 +35,6 @@ import org.xml.sax.SAXException;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -170,8 +169,8 @@ public class FeatureGenerator {
             String key = feature.getId() + ".feature" + "_" + feature.getVersion();
             CarbonArtifact artifact = dependentFeatures.get(key);
             if (artifact == null) {
-                throw new
-                        CarbonArtifactNotFoundException("Feature " + key + " is not found in project dependency list");
+                throw new CarbonArtifactNotFoundException("Feature " +
+                        key + " is not found in project dependency list");
             }
             artifact.copyTo(feature);
         }
@@ -298,7 +297,7 @@ public class FeatureGenerator {
         List<Resource> resources = project.getResources();
         for (Resource resource : resources) {
             String sourcePath = resource.getDirectory();
-            if (Paths.get(sourcePath).toFile().exists()) {
+            if (new File(sourcePath).exists()) {
                 DirectoryScanner scanner = new DirectoryScanner();
                 scanner.setBasedir(resource.getDirectory());
                 if (resource.getIncludes() != null && !resource.getIncludes().isEmpty()) {
