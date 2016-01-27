@@ -109,7 +109,6 @@ public class FileManagementUtil {
                 while ((len = inputStream.read(buf)) > 0) {
                     zip.write(buf, 0, len);
                 }
-                inputStream.close();
             } catch (IOException e) {
                 log.warn("Error occurred while archiving " + srcFile, e);
             }
