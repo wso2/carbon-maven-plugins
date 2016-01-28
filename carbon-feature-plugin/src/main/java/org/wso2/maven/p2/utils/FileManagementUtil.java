@@ -154,7 +154,7 @@ public class FileManagementUtil {
                     }
                     if (new File(folder, fileList[i]).isDirectory()) {
                         zip.putNextEntry(new ZipEntry(newPath + "/" + fileList[i] + "/"));
-                        //zip.closeEntry();
+                        zip.closeEntry();
                     }
                     addToZip(newPath, srcFolder + "/" + fileList[i], zip, log);
                     i++;
