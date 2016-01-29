@@ -50,6 +50,18 @@ public class MavenUtils {
 
     }
 
+    /**
+     * Returns an artifact which represented by a the given CarbonArtifact.
+     *
+     * @param groupId {@code String} group id of the maven artifact
+     * @param artifactId {@code String} artifact id of the maven artifact
+     * @param version {@code String} version of the maven artifact
+     * @param repositorySystem {@link RepositorySystem}
+     * @param remoteRepositories {@code List<ArtifactRepository>}
+     * @param localRepository {@link ArtifactRepository}
+     * @param type {@code String}
+     * @return
+     */
     private static Artifact getResolvedArtifact(String groupId, String artifactId, String version,
                                                 RepositorySystem repositorySystem,
                                                 List<ArtifactRepository> remoteRepositories,

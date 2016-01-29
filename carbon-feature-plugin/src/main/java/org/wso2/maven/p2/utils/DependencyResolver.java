@@ -90,6 +90,13 @@ public class DependencyResolver {
         return results;
     }
 
+    /**
+     * Resolves OSGi information for a given {@link CarbonArtifact} and populate OSGi information.
+     *
+     * @param artifact {@link CarbonArtifact}
+     * @return {@code boolean} indicating whether the OSGi information is successfully resolved or not
+     * @throws IOException if unable to retrieve the maven artifact represented by the given {@link CarbonArtifact}
+     */
     private static boolean resolveOSGIInfo(CarbonArtifact artifact) throws IOException {
         String bundleVersionStr = "Bundle-Version";
         String bundleSymbolicNameStr = "Bundle-SymbolicName";

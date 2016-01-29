@@ -58,7 +58,7 @@ public class FileManagementUtil {
      * @param configIniFile File object representing the config.ini
      * @param propKey       property key
      * @param value         property value
-     * @param log Logger to log any warnings
+     * @param log           Logger to log any warnings
      */
     public static void changeConfigIniProperty(File configIniFile, String propKey, String value, Log log) {
         Properties prop = new Properties();
@@ -79,7 +79,7 @@ public class FileManagementUtil {
      *
      * @param srcFolder   source folder
      * @param destZipFile path to the output zip file
-     * @param log Logger to log any warnings
+     * @param log         Logger to log any warnings
      */
     public static void zipFolder(String srcFolder, String destZipFile, Log log) {
         try (FileOutputStream fileWriter = new FileOutputStream(destZipFile);
@@ -92,6 +92,14 @@ public class FileManagementUtil {
 
     }
 
+    /**
+     * Add a given folder/file into the given {@link ZipOutputStream}.
+     *
+     * @param path    {@code String} Location inside the ZipOutputStream
+     * @param srcFile {@code String} folder/file to be added into ZipOutputStream
+     * @param zip     {@link ZipOutputStream} zip output stream
+     * @param log     {@link Log}
+     */
     private static void addToZip(String path, String srcFile, ZipOutputStream zip, Log log) {
         File folder = new File(srcFile);
         if (folder.isDirectory()) {
@@ -115,6 +123,13 @@ public class FileManagementUtil {
         }
     }
 
+    /**
+     * Add root level content of a folder to the given {@link ZipOutputStream}.
+     *
+     * @param srcFolder {@code String} location of the folder to be included into the ZipOutputStream
+     * @param zip       {@link ZipOutputStream}
+     * @param log       {@link Log}
+     */
     private static void addFolderContentsToZip(String srcFolder, ZipOutputStream zip, Log log) {
         File folder = new File(srcFolder);
         String fileList[] = folder.list();
@@ -138,6 +153,13 @@ public class FileManagementUtil {
         }
     }
 
+    /**
+     * Add non root level folders into a given {@link ZipOutputStream}.
+     * @param path {@code String}
+     * @param srcFolder {@code String}
+     * @param zip {@link ZipOutputStream}
+     * @param log {@link Log}
+     */
     private static void addFolderToZip(String path, String srcFolder, ZipOutputStream zip, Log log) {
         File folder = new File(srcFolder);
         String fileList[] = folder.list();
