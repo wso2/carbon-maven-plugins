@@ -120,6 +120,13 @@ public class FeatureGeneratorMojo extends AbstractMojo {
     @Component
     private MavenProjectHelper projectHelper;
 
+    /**
+     * Overridden method of AbstractMojo class. This is picked up by the maven runtime for execution.
+     *
+     * @throws MojoExecutionException throws when any runtime exception occurs. i.e: fail to read write file, fail to
+     *                                parse a configuration xml
+     * @throws MojoFailureException   throws when the tool breaks for any configuration issues
+     */
     public void execute() throws MojoExecutionException, MojoFailureException {
         FeatureGenerator featureGenerator = constructFeatureGenerator();
         featureGenerator.generate();
@@ -155,6 +162,4 @@ public class FeatureGeneratorMojo extends AbstractMojo {
         resourceBundle.setLog(getLog());
         return new FeatureGenerator(resourceBundle);
     }
-
-
 }

@@ -25,7 +25,7 @@ import java.util.List;
 
 /**
  * Bean class containing all the parameters entered to the mojo through plugin configuration.
- *
+ * <p>
  * The purpose of this class is to make any configuration property accessible from any class by simply passing this
  * bean as a parameter.
  *
@@ -43,74 +43,162 @@ public class FeatureInstallResourceBundle {
     private int forkedProcessTimeoutInSeconds;
     private Log log;
 
+    /**
+     * Returns the destination of the profile to install features.
+     *
+     * @return {@code String}
+     */
     public String getDestination() {
         return destination;
     }
 
+    /**
+     * Sets the destination of the profile to install features.
+     *
+     * @param destination {@code String}
+     */
     public void setDestination(String destination) {
         this.destination = destination;
     }
 
+    /**
+     * Returns the name of the profile that the features will be installed.
+     *
+     * @return {@code String}
+     */
     public String getProfile() {
         return profile;
     }
 
+    /**
+     * Sets the name of the profile that the features will be installed.
+     *
+     * @param profile {@code String}
+     */
     public void setProfile(String profile) {
         this.profile = profile;
     }
 
+    /**
+     * Returns the repository url where the features taken from.
+     *
+     * @return {@link URL}
+     */
     public URL getRepository() {
         return repository;
     }
 
+    /**
+     * Sets the repository url where the features taken from.
+     *
+     * @param repository {@link URL}
+     */
     public void setRepository(URL repository) {
         this.repository = repository;
     }
 
+    /**
+     * Returns the features list to be installed.
+     *
+     * @return {@code List<Feature>}
+     */
     public List<Feature> getFeatures() {
         return features;
     }
 
+    /**
+     * Sets the features list to be installed.
+     *
+     * @param features {@code List<Feature>}
+     */
     public void setFeatures(List<Feature> features) {
         this.features = features;
     }
 
+    /**
+     * Returns a boolean which specifies whether the old profile files should be deleted or not.
+     *
+     * @return {@code boolean}
+     */
     public boolean isDeleteOldProfileFiles() {
         return deleteOldProfileFiles;
     }
 
+    /**
+     * Specify whether old profile files should be deleted or not.
+     *
+     * @param deleteOldProfileFiles {@code boolean}
+     */
     public void setDeleteOldProfileFiles(boolean deleteOldProfileFiles) {
         this.deleteOldProfileFiles = deleteOldProfileFiles;
     }
 
+    /**
+     * Returns the maven project injected by the maven runtime.
+     *
+     * @return {@link MavenProject}
+     */
     public MavenProject getProject() {
         return project;
     }
 
+    /**
+     * Sets the maven project injected by the maven runtime.
+     *
+     * @param project {@link MavenProject}
+     */
     public void setProject(MavenProject project) {
         this.project = project;
     }
 
+    /**
+     * Returns the P2ApplicationLauncher injected by the maven runtime.
+     *
+     * @return {@link P2ApplicationLauncher}
+     */
     public P2ApplicationLauncher getLauncher() {
         return launcher;
     }
 
+    /**
+     * Sets the P2ApplicationLauncher injected by the maven runtime.
+     *
+     * @param launcher {@link P2ApplicationLauncher}
+     */
     public void setLauncher(P2ApplicationLauncher launcher) {
         this.launcher = launcher;
     }
 
+    /**
+     * Returns the forkedProcessTimeout in seconds.
+     * @return {@code int}
+     */
     public int getForkedProcessTimeoutInSeconds() {
         return forkedProcessTimeoutInSeconds;
     }
 
+    /**
+     * Sets the forkedProcessTimeout in seconds.
+     * @param forkedProcessTimeoutInSeconds {@code int}
+     */
     public void setForkedProcessTimeoutInSeconds(int forkedProcessTimeoutInSeconds) {
         this.forkedProcessTimeoutInSeconds = forkedProcessTimeoutInSeconds;
     }
 
+    /**
+     * Returns the Log.
+     *
+     * @return {@link Log}
+     */
     public Log getLog() {
         return log;
     }
 
+    /**
+     * Sets the Log.
+     *
+     * @param log {@link Log}
+     */
     public void setLog(Log log) {
         this.log = log;
     }

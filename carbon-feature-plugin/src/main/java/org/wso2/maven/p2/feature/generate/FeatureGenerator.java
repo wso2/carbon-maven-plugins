@@ -87,9 +87,9 @@ public class FeatureGenerator {
     /**
      * Generates the Feature. This overrides the parent generate method of Generator abstract class.
      *
-     * @throws MojoExecutionException throws when the tool breaks for any configuration issues
-     * @throws MojoFailureException   throws when any runtime exception occurs. i.e: fail to read write file, fail to
+     * @throws MojoExecutionException throws when any runtime exception occurs. i.e: fail to read write file, fail to
      *                                parse a configuration xml
+     * @throws MojoFailureException   throws when the tool breaks for any configuration issues
      */
     public void generate() throws MojoExecutionException, MojoFailureException {
         try {
@@ -103,10 +103,10 @@ public class FeatureGenerator {
             deployArtifact();
             performMopUp();
         } catch (IOException | TransformerException | ParserConfigurationException | SAXException e) {
-            throw new MojoFailureException(e.getMessage(), e);
+            throw new MojoExecutionException(e.getMessage(), e);
         } catch (CarbonArtifactNotFoundException |
                 MissingRequiredPropertyException e) {
-            throw new MojoExecutionException(e.getMessage(), e);
+            throw new MojoFailureException(e.getMessage(), e);
         }
     }
 
