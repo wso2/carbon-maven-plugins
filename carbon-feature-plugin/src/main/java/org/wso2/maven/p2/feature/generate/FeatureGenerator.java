@@ -63,7 +63,18 @@ public class FeatureGenerator {
     private File featureManifestFile;
     private File featureZipFile;
 
+    /**
+     * Represents the bundles in which the feature being created depends on.
+     * key - maven ${artifactId}_${version}
+     * value - CarbonArtifact object representing the dependent bundle
+     */
     private HashMap<String, CarbonArtifact> dependentBundles;
+
+    /**
+     * Represents the features in which the feature being created depends on.
+     * key - maven ${artifactId}_${version}
+     * value - CarbonArtifact object representing the dependent feature
+     */
     private HashMap<String, CarbonArtifact> dependentFeatures;
 
     private Log log;
@@ -104,8 +115,7 @@ public class FeatureGenerator {
             performMopUp();
         } catch (IOException | TransformerException | ParserConfigurationException | SAXException e) {
             throw new MojoExecutionException(e.getMessage(), e);
-        } catch (CarbonArtifactNotFoundException |
-                MissingRequiredPropertyException e) {
+        } catch (CarbonArtifactNotFoundException | MissingRequiredPropertyException e) {
             throw new MojoFailureException(e.getMessage(), e);
         }
     }
@@ -170,8 +180,8 @@ public class FeatureGenerator {
             String key = feature.getId() + ".feature" + "_" + feature.getVersion();
             CarbonArtifact artifact = dependentFeatures.get(key);
             if (artifact == null) {
-                throw new CarbonArtifactNotFoundException("Feature " +
-                        key + " is not found in project dependency list");
+                throw new CarbonArtifactNotFoundException("Feature " + key
+                        + " is not found in project dependency list");
             }
             artifact.copyTo(feature);
         }
