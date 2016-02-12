@@ -168,19 +168,19 @@ public class FeatureFileGeneratorUtils {
      * @throws IOException throws when unable to read or create p2.inf file
      */
     public static void createP2Inf(FeatureResourceBundle resourceBundle, File p2InfFile) throws IOException {
+
+        List<Advice> list = resourceBundle.getAdviceFileContent();
+        List<String> p2infStringList = null;
+        if (p2InfFile.exists()) {
+            p2infStringList = readAdviceFile(p2InfFile.getAbsolutePath());
+            resourceBundle.getLog().info("Updating Advice file (p2.inf)");
+        } else {
+            resourceBundle.getLog().info("Generating Advice file (p2.inf)");
+        }
+
         try (Writer writer = new OutputStreamWriter(new FileOutputStream(p2InfFile.getAbsolutePath()),
                 DEFAULT_ENCODING);
              PrintWriter pw = new PrintWriter(writer)) {
-            List<Advice> list = resourceBundle.getAdviceFileContent();
-            List<String> p2infStringList = null;
-
-            if (p2InfFile.exists()) {
-                p2infStringList = readAdviceFile(p2InfFile.getAbsolutePath());
-                resourceBundle.getLog().info("Updating Advice file (p2.inf)");
-            } else {
-                resourceBundle.getLog().info("Generating Advice file (p2.inf)");
-            }
-
             Properties properties = new Properties();
             properties.setProperty("feature.version", BundleUtils.getOSGIVersion(resourceBundle.getVersion()));
             if (p2infStringList != null && p2infStringList.size() > 0) {
