@@ -232,7 +232,7 @@ public class FileManagementUtil {
         if (srcDir.isDirectory()) {
             if (!dstDir.exists()) {
                 if (!dstDir.mkdirs()) {
-                    throw new IOException("Failed to create direcotory " + dstDir.getAbsolutePath());
+                    throw new IOException("Failed to create directory " + dstDir.getAbsolutePath());
                 }
             }
 

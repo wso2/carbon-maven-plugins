@@ -228,7 +228,7 @@ public class FeatureResourceBundle {
     }
 
     /**
-     * Retnrs the property file of the feature.
+     * Returns the property file of the feature.
      *
      * @return {@link File}
      */

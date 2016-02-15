@@ -39,6 +39,7 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 
@@ -68,14 +69,14 @@ public class FeatureGenerator {
      * key - maven ${artifactId}_${version}
      * value - CarbonArtifact object representing the dependent bundle
      */
-    private HashMap<String, CarbonArtifact> dependentBundles;
+    private Map<String, CarbonArtifact> dependentBundles;
 
     /**
      * Represents the features in which the feature being created depends on.
      * key - maven ${artifactId}_${version}
      * value - CarbonArtifact object representing the dependent feature
      */
-    private HashMap<String, CarbonArtifact> dependentFeatures;
+    private Map<String, CarbonArtifact> dependentFeatures;
 
     private Log log;
 
