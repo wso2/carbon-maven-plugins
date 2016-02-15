@@ -60,7 +60,7 @@ public class MavenUtils {
      * @param remoteRepositories {@code List<ArtifactRepository>}
      * @param localRepository {@link ArtifactRepository}
      * @param type {@code String}
-     * @return
+     * @return {@link Artifact}
      */
     private static Artifact getResolvedArtifact(String groupId, String artifactId, String version,
                                                 RepositorySystem repositorySystem,
