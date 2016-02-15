@@ -73,7 +73,7 @@ public class FeatureFileGeneratorUtils {
      *
      * @param resourceBundle      containing the project resources
      * @param featurePropertyFile File Object representing the feature property file
-     * @throws IOException throws when unable to create the feature property file.
+     * @throws IOException                      throws when unable to create the feature property file.
      * @throws MissingRequiredPropertyException throws if mandatory properties are not found in provided property files
      */
     public static void createPropertiesFile(FeatureResourceBundle resourceBundle, File featurePropertyFile)
@@ -136,10 +136,37 @@ public class FeatureFileGeneratorUtils {
                 props.load(propertyFileStream);
             }
         }
-        if (!props.containsKey("copyright") && !props.containsKey("license")) {
-            throw new MissingRequiredPropertyException("Mandatory properties are not specified in the property files");
+        List<String> missingProperties = getMissingMandatoryProperties(props);
+        if (missingProperties.size() > 0) {
+            String exceptionMessage = "Mandatory properties " + missingProperties.toString()
+                    + " are missing in provided property file(s)";
+            if (missingProperties.size() == 1) {
+                exceptionMessage = "Mandatory property \"" + missingProperties.get(0)
+                        + "\" is missing in provided property file(s)";
+            }
+            throw new MissingRequiredPropertyException(exceptionMessage);
         }
         return props;
+    }
+
+    /**
+     * Return a list of mandatory properties missing in the plugin configuration.
+     *
+     * @param props All the properties fed into the plugin
+     * @return {@code List<string>} of missing mandatory properties
+     */
+    private static List<String> getMissingMandatoryProperties(Properties props) {
+        List<String> mandatoryFields = new ArrayList<>();
+        //In the future we can add more mandatory fields into this list.
+        mandatoryFields.add("license");
+
+        List<String> missingMandatoryFields = new ArrayList<>();
+        mandatoryFields.forEach(key -> {
+            if (!props.containsKey(key)) {
+                missingMandatoryFields.add(key);
+            }
+        });
+        return missingMandatoryFields;
     }
 
     /**
