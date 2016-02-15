@@ -39,6 +39,7 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 
@@ -63,11 +64,21 @@ public class FeatureGenerator {
     private File featureManifestFile;
     private File featureZipFile;
 
-    private HashMap<String, CarbonArtifact> dependentBundles;
-    private HashMap<String, CarbonArtifact> dependentFeatures;
+    /**
+     * Represents the bundles in which the feature being created depends on.
+     * key - maven ${artifactId}_${version}
+     * value - CarbonArtifact object representing the dependent bundle
+     */
+    private Map<String, CarbonArtifact> dependentBundles;
+
+    /**
+     * Represents the features in which the feature being created depends on.
+     * key - maven ${artifactId}_${version}
+     * value - CarbonArtifact object representing the dependent feature
+     */
+    private Map<String, CarbonArtifact> dependentFeatures;
 
     private Log log;
-
 
     /**
      * Constructor for the FeatureGenerator.
@@ -87,9 +98,9 @@ public class FeatureGenerator {
     /**
      * Generates the Feature. This overrides the parent generate method of Generator abstract class.
      *
-     * @throws MojoExecutionException throws when the tool breaks for any configuration issues
-     * @throws MojoFailureException   throws when any runtime exception occurs. i.e: fail to read write file, fail to
+     * @throws MojoExecutionException throws when any runtime exception occurs. i.e: fail to read write file, fail to
      *                                parse a configuration xml
+     * @throws MojoFailureException   throws when the tool breaks for any configuration issues
      */
     public void generate() throws MojoExecutionException, MojoFailureException {
         try {
@@ -103,10 +114,9 @@ public class FeatureGenerator {
             deployArtifact();
             performMopUp();
         } catch (IOException | TransformerException | ParserConfigurationException | SAXException e) {
-            throw new MojoFailureException(e.getMessage(), e);
-        } catch (CarbonArtifactNotFoundException |
-                MissingRequiredPropertyException e) {
             throw new MojoExecutionException(e.getMessage(), e);
+        } catch (CarbonArtifactNotFoundException | MissingRequiredPropertyException e) {
+            throw new MojoFailureException(e.getMessage(), e);
         }
     }
 
@@ -170,8 +180,8 @@ public class FeatureGenerator {
             String key = feature.getId() + ".feature" + "_" + feature.getVersion();
             CarbonArtifact artifact = dependentFeatures.get(key);
             if (artifact == null) {
-                throw new
-                        CarbonArtifactNotFoundException("Feature " + key + " is not found in project dependency list");
+                throw new CarbonArtifactNotFoundException("Feature " + key
+                        + " is not found in project dependency list");
             }
             artifact.copyTo(feature);
         }

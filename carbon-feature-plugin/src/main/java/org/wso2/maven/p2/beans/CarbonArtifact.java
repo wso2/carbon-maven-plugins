@@ -76,7 +76,8 @@ public class CarbonArtifact {
      * Returns the maven version for this artifact.
      * <p>
      * <b>Important:</b> This is not the OSGI version
-     *</p>
+     * </p>
+     *
      * @return String
      */
     public String getVersion() {
@@ -87,7 +88,8 @@ public class CarbonArtifact {
      * Sets the maven version for this artifact.
      * <p>
      * <b>Important:</b> This is not the OSGI version
-     *</p>
+     * </p>
+     *
      * @param version String
      */
     public void setVersion(String version) {

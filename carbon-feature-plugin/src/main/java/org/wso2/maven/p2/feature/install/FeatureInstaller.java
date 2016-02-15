@@ -61,9 +61,9 @@ public class FeatureInstaller {
     /**
      * Performs the installation operation.
      *
-     * @throws MojoExecutionException throws when the tool breaks for any configuration issues
-     * @throws MojoFailureException   throws when any runtime exception occurs. i.e: fail to read write file, fail to
+     * @throws MojoExecutionException throws when any runtime exception occurs. i.e: fail to read write file, fail to
      *                                install any given feature.
+     * @throws MojoFailureException   throws when the tool breaks for any configuration issues
      */
     public void install() throws MojoExecutionException, MojoFailureException {
         try {
@@ -72,7 +72,7 @@ public class FeatureInstaller {
             updateProfileConfigIni();
             deleteOldProfiles();
         } catch (IOException e) {
-            throw new MojoFailureException(e.getMessage(), e);
+            throw new MojoExecutionException(e.getMessage(), e);
         }
     }
 
@@ -170,6 +170,13 @@ public class FeatureInstaller {
         }
     }
 
+    /**
+     * Update either null.ini or eclipse.ini
+     *
+     * @param file            File object
+     * @param profileLocation location of the profile directory
+     * @throws IOException throws if fail to update the file
+     */
     private void updateFile(File file, String profileLocation) throws IOException {
         if (file.exists()) {
             if (!file.delete()) {

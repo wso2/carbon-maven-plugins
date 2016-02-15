@@ -67,7 +67,8 @@ public class Feature extends CarbonArtifact {
      * <p>
      * Note: There is no usage of this method in the plugin code. However, this is used by plexus container to inject
      * the value.
-     *</p>
+     * </p>
+     *
      * @param optional boolean
      */
     public void setOptional(boolean optional) {
@@ -79,6 +80,7 @@ public class Feature extends CarbonArtifact {
      * <p>
      * i.e: If the maven version for this artifact is 4.2.0-SNAPSHOT, this will return 4.2.0.SNAPSHOT
      * </p>
+     *
      * @return String
      */
     public String getFeatureVersion() {

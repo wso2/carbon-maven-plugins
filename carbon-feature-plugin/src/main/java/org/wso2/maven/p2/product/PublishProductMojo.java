@@ -65,6 +65,13 @@ public class PublishProductMojo extends AbstractMojo {
     @Parameter(defaultValue = "${p2.timeout}")
     private int forkedProcessTimeoutInSeconds;
 
+    /**
+     * Overridden method of AbstractMojo class. This is picked up by the maven runtime for execution.
+     *
+     * @throws MojoExecutionException throws when any runtime exception occurs. i.e: fail to read write file, fail to
+     *                                parse a configuration xml
+     * @throws MojoFailureException   throws when the tool breaks for any configuration issues
+     */
     public void execute() throws MojoExecutionException, MojoFailureException {
         try {
             publishProduct();
@@ -73,6 +80,12 @@ public class PublishProductMojo extends AbstractMojo {
         }
     }
 
+    /**
+     * Perform the product publish action.
+     *
+     * @throws MojoFailureException throws when the tool breaks for any configuration issues
+     * @throws IOException          throws if fail to read file canonical path.
+     */
     private void publishProduct() throws MojoFailureException, IOException {
         P2ApplicationLaunchManager p2LaunchManager = new P2ApplicationLaunchManager(this.launcher);
         p2LaunchManager.setWorkingDirectory(project.getBasedir());

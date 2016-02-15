@@ -83,19 +83,6 @@
                         <include>src/**/*</include>
                         <include>pom.xml</include>
                     </includes>
-                    <!--  <excludes>
-                        <exclude>**/*/MANIFEST.MF</exclude>
-                        <exclude>.git</exclude>
-                        <exclude>.gitignore</exclude>
-                        <exclude>.idea</exclude>
-                        <exclude>*.iws</exclude>
-                        <exclude>*.iml</exclude>
-                        <exclude>*.ipr</exclude>
-                        <exclude>**/META-INF/services/javax.json.spi.JsonProvider</exclude>
-                        <exclude>**/*.json</exclude>
-                        <exclude>**/*.yml</exclude>
-                        <exclude>**/bench/*.txt</exclude>
-                      </excludes>  -->
                 </configuration>
                 <executions>
                     <execution>

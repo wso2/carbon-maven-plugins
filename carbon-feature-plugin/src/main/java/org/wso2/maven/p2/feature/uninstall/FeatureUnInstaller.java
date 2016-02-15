@@ -82,26 +82,56 @@ public class FeatureUnInstaller {
         }
     }
 
+    /**
+     * Sets the location of the profile.
+     *
+     * @param destination {@code String}
+     */
     public void setDestination(String destination) {
         this.destination = destination;
     }
 
+    /**
+     * Sets the string profile name of which the features needs to be uninstalled.
+     *
+     * @param profile {@code String}
+     */
     public void setProfile(String profile) {
         this.profile = profile;
     }
 
+    /**
+     * Sets the features to be uninstalled.
+     *
+     * @param features {@code List<Feature>}
+     */
     public void setFeatures(List<Feature> features) {
         this.features = features;
     }
 
+    /**
+     * Sets the MavenProject injected by the maven runtime.
+     *
+     * @param project {@code MavenProject}
+     */
     public void setProject(MavenProject project) {
         this.project = project;
     }
 
+    /**
+     * Sets the P2ApplicationLauncher injected by maven runtime.
+     *
+     * @param launcher {@code P2ApplicationLauncher}
+     */
     public void setLauncher(P2ApplicationLauncher launcher) {
         this.launcher = launcher;
     }
 
+    /**
+     * Sets forkedProcessTimeout in seconds. This is needed for P2ApplicationLauncher.
+     *
+     * @param forkedProcessTimeoutInSeconds {@code int}
+     */
     public void setForkedProcessTimeoutInSeconds(int forkedProcessTimeoutInSeconds) {
         this.forkedProcessTimeoutInSeconds = forkedProcessTimeoutInSeconds;
     }
