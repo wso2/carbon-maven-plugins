@@ -80,7 +80,6 @@ public class FeatureGenerator {
 
     private Log log;
 
-
     /**
      * Constructor for the FeatureGenerator.
      * <p>
