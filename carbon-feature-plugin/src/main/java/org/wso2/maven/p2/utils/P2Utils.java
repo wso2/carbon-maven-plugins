@@ -168,8 +168,7 @@ public class P2Utils {
             }
         }
 
-        for (Object key : featureCategories.keySet()) {
-            Object object = featureCategories.get(key);
+        for (Object object : featureCategories.entrySet()) {
             if (object instanceof List) {
                 List list = (List) object;
                 CatFeature feature = (CatFeature) list.get(0);
