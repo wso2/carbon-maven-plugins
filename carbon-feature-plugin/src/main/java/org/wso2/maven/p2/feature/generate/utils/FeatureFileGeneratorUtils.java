@@ -46,6 +46,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
+import java.util.stream.Stream;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -156,9 +157,8 @@ public class FeatureFileGeneratorUtils {
      * @return {@code List<string>} of missing mandatory properties
      */
     private static List<String> getMissingMandatoryProperties(Properties props) {
-        List<String> mandatoryFields = new ArrayList<>();
         //In the future we can add more mandatory fields into this list.
-        mandatoryFields.add("license");
+        Stream<String> mandatoryFields = Stream.of("license");
 
         List<String> missingMandatoryFields = new ArrayList<>();
         mandatoryFields.forEach(key -> {
