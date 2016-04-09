@@ -63,6 +63,10 @@ public class Category {
         return features;
     }
 
+    public void setFeatures(ArrayList<CatFeature> features) {
+        this.features = features;
+    }
+
     public ArrayList<CatFeature> getProcessedFeatures(MavenProject project) throws MojoExecutionException {
         if (processedFeatures != null) {
             return processedFeatures;
@@ -70,7 +74,7 @@ public class Category {
         if (features == null || features.size() == 0) {
             return null;
         }
-        processedFeatures = new ArrayList<CatFeature>();
+        processedFeatures = new ArrayList<>();
         for (CatFeature f : features) {
             processedFeatures.add(f);
             f.replaceProjectKeysInVersion(project);
@@ -82,12 +86,20 @@ public class Category {
         return id;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public String getLabel() {
         if (label == null) {
             return getId();
         } else {
             return label;
         }
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
     }
 
     public void setDescription(String description) {

@@ -76,14 +76,18 @@ public class CatFeature {
         this.version = version;
     }
 
+    public void setProject(MavenProject project) {
+        this.project = project;
+    }
+
     public void replaceProjectKeysInVersion(MavenProject project) throws MojoExecutionException {
         if (version == null) {
             throw new MojoExecutionException("Could not find the version for featureId: " + getId());
         }
         Properties properties = project.getProperties();
-        for (Object key : properties.keySet()) {
-            version = version.replaceAll(Pattern.quote("${" + key + "}"), properties.get(key).toString());
-        }
+        properties.forEach((key, value) -> {
+            version = version.replaceAll(Pattern.quote("${" + key + "}"), value.toString());
+        });
         versionReplaced = true;
     }
 
