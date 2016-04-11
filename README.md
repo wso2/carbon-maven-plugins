@@ -8,7 +8,7 @@ carbon-feature-plugin
 Carbon-Feature-Plugin (formerly known as carbon-p2-plugin) is a maven plugin developed within the WSO2 and maintained by WSO2 carbon team.
 
 ##How to Contribute
-* Please report issues at [WSO2 JIRA](https://wso2.org/jira/browse/Carbon).
+* Please report issues at [WSO2 JIRA](https://wso2.org/jira/browse/CMVNPLG).
 * Send your pull requests to [master branch](https://github.com/wso2/carbon-maven-plugins/tree/master)
 
 ##Contact us
