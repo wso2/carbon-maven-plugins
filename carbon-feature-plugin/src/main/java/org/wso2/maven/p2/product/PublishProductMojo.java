@@ -23,7 +23,7 @@ import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
-import org.eclipse.tycho.p2.facade.internal.P2ApplicationLauncher;
+import org.eclipse.sisu.equinox.launching.internal.P2ApplicationLauncher;
 import org.wso2.maven.p2.utils.P2ApplicationLaunchManager;
 
 import java.io.File;

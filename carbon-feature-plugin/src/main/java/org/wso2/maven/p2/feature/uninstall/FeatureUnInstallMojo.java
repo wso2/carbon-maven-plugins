@@ -24,7 +24,7 @@ import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
-import org.eclipse.tycho.p2.facade.internal.P2ApplicationLauncher;
+import org.eclipse.sisu.equinox.launching.internal.P2ApplicationLauncher;
 
 import java.util.List;
 

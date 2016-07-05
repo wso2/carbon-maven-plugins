@@ -18,7 +18,7 @@ package org.wso2.maven.p2.feature.uninstall;
 
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.project.MavenProject;
-import org.eclipse.tycho.p2.facade.internal.P2ApplicationLauncher;
+import org.eclipse.sisu.equinox.launching.internal.P2ApplicationLauncher;
 import org.wso2.maven.p2.utils.P2ApplicationLaunchManager;
 
 import java.util.List;
