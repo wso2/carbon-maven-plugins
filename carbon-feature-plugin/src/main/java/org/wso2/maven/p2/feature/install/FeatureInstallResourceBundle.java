@@ -18,7 +18,7 @@ package org.wso2.maven.p2.feature.install;
 
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.project.MavenProject;
-import org.eclipse.tycho.p2.facade.internal.P2ApplicationLauncher;
+import org.eclipse.sisu.equinox.launching.internal.P2ApplicationLauncher;
 
 import java.net.URL;
 import java.util.List;

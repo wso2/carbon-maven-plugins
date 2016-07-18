@@ -17,7 +17,7 @@
 package org.wso2.maven.p2.utils;
 
 import org.apache.maven.plugin.MojoFailureException;
-import org.eclipse.tycho.p2.facade.internal.P2ApplicationLauncher;
+import org.eclipse.sisu.equinox.launching.internal.P2ApplicationLauncher;
 
 import java.io.File;
 import java.io.IOException;
