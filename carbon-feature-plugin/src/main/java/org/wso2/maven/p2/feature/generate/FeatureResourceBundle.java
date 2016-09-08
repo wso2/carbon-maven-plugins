@@ -69,7 +69,7 @@ public class FeatureResourceBundle {
      */
     public String getId() {
         if (id != null && id.endsWith(".feature")) {
-            return id.substring(0, id.indexOf(".feature"));
+            return id.substring(0, id.lastIndexOf(".feature"));
         }
         return id;
     }
