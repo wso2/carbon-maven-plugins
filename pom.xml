@@ -27,6 +27,13 @@
     <version>1.5.8-SNAPSHOT</version>
     <name>Maven P2 Profile Generation Plugin</name>
 
+    <scm>
+        <url>https://github.com/wso2/carbon-maven-plugins.git</url>
+        <developerConnection>scm:git:https://github.com/wso2/carbon-maven-plugins.git</developerConnection>
+        <connection>scm:git:https://github.com/wso2/carbon-maven-plugins.git</connection>
+        <tag>HEAD</tag>
+    </scm>
+
     <dependencies>
         <dependency>
             <groupId>org.apache.maven</groupId>
