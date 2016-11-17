@@ -81,7 +81,7 @@ public class FeatureInstaller {
      */
     private void updateProfileConfigIni() {
         File profileConfigIni = FileManagementUtil.getProfileConfigIniFile(destination, resourceBundle.getProfile());
-        FileManagementUtil.changeConfigIniProperty(profileConfigIni, "eclipse.p2.data.area", "@config.dir/../../p2/",
+        FileManagementUtil.changeConfigIniProperty(profileConfigIni, "eclipse.p2.data.area", "@config.dir/../lib/p2/",
                 resourceBundle.getLog());
     }
 

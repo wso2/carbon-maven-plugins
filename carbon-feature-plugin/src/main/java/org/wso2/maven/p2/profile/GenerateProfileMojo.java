@@ -93,7 +93,7 @@ public class GenerateProfileMojo extends AbstractMojo {
             //updating profile's config.ini p2.data.area property using relative path
             File profileConfigIni = FileManagementUtil.getProfileConfigIniFile(targetPath.getPath(), profile);
             FileManagementUtil.changeConfigIniProperty(profileConfigIni, "eclipse.p2.data.area",
-                    "@config.dir/../../p2/", this.getLog());
+                    "@config.dir/../lib/p2/", this.getLog());
         } catch (IOException e) {
             throw new MojoExecutionException(e.getMessage(), e);
         }

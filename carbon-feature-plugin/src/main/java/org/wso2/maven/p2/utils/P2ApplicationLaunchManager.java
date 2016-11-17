@@ -82,9 +82,9 @@ public class P2ApplicationLaunchManager {
                 "-artifactRepository", repositoryLocation,
                 "-profileProperties", "org.eclipse.update.install.features=true",
                 "-installIU", installIUs,
-                "-bundlepool", destination,
+                "-bundlepool", destination + File.separator + "lib",
                 //to support shared installation in carbon
-                "-shared", destination + File.separator + "p2",
+                "-shared", destination + File.separator + "lib" + File.separator + "p2",
                 //target is set to a separate directory per Profile
                 "-destination", destination + File.separator + profile,
                 "-profile", profile,
@@ -193,9 +193,9 @@ public class P2ApplicationLaunchManager {
                 "-installIU", id,
                 "-profileProperties", "org.eclipse.update.install.features=true",
                 "-profile", profile,
-                "-bundlepool", targetPath.toExternalForm(),
+                "-bundlepool", targetPath.toExternalForm() + File.separator + "lib",
                 //to support shared installation in carbon
-                "-shared", targetPath.toExternalForm() + File.separator + "p2",
+                "-shared", targetPath.toExternalForm() + File.separator + "lib" + File.separator + "p2",
                 //target is set to a separate directory per Profile
                 "-destination", targetPath.toExternalForm() + File.separator + profile,
                 "-p2.os", "linux",
