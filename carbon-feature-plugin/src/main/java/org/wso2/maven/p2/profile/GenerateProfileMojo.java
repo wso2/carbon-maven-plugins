@@ -43,7 +43,7 @@ public class GenerateProfileMojo extends AbstractMojo {
     @Parameter(required = true, defaultValue = "${project}")
     protected MavenProject project;
     /**
-     * Metadata repository name
+     * Metadata repository name.
      */
     @Parameter
     private URL repositoryURL;
@@ -61,7 +61,7 @@ public class GenerateProfileMojo extends AbstractMojo {
 
     /**
      * The new profile to be created during p2 Director install &
-     * the default profile for the the application which is set in config.ini
+     * the default profile for the the application which is set in config.ini.
      */
     @Parameter(defaultValue = "${profile}")
     private String profile;

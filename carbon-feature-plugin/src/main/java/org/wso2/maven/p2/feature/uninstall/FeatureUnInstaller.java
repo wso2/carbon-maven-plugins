@@ -40,7 +40,7 @@ public class FeatureUnInstaller {
     private static final String PUBLISHER_APPLICATION = "org.eclipse.equinox.p2.director";
 
     /**
-     * default constructor which is executed during object creation of this class.
+     * Default constructor which is executed during object creation of this class.
      *
      * @throws MojoFailureException throws when the director application fail to uninstall any given feature.
      */
@@ -67,7 +67,7 @@ public class FeatureUnInstaller {
     }
 
     /**
-     * uninstall the set of features given as a collection of IUs
+     * Uninstall the set of features given as a collection of IUs.
      *
      * @param uninstallUIs comma separated list of IUs
      * @throws MojoFailureException throws when the director application fail to uninstall any given feature.

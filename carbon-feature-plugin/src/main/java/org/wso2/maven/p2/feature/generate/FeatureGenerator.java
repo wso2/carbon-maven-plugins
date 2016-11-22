@@ -122,7 +122,7 @@ public class FeatureGenerator {
 
     /**
      * Traverse through dependency and dependencyManagement section and populate the project dependencies into
-     * internal bean structures
+     * internal bean structures.
      *
      * @throws IOException
      */

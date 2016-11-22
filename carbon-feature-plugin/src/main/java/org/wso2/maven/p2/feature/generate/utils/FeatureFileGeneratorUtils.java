@@ -111,7 +111,7 @@ public class FeatureFileGeneratorUtils {
     }
 
     /**
-     * Merge the properties from the properties files that are found in;
+     * Merge the properties from the properties files that are found in.
      * <ul>
      * <li>predefined location</li>
      * <li>properties file given through plugin configuration<li/>

@@ -77,7 +77,7 @@ public class FeatureInstaller {
     }
 
     /**
-     * updating profile's config.ini p2.data.area property using relative path
+     * Updating profile's config.ini p2.data.area property using relative path.
      */
     private void updateProfileConfigIni() {
         File profileConfigIni = FileManagementUtil.getProfileConfigIniFile(destination, resourceBundle.getProfile());
@@ -117,7 +117,7 @@ public class FeatureInstaller {
     }
 
     /**
-     * Delete old profile files located at ${destination}/p2/org.eclipse.equinox.p2.engine/profileRegistry
+     * Delete old profile files located at ${destination}/p2/org.eclipse.equinox.p2.engine/profileRegistry.
      *
      * @throws IOException throws when fail to delete old profile files
      */
@@ -171,7 +171,7 @@ public class FeatureInstaller {
     }
 
     /**
-     * Update either null.ini or eclipse.ini
+     * Update either null.ini or eclipse.ini.
      *
      * @param file            File object
      * @param profileLocation location of the profile directory

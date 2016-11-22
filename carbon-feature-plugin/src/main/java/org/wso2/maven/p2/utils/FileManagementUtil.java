@@ -41,7 +41,7 @@ public class FileManagementUtil {
 
 
     /**
-     * For a given location and the profile, returns the File object represented by config.ini
+     * For a given location and the profile, returns the File object represented by config.ini.
      *
      * @param destination path pointing the [carbon product]/repository/components folder
      * @param profile     name of the profile
@@ -273,7 +273,7 @@ public class FileManagementUtil {
     }
 
     /**
-     * Unzip a given archive to a given destination
+     * Unzip a given archive to a given destination.
      *
      * @param archiveFile archive file to be unzipped
      * @param destination location to put the unzipped file

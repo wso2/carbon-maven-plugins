@@ -37,18 +37,18 @@ import java.util.List;
 public class FeatureUnInstallMojo extends AbstractMojo {
 
     /**
-     * Destination to which the features should be installed
+     * Destination to which the features should be installed.
      */
     @Parameter(required = true)
     private String destination;
     /**
-     * target profile
+     * Target profile.
      */
     @Parameter(required = true)
     private String profile;
 
     /**
-     * List of features
+     * List of features.
      */
     @Parameter(required = true)
     private List<Feature> features;

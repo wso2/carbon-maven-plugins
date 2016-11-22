@@ -40,32 +40,32 @@ public class FeatureInstallMojo extends AbstractMojo {
 
 
     /**
-     * Destination to which the features should be installed
+     * Destination to which the features should be installed.
      */
     @Parameter(required = true)
     private String destination;
 
     /**
-     * target profile
+     * Target profile.
      */
     @Parameter(required = true)
     private String profile;
 
 
     /**
-     * URL of the Metadata Repository
+     * URL of the Metadata Repository.
      */
     @Parameter
     private URL repositoryURL;
 
     /**
-     * List of features
+     * List of features.
      */
     @Parameter(required = true)
     private List<Feature> features;
 
     /**
-     * Flag to indicate whether to delete old profile files
+     * Flag to indicate whether to delete old profile files.
      */
     @Parameter(defaultValue = "true")
     private boolean deleteOldProfileFiles = true;
