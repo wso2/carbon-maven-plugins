@@ -95,7 +95,7 @@ public class P2Utils {
     }
 
     /**
-     * Takes a match string and returns the correct matching string correspond to it
+     * Takes a match string and returns the correct matching string correspond to it.
      *
      * @param matchStr matching string
      * @return the correct matching rule corresponds to the given matching string

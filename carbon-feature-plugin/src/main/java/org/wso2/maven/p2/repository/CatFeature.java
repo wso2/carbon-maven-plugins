@@ -31,7 +31,7 @@ import java.util.regex.Pattern;
 public class CatFeature {
 
     /**
-     * Id of the feature
+     * Id of the feature.
      *
      * @parameter
      * @required
@@ -39,7 +39,7 @@ public class CatFeature {
     private String id;
 
     /**
-     * version of the feature
+     * Version of the feature.
      *
      * @parameter
      * @required

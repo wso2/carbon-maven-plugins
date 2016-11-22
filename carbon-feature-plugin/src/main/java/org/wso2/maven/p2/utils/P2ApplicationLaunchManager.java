@@ -43,7 +43,7 @@ public class P2ApplicationLaunchManager {
     }
 
     /**
-     * Sets the working directory of P2Applilcation launcher instance
+     * Sets the working directory of P2Applilcation launcher instance.
      *
      * @param workingDir File object pointing the directory
      */

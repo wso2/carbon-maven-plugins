@@ -97,7 +97,7 @@ public class CarbonArtifact {
     }
 
     /**
-     * Returns the actual maven artifact represented by this carbon artifact
+     * Returns the actual maven artifact represented by this carbon artifact.
      *
      * @return org.apache.maven.artifact object
      */
@@ -106,7 +106,7 @@ public class CarbonArtifact {
     }
 
     /**
-     * Sets the actual maven artifact represented by this carbon artifact
+     * Sets the actual maven artifact represented by this carbon artifact.
      *
      * @param artifact org.apache.maven.artifact object
      */

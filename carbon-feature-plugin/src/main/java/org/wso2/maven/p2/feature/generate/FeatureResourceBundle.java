@@ -333,7 +333,7 @@ public class FeatureResourceBundle {
     }
 
     /**
-     * Sets the list of advice files
+     * Sets the list of advice files.
      *
      * @param adviceFileContent {@code List<Advice>}
      */

@@ -64,43 +64,43 @@ public class FeatureGeneratorMojo extends AbstractMojo {
     private String licence;
 
     /**
-     * path to manifest file
+     * Path to manifest file.
      */
     @Parameter
     private File manifest;
 
     /**
-     * path to properties file
+     * Path to properties file.
      */
     @Parameter
     private File propertyFile;
 
     /**
-     * list of properties precedence over propertyFile
+     * List of properties precedence over propertyFile.
      */
     @Parameter
     private Properties properties;
 
     /**
-     * Collection of bundles
+     * Collection of bundles.
      */
     @Parameter
     private List<Bundle> bundles;
 
     /**
-     * Collection of required Features
+     * Collection of required Features.
      */
     @Parameter
     private List<Feature> importFeatures;
 
     /**
-     * Collection of required Features
+     * Collection of required Features.
      */
     @Parameter
     private List<Feature> includeFeatures;
 
     /**
-     * define advice file content
+     * Define advice file content.
      */
     @Parameter
     private List<Advice> adviceFileContents;

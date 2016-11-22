@@ -28,7 +28,7 @@ import java.util.ArrayList;
 public class Category {
 
     /**
-     * Category Id
+     * Category Id.
      *
      * @parameter
      * @required
@@ -36,21 +36,21 @@ public class Category {
     private String id;
 
     /**
-     * Category Label
+     * Category Label.
      *
      * @parameter
      */
     private String label;
 
     /**
-     * Category description
+     * Category description.
      *
      * @parameter
      */
     private String description;
 
     /**
-     * List of features contained in the category
+     * List of features contained in the category.
      *
      * @parameter
      * @required
