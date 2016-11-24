@@ -154,25 +154,21 @@ public class FeatureInstaller {
     }
 
     /**
-     * Truncate and write the null.ini file with the new profile location. If null.ini is not found, then truncate
-     * and write new profile location in eclipse.ini.
+     * Truncate and write the eclipse.ini file with the new profile location.
      *
      * @throws IOException throws when fail to eclipse.ini file/fail to delete old files.
      */
     private void writeEclipseIni() throws IOException {
         String profileLocation = resourceBundle.getDestination() + File.separator + resourceBundle.getProfile();
 
-        File eclipseIni = Paths.get(profileLocation + File.separator + "null.ini").toFile();
-        if (!eclipseIni.exists()) {
-            eclipseIni = Paths.get(profileLocation + File.separator + "eclipse.ini").toFile();
-        }
+        File eclipseIni = Paths.get(profileLocation + File.separator + "eclipse.ini").toFile();
         if (eclipseIni.exists()) {
             updateFile(eclipseIni, profileLocation);
         }
     }
 
     /**
-     * Update either null.ini or eclipse.ini.
+     * Update eclipse.ini.
      *
      * @param file            File object
      * @param profileLocation location of the profile directory
