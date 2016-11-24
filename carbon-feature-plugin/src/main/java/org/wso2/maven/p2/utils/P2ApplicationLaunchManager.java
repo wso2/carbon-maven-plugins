@@ -22,6 +22,7 @@ import org.eclipse.sisu.equinox.launching.internal.P2ApplicationLauncher;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Paths;
 
 /**
  * Wrapper class containing P2ApplicationLauncher which makes configuring the P2ApplicationLauncher easier.
@@ -82,11 +83,11 @@ public class P2ApplicationLaunchManager {
                 "-artifactRepository", repositoryLocation,
                 "-profileProperties", "org.eclipse.update.install.features=true",
                 "-installIU", installIUs,
-                "-bundlepool", destination + File.separator + "lib",
+                "-bundlepool", Paths.get(destination + File.separator + "lib").toString(),
                 //to support shared installation in carbon
-                "-shared", destination + File.separator + "lib" + File.separator + "p2",
+                "-shared", Paths.get(destination + File.separator + "lib" + File.separator + "p2").toString(),
                 //target is set to a separate directory per Profile
-                "-destination", destination + File.separator + profile,
+                "-destination", Paths.get(destination + File.separator + profile).toString(),
                 "-profile", profile,
                 "-roaming");
     }
@@ -111,8 +112,8 @@ public class P2ApplicationLaunchManager {
                 // when a new profile is created. For an application where all the bundles are located into the
                 // plugins/ folder of the destination, set it to <destination>
                 // use a shared location for the install. The path defaults to ${user.home}/.p2
-                "-shared", destination + File.separator + "p2",
-                "-destination", destination + File.separator + profile,
+                "-shared", Paths.get(destination + File.separator + "p2").toString(),
+                "-destination", Paths.get(destination + File.separator + profile).toString(),
                 "-profile", profile
         );
     }

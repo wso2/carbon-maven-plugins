@@ -22,6 +22,7 @@ import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.project.MavenProject;
 import org.wso2.maven.p2.utils.FileManagementUtil;
 import org.wso2.maven.p2.utils.P2ApplicationLaunchManager;
+import org.wso2.maven.p2.utils.P2Constants;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -81,7 +82,7 @@ public class FeatureInstaller {
      */
     private void updateProfileConfigIni() {
         File profileConfigIni = FileManagementUtil.getProfileConfigIniFile(destination, resourceBundle.getProfile());
-        FileManagementUtil.changeConfigIniProperty(profileConfigIni, "eclipse.p2.data.area", "@config.dir/../lib/p2/",
+        FileManagementUtil.changeConfigIniProperty(profileConfigIni, "eclipse.p2.data.area", P2Constants.P2_DIRECTORY,
                 resourceBundle.getLog());
     }
 
