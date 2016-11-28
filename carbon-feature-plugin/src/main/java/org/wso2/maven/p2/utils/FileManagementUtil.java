@@ -43,7 +43,7 @@ public class FileManagementUtil {
     /**
      * For a given location and the profile, returns the File object represented by config.ini.
      *
-     * @param destination path pointing the [carbon product]/repository/components folder
+     * @param destination path pointing the [carbon product]/wso2 folder
      * @param profile     name of the profile
      * @return the config.ini file for the Profile
      */

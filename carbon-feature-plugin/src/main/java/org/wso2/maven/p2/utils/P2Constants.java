@@ -20,4 +20,5 @@ package org.wso2.maven.p2.utils;
  */
 public class P2Constants {
     public static final String DEFAULT_PROFILE_ID = "WSO2CarbonProfile";
+    public static final String P2_DIRECTORY = "@config.dir/../lib/p2/";
 }
