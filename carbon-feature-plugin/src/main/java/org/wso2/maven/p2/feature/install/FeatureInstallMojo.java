@@ -15,6 +15,7 @@
  */
 package org.wso2.maven.p2.feature.install;
 
+import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -23,9 +24,14 @@ import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
-import org.eclipse.sisu.equinox.launching.internal.P2ApplicationLauncher;
+import org.eclipse.sisu.equinox.launching.EquinoxLauncher;
+import org.eclipse.tycho.BuildOutputDirectory;
+import org.eclipse.tycho.p2.tools.director.shared.DirectorRuntime;
+import org.eclipse.tycho.plugins.p2.director.DirectorMojo.DirectorRuntimeType;
+import org.eclipse.tycho.plugins.p2.director.runtime.StandaloneDirectorRuntimeFactory;
 import org.wso2.maven.p2.utils.P2Constants;
 
+import java.io.File;
 import java.net.URL;
 import java.util.List;
 
@@ -75,7 +81,16 @@ public class FeatureInstallMojo extends AbstractMojo {
     private MavenProject project;
 
     @Component
-    private P2ApplicationLauncher launcher;
+    private EquinoxLauncher launcher;
+
+    @Component
+    private MavenSession session;
+
+    @Parameter(defaultValue = "standalone")
+    private DirectorRuntimeType directorRuntime;
+
+    @Component
+    private StandaloneDirectorRuntimeFactory standaloneDirectorFactory;
 
     /**
      * Kill the forked test process after a certain number of seconds. If set to 0, wait forever for
@@ -83,6 +98,8 @@ public class FeatureInstallMojo extends AbstractMojo {
      */
     @Parameter(defaultValue = "${p2.timeout}")
     private int forkedProcessTimeoutInSeconds;
+
+    private File runtimeLocation;
 
     /**
      * Overridden method of AbstractMojo class. This is picked up by the maven runtime for execution.
@@ -92,6 +109,8 @@ public class FeatureInstallMojo extends AbstractMojo {
      * @throws MojoFailureException   throws when the tool breaks for any configuration issues
      */
     public void execute() throws MojoExecutionException, MojoFailureException {
+        this.runtimeLocation = new BuildOutputDirectory(this.project.getBuild().getDirectory()).getChild("director");
+        getDirectorRuntime();
         FeatureInstaller installer = constructFeatureInstaller();
         installer.install();
     }
@@ -111,6 +130,18 @@ public class FeatureInstallMojo extends AbstractMojo {
         resourceBundle.setLauncher(this.launcher);
         resourceBundle.setForkedProcessTimeoutInSeconds(this.forkedProcessTimeoutInSeconds);
         resourceBundle.setLog(getLog());
+        resourceBundle.setRuntimeLocation(this.runtimeLocation);
         return new FeatureInstaller(resourceBundle);
+    }
+
+    private DirectorRuntime getDirectorRuntime() throws MojoFailureException, MojoExecutionException {
+        switch (directorRuntime) {
+            case standalone:
+                return standaloneDirectorFactory.createStandaloneDirector(this.runtimeLocation,
+                        this.session.getLocalRepository(), this.forkedProcessTimeoutInSeconds);
+            default:
+                throw new MojoFailureException("Unsupported value for attribute 'directorRuntime': \"" +
+                        directorRuntime + "\"");
+        }
     }
 }
