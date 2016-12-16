@@ -81,7 +81,7 @@ public class StandaloneManager {
         programArguments.add("-profileProperties");
         programArguments.add("org.eclipse.update.install.features=true");
         programArguments.add("-roaming");
-        
+
     }
 
     /**

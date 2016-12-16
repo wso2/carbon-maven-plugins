@@ -74,6 +74,26 @@
                 <artifactId>tycho-core</artifactId>
                 <version>${tycho.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.wso2.eclipse.equinox</groupId>
+                <artifactId>org.eclipse.equinox.common</artifactId>
+                <version>${equinox.common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.wso2.eclipse.equinox</groupId>
+                <artifactId>org.eclipse.equinox.p2.engine</artifactId>
+                <version>${org.eclipse.equinox.p2.engine.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.wso2.eclipse.equinox</groupId>
+                <artifactId>org.eclipse.equinox.p2.metadata</artifactId>
+                <version>${org.eclipse.equinox.p2.metadata.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.wso2.carbon.maven</groupId>
+                <artifactId>org.wso2.carbon.p2.touchpoint</artifactId>
+                <version>${carbon.maven.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -113,6 +133,12 @@
         <junit.version>3.8.1</junit.version>
         <maven.plugin.plugin.version>3.4</maven.plugin.plugin.version>
         <maven.plugin.annotation.version>3.3</maven.plugin.annotation.version>
+        <org.eclipse.equinox.p2.engine.version>2.3.0.v20140506-1720</org.eclipse.equinox.p2.engine.version>
+        <org.eclipse.core.runtime.import.version.range>[3.0.0, 4.0.0)</org.eclipse.core.runtime.import.version.range>
+        <org.eclipse.equinox.p2.engine.import.version.range>[2.0.0, 3.0.0)</org.eclipse.equinox.p2.engine.import.version.range>
+        <org.eclipse.equinox.p2.touchpoint.eclipse.import.version.range>[2.0.0, 3.0.0)</org.eclipse.equinox.p2.touchpoint.eclipse.import.version.range>
+        <equinox.common.version>3.6.200.v20130402-1505</equinox.common.version>
+        <org.eclipse.equinox.p2.metadata.version>2.2.0.v20131211-1531</org.eclipse.equinox.p2.metadata.version>
     </properties>
 
 </project>
