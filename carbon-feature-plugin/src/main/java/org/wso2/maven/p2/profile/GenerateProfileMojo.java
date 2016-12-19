@@ -33,11 +33,11 @@ import java.io.IOException;
 import java.net.URL;
 
 /**
- * Mojo responsible for generating a profile.
+ * Mojo responsible for generating a runtime.
  *
  * @since 2.0.0
  */
-@Mojo(name = "generate-profile")
+@Mojo(name = "generate-runtime")
 public class GenerateProfileMojo extends AbstractMojo {
 
     @Parameter(required = true, defaultValue = "${project}")
@@ -60,11 +60,11 @@ public class GenerateProfileMojo extends AbstractMojo {
     private URL targetPath;
 
     /**
-     * The new profile to be created during p2 Director install &
+     * The new runtime to be created during p2 Director install &
      * the default profile for the the application which is set in config.ini.
      */
     @Parameter(defaultValue = "${profile}")
-    private String profile;
+    private String runtime;
 
 
     @Component
@@ -86,12 +86,12 @@ public class GenerateProfileMojo extends AbstractMojo {
      */
     public void execute() throws MojoExecutionException, MojoFailureException {
         try {
-            if (profile == null) {
-                profile = P2Constants.DEFAULT_PROFILE_ID;
+            if (runtime == null) {
+                runtime = P2Constants.DEFAULT_PROFILE_ID;
             }
             deployRepository();
-            //updating profile's config.ini p2.data.area property using relative path
-            File profileConfigIni = FileManagementUtil.getProfileConfigIniFile(targetPath.getPath(), profile);
+            //updating runtime's config.ini p2.data.area property using relative path
+            File profileConfigIni = FileManagementUtil.getProfileConfigIniFile(targetPath.getPath(), runtime);
             FileManagementUtil.changeConfigIniProperty(profileConfigIni, "eclipse.p2.data.area",
                     P2Constants.P2_DIRECTORY, this.getLog());
         } catch (IOException e) {
@@ -104,7 +104,7 @@ public class GenerateProfileMojo extends AbstractMojo {
         P2ApplicationLaunchManager p2LaunchManager = new P2ApplicationLaunchManager(this.launcher);
         p2LaunchManager.setWorkingDirectory(project.getBasedir());
         p2LaunchManager.setApplicationName("org.eclipse.equinox.p2.director");
-        p2LaunchManager.addGenerateProfileArguments(repositoryURL, productConfiguration.getId(), profile, targetPath);
+        p2LaunchManager.addGenerateProfileArguments(repositoryURL, productConfiguration.getId(), runtime, targetPath);
         p2LaunchManager.performAction(forkedProcessTimeoutInSeconds);
     }
 }

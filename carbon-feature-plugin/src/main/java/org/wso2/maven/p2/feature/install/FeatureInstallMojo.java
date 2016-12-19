@@ -52,10 +52,10 @@ public class FeatureInstallMojo extends AbstractMojo {
     private String destination;
 
     /**
-     * Target profile.
+     * Target runtime.
      */
     @Parameter(required = true)
-    private String profile;
+    private String runtime;
 
 
     /**
@@ -74,7 +74,7 @@ public class FeatureInstallMojo extends AbstractMojo {
      * Flag to indicate whether to delete old profile files.
      */
     @Parameter(defaultValue = "true")
-    private boolean deleteOldProfileFiles = true;
+    private boolean deleteOldRuntimeFiles = true;
 
 
     @Parameter(defaultValue = "${project}")
@@ -122,10 +122,10 @@ public class FeatureInstallMojo extends AbstractMojo {
     private FeatureInstaller constructFeatureInstaller() {
         FeatureInstallResourceBundle resourceBundle = new FeatureInstallResourceBundle();
         resourceBundle.setDestination(this.destination);
-        resourceBundle.setProfile(this.profile == null ? P2Constants.DEFAULT_PROFILE_ID : this.profile);
+        resourceBundle.setProfile(this.runtime == null ? P2Constants.DEFAULT_PROFILE_ID : this.runtime);
         resourceBundle.setRepository(this.repositoryURL);
         resourceBundle.setFeatures(this.features);
-        resourceBundle.setDeleteOldProfileFiles(this.deleteOldProfileFiles);
+        resourceBundle.setDeleteOldProfileFiles(this.deleteOldRuntimeFiles);
         resourceBundle.setProject(this.project);
         resourceBundle.setLauncher(this.launcher);
         resourceBundle.setForkedProcessTimeoutInSeconds(this.forkedProcessTimeoutInSeconds);
