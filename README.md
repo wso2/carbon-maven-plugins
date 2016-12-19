@@ -8,7 +8,7 @@ The Carbon feature plugin was formerly known as the Carbon P2 plugin. It has gon
 
 ## Introduction
 
-The WSO2 Carbon feature plugin is a Maven plugin, which is used within the WSO2 Carbon platform. The Maven goals that are achieved through this plugin are explained in the following table:
+The WSO2 Carbon feature plugin is a Maven plugin, which is used within the WSO2 Carbon platform. The Maven goals that are achieved through this plugin are explained below:
 
 * `generate`: For generating Carbon features. Formerly known as `P2-feature-gen`. See the instructions on [configuring the `generate` Maven goal](#configuring-the-generate-maven-goal). 
 * `generate-repo`: For generating P2 repositories. Formerly known as 'P2-repo-gen'. See the instructions on [configuring the `generate-repo` Maven goal](#configuring-the-generate-repo-maven-goal).
@@ -52,7 +52,7 @@ A sample pom.xml file configuration of the `generate` Maven goal is shown below.
  
  > Add the ID of the feature being installed as the value of the `<ID>` property, and add the version of the feature being installed as the value of the `<version>` property.
  
-* `deleteOldRuntimeFiles`: Whether to delete old `*.profile` folders located in the `<CARBON_HOME>/repository/components/p2/org.eclipse.equinox.p2.engine/profileRegistry/` directory. The default value is set to true.
+* `deleteOldRuntimeFiles`: Specifies whether to delete old *.profile folders located in the `<CARBON_HOME>/repository/components/p2/org.eclipse.equinox.p2.engine/profileRegistry/` directory. The default value is set to true.
 
  NOT MANDATORY.
  Example: `<deleteOldRuntimeFiles>false</deleteOldRuntimeFiles>`.
@@ -90,7 +90,7 @@ You can modify the above file to add the configurations of the plugin by adding 
  MANDATORY property.
  Example: `<destination>/home/Carbon/wso2carbon-4.4.0/repository/components</destination>`
  
-* `runtime`: Which runtime in the destination from where you need to uninstall the features. 
+* `runtime`: the runtime in the destination from where you need to uninstall the features. 
 
  MANDATORY property.
  Example: `<runtime>default</runtime>`.
@@ -114,7 +114,7 @@ You can modify the above file to add the configurations of the plugin by adding 
 
 ## P2 Touchpoint
 ### Equinox P2 Touchpoint
-Features can have configuration files which need to be copied to a particular location when install the feature. This can be done by specifying the location in the p2.inf in the feature. For example:
+Features can have configuration files that need to be copied to a particular location when installing the feature. This can be done by specifying the location in the p2.inf in the feature. For example:
 Example:
 instructions.configure = \
 org.eclipse.equinox.p2.touchpoint.natives.copy(source:${installFolder}/../lib/features/org.wso2.carbon.kernel_${feature.version}/launcher/,target:${installFolder}/../../bin/bootstrap/,overwrite:true);\
@@ -122,9 +122,9 @@ org.eclipse.equinox.p2.touchpoint.natives.copy(source:${installFolder}/../lib/fe
 All equinox p2 touchpoint are available at [Provisioning Actions and Touchpoints](http://help.eclipse.org/neon/index.jsp?topic=/org.eclipse.platform.doc.isv/guide/p2_actions_touchpoints.html)
 
 ### Copy to specific runtime
-In C5, there are runtimes which are specific to each product and the feature developer will not know this. In order to support dynamically copying files to the runtime location during feature installation, WSO2 has introduced a custom touchpoint. 
+In Carbon 5, there are product-specific runtimes, which the developer will not know about at the time of creating the feature. In order to support dynamically copying files to the runtime location during feature installation, WSO2 has introduced a custom touchpoint. 
 
-In the p2.inf, the following should be added in-order to copy a particular file to a runtime location:
+The following should be added to the p2.inf in order to copy a particular file to a runtime location:
 
 > metaRequirements.0.namespace = org.eclipse.equinox.p2.iu
 > metaRequirements.0.name = org.wso2.carbon.p2.touchpoint
@@ -133,7 +133,7 @@ In the p2.inf, the following should be added in-order to copy a particular file 
 > org.wso2.carbon.p2.touchpoint.copy(source:${installFolder}/../lib/features/org.wso2.carbon.touchpoint.sample_${feature.version}/bin/,target:${installFolder}/../\<runtime\>/bin/, overwrite:true);\
 > org.wso2.carbon.p2.touchpoint.copy(source:${installFolder}/../lib/features/org.wso2.carbon.touchpoint.sample_${feature.version}/conf/osgi/launch.properties,target:${installFolder}/../\<runtime\>/conf/osgi/launch.properties, overwrite:true);\
 
-where `<runtime>` which is replaced with the runtime name at the feature installation
+* `<runtime>`: which is replaced with the runtime name at the feature installation
 
 This custom touchpoint should be available in the p2-repo. Therefore it should be added to `generate-repo` goal as below in the product generation:
  
