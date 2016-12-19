@@ -70,12 +70,12 @@ public class StandaloneManager {
         programArguments.add("-artifactRepository");
         programArguments.add(repositoryLocation);
         programArguments.add("-destination");
-        programArguments.add(Paths.get(destination + File.separator + profile).toString());
+        programArguments.add(Paths.get(destination, profile).toString());
 
         programArguments.add("-bundlepool");
-        programArguments.add(Paths.get(destination + File.separator + "lib").toString());
+        programArguments.add(Paths.get(destination, "lib").toString());
         programArguments.add("-shared");
-        programArguments.add(Paths.get(destination + File.separator + "lib" + File.separator + "p2").toString());
+        programArguments.add(Paths.get(destination, "lib", "p2").toString());
         programArguments.add("-profile");
         programArguments.add(profile);
         programArguments.add("-profileProperties");

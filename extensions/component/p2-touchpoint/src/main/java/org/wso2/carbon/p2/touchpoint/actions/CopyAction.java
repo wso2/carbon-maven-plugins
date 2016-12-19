@@ -70,7 +70,6 @@ public class CopyAction extends ProvisioningAction {
     @Override
     public IStatus undo(Map<String, Object> parameters) {
         return new Status(IStatus.CANCEL, Constants.PLUGIN_ID, "Copy touchpoint does not support 'undo'");
-
     }
 
     /**
