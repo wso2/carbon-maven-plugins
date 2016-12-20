@@ -34,6 +34,6 @@ public final class Constants {
     public static final String PARM_COPY_TARGET = "target";
     public static final String PARM_COPY_SOURCE = "source";
     public static final String PARM_COPY_OVERWRITE = "overwrite";
-    public static final String RUNTIME_KEY = "<runtime>";
+    public static final String RUNTIME_KEY = "\\{runtime\\}";
 
 }
