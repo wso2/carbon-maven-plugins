@@ -18,8 +18,9 @@ package org.wso2.maven.p2.feature.install;
 
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.project.MavenProject;
-import org.eclipse.sisu.equinox.launching.internal.P2ApplicationLauncher;
+import org.eclipse.sisu.equinox.launching.EquinoxLauncher;
 
+import java.io.File;
 import java.net.URL;
 import java.util.List;
 
@@ -39,7 +40,8 @@ public class FeatureInstallResourceBundle {
     private List<Feature> features;
     private boolean deleteOldProfileFiles;
     private MavenProject project;
-    private P2ApplicationLauncher launcher;
+    private EquinoxLauncher launcher;
+    private File runtimeLocation;
     private int forkedProcessTimeoutInSeconds;
     private Log log;
 
@@ -152,20 +154,20 @@ public class FeatureInstallResourceBundle {
     }
 
     /**
-     * Returns the P2ApplicationLauncher injected by the maven runtime.
+     * Returns the EquinoxLauncher injected by the maven runtime.
      *
-     * @return {@link P2ApplicationLauncher}
+     * @return {@link EquinoxLauncher}
      */
-    public P2ApplicationLauncher getLauncher() {
+    public EquinoxLauncher getLauncher() {
         return launcher;
     }
 
     /**
-     * Sets the P2ApplicationLauncher injected by the maven runtime.
+     * Sets the EquinoxLauncher injected by the maven runtime.
      *
-     * @param launcher {@link P2ApplicationLauncher}
+     * @param launcher {@link EquinoxLauncher}
      */
-    public void setLauncher(P2ApplicationLauncher launcher) {
+    public void setLauncher(EquinoxLauncher launcher) {
         this.launcher = launcher;
     }
 
@@ -201,5 +203,23 @@ public class FeatureInstallResourceBundle {
      */
     public void setLog(Log log) {
         this.log = log;
+    }
+
+    /**
+     * Returns the Runtime Location.
+     *
+     * @return {@link File}
+     */
+    public File getRuntimeLocation() {
+        return runtimeLocation;
+    }
+
+    /**
+     * Sets the Runtime Location.
+     *
+     * @param runtimeLocation {@link File}
+     */
+    public void setRuntimeLocation(File runtimeLocation) {
+        this.runtimeLocation = runtimeLocation;
     }
 }

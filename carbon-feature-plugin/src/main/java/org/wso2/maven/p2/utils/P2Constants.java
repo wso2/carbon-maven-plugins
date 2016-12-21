@@ -17,8 +17,38 @@ package org.wso2.maven.p2.utils;
 
 /**
  * Contains P2 related constants. File is kept to preserve the history in case if needed later.
+ *
+ * @since 1.0.0
  */
 public class P2Constants {
+
+    /**
+     * Prevent instantiating the Constants class.
+     */
+    private P2Constants() {
+    }
+
     public static final String DEFAULT_PROFILE_ID = "WSO2CarbonProfile";
     public static final String P2_DIRECTORY = "@config.dir/../lib/p2/";
+    public static final String LIB = "lib";
+    public static final String P2 = "p2";
+    public static final String DEFAULT_ENCODING = "UTF-8";
+
+    /**
+     * Launcher Constants.
+     */
+    public static class Launcher {
+        public static final String METADATA_REPOSITORY = "-metadataRepository";
+        public static final String ARTIFACT_REPOSITORY = "-artifactRepository";
+        public static final String DESTINATION = "-destination";
+        public static final String BUNDLEPOOL = "-bundlepool";
+        public static final String SHARED = "-shared";
+        public static final String PROFILE = "-profile";
+        public static final String PROFILE_PROPERTIES = "-profileProperties";
+        public static final String ECLIPSE_UPDATE_FEATURE_TRUE = "org.eclipse.update.install.features=true";
+        public static final String ROAMING = "-roaming";
+        public static final String INSTALLIU = "-installIU";
+    }
+
+
 }

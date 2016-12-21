@@ -26,6 +26,7 @@ import org.wso2.maven.p2.feature.generate.Bundle;
 import org.wso2.maven.p2.feature.generate.Feature;
 import org.wso2.maven.p2.feature.generate.FeatureResourceBundle;
 import org.wso2.maven.p2.utils.BundleUtils;
+import org.wso2.maven.p2.utils.P2Constants;
 import org.wso2.maven.p2.utils.P2Utils;
 import org.wso2.maven.p2.utils.PropertyReplacer;
 import org.xml.sax.SAXException;
@@ -66,7 +67,6 @@ import javax.xml.transform.stream.StreamResult;
  */
 public class FeatureFileGeneratorUtils {
 
-    private static final String DEFAULT_ENCODING = "UTF-8";
     private static final String LINE_SEPARATOR = System.lineSeparator();
 
     /**
@@ -178,7 +178,8 @@ public class FeatureFileGeneratorUtils {
      */
     public static void createManifestMFFile(FeatureResourceBundle resourceBundle, File featureManifestFile)
             throws IOException {
-        try (Writer writer = new OutputStreamWriter(new FileOutputStream(featureManifestFile), DEFAULT_ENCODING);
+        try (Writer writer = new OutputStreamWriter(new FileOutputStream(featureManifestFile),
+                P2Constants.DEFAULT_ENCODING);
              PrintWriter pw = new PrintWriter(writer)) {
             resourceBundle.getLog().info("Generating MANIFEST.MF");
             pw.print("Manifest-Version: 1.0" + LINE_SEPARATOR + LINE_SEPARATOR);
@@ -206,7 +207,7 @@ public class FeatureFileGeneratorUtils {
         }
 
         try (Writer writer = new OutputStreamWriter(new FileOutputStream(p2InfFile.getAbsolutePath()),
-                DEFAULT_ENCODING);
+                P2Constants.DEFAULT_ENCODING);
              PrintWriter pw = new PrintWriter(writer)) {
             Properties properties = new Properties();
             properties.setProperty("feature.version", BundleUtils.getOSGIVersion(resourceBundle.getVersion()));
@@ -242,7 +243,8 @@ public class FeatureFileGeneratorUtils {
         List<String> stringList = new ArrayList<>();
         String inputLine;
 
-        try (InputStreamReader reader = new InputStreamReader(new FileInputStream(absolutePath), DEFAULT_ENCODING);
+        try (InputStreamReader reader = new InputStreamReader(new FileInputStream(absolutePath),
+                P2Constants.DEFAULT_ENCODING);
              BufferedReader br = new BufferedReader(reader)) {
             while ((inputLine = br.readLine()) != null) {
                 stringList.add(inputLine);

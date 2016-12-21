@@ -53,7 +53,6 @@ import javax.xml.transform.stream.StreamResult;
 public class P2Utils {
     private static String[] matchList = new String[]{"perfect", "equivalent", "compatible", "greaterOrEqual", "patch",
             "optional"};
-    private static final String DEFAULT_ENCODING = "UTF-8";
 
     /**
      * Traverse the given p2Inf file, find the last index of the property entries in the file and returns. This us
@@ -67,7 +66,8 @@ public class P2Utils {
         int min = -1;
         if (p2InfFile.exists()) {
 
-            try (InputStreamReader reader = new InputStreamReader(new FileInputStream(p2InfFile), DEFAULT_ENCODING);
+            try (InputStreamReader reader = new InputStreamReader(new FileInputStream(p2InfFile),
+                    P2Constants.DEFAULT_ENCODING);
                  BufferedReader in = new BufferedReader(reader)) {
                 String line;
                 while ((line = in.readLine()) != null) {
