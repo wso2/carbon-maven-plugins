@@ -40,7 +40,6 @@ public class FeatureInstaller {
 
     private final FeatureInstallResourceBundle resourceBundle;
     private final String destination;
-    private static final String DEFAULT_ENCODING = "UTF-8";
 
     private Log log;
 
@@ -174,7 +173,7 @@ public class FeatureInstaller {
             }
         }
         this.log.info("Updating " + file.getName());
-        try (Writer writer = new OutputStreamWriter(new FileOutputStream(file), DEFAULT_ENCODING);
+        try (Writer writer = new OutputStreamWriter(new FileOutputStream(file), P2Constants.DEFAULT_ENCODING);
              PrintWriter pw = new PrintWriter(writer)) {
             pw.write("-install\n");
             pw.write(profileLocation);

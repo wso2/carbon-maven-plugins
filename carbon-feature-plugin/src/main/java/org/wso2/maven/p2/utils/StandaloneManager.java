@@ -29,6 +29,8 @@ import java.util.List;
  * Eclipse installations using the p2 director application.
  * This director runtime can install products with meta-requirements,
  * e.g. for custom touchpoint actions
+ *
+ * @since 3.0.0
  */
 public class StandaloneManager {
 
@@ -36,20 +38,22 @@ public class StandaloneManager {
     private File runtimeLocation;
     private List<String> programArguments;
 
-    private static final String PUBLISHER_APPLICATION = "org.eclipse.equinox.p2.director";
-    private static final String INSTALLIU = "-installIU";
-
     public StandaloneManager(EquinoxLauncher launcher) {
         this.launcher = launcher;
         programArguments = new ArrayList<>();
     }
 
+    /**
+     * Sets the Runtime Location.
+     *
+     * @param runtimeLocation {@link File}
+     */
     public void setRuntimeLocation(File runtimeLocation) {
         this.runtimeLocation = runtimeLocation;
     }
 
     /**
-     * Sets the StandaloneDirectorRuntime's arguments to install features
+     * Sets the StandaloneDirectorRuntime's arguments to install features.
      *
      * @param repositoryLocation a comma separated list of metadata repository (or artifact repository as
      *                           in p2 both
@@ -64,24 +68,21 @@ public class StandaloneManager {
      *                           targeted product.
      */
     public void addArgumentsToInstallFeatures(String repositoryLocation, String destination, String profile) {
-
-        programArguments.add("-metadataRepository");
+        programArguments.add(P2Constants.Launcher.METADATA_REPOSITORY);
         programArguments.add(repositoryLocation);
-        programArguments.add("-artifactRepository");
+        programArguments.add(P2Constants.Launcher.ARTIFACT_REPOSITORY);
         programArguments.add(repositoryLocation);
-        programArguments.add("-destination");
+        programArguments.add(P2Constants.Launcher.DESTINATION);
         programArguments.add(Paths.get(destination, profile).toString());
-
-        programArguments.add("-bundlepool");
-        programArguments.add(Paths.get(destination, "lib").toString());
-        programArguments.add("-shared");
-        programArguments.add(Paths.get(destination, "lib", "p2").toString());
-        programArguments.add("-profile");
+        programArguments.add(P2Constants.Launcher.BUNDLEPOOL);
+        programArguments.add(Paths.get(destination, P2Constants.LIB).toString());
+        programArguments.add(P2Constants.Launcher.SHARED);
+        programArguments.add(Paths.get(destination, P2Constants.LIB, P2Constants.P2).toString());
+        programArguments.add(P2Constants.Launcher.PROFILE);
         programArguments.add(profile);
-        programArguments.add("-profileProperties");
-        programArguments.add("org.eclipse.update.install.features=true");
-        programArguments.add("-roaming");
-
+        programArguments.add(P2Constants.Launcher.PROFILE_PROPERTIES);
+        programArguments.add(P2Constants.Launcher.ECLIPSE_UPDATE_FEATURE_TRUE);
+        programArguments.add(P2Constants.Launcher.ROAMING);
     }
 
     /**
@@ -92,17 +93,15 @@ public class StandaloneManager {
      * @throws MojoFailureException throws when unable to perform the p2 activity
      */
     public void performAction(String installIU, int forkedProcessTimeoutInSeconds) throws MojoFailureException {
-
-        int index = programArguments.indexOf(INSTALLIU);
+        int index = programArguments.indexOf(P2Constants.Launcher.INSTALLIU);
         if (index >= 0) {
             programArguments.set(index + 1, installIU);
         } else {
-            programArguments.add(INSTALLIU);
+            programArguments.add(P2Constants.Launcher.INSTALLIU);
             programArguments.add(installIU);
         }
 
         LaunchConfiguration launch = new EquinoxInstallationLaunchConfiguration(runtimeLocation, programArguments);
-
         int result = launcher.execute(launch, forkedProcessTimeoutInSeconds);
         if (result != 0) {
             throw new MojoFailureException("P2 publisher return code was " + result);

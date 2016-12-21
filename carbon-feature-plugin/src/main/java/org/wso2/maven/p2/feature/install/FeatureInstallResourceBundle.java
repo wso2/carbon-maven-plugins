@@ -206,7 +206,7 @@ public class FeatureInstallResourceBundle {
     }
 
     /**
-     * Returns the Runtime Location
+     * Returns the Runtime Location.
      *
      * @return {@link File}
      */
@@ -215,7 +215,7 @@ public class FeatureInstallResourceBundle {
     }
 
     /**
-     * Sets the Runtime Location
+     * Sets the Runtime Location.
      *
      * @param runtimeLocation {@link File}
      */

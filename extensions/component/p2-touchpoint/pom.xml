@@ -46,28 +46,18 @@
         </dependency>
     </dependencies>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>maven-bundle-plugin</artifactId>
-                <extensions>true</extensions>
-                <configuration>
-                    <instructions>
-                        <Bundle-SymbolicName>${project.artifactId};singleton:=true</Bundle-SymbolicName>
-                        <Bundle-Name>${project.artifactId}</Bundle-Name>
-                        <Import-Package>
-                            org.eclipse.core.runtime.*;version="${org.eclipse.core.runtime.import.version.range}";resolution:=optional,
-                            org.eclipse.equinox.p2.engine.*;version="${org.eclipse.equinox.p2.engine.import.version.range}";resolution:=optional,
-                            org.eclipse.equinox.p2.engine.spi.*;version="${org.eclipse.equinox.p2.touchpoint.eclipse.import.version.range}";resolution:=optional,
-                        </Import-Package>
-                        <Export-Package>
-                            org.wso2.carbon.p2.touchpoint.*;version="${carbon.maven.version}"
-                        </Export-Package>
-                    </instructions>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+    <properties>
+        <maven.bundle.plugin.extensions>true</maven.bundle.plugin.extensions>
+        <bundle.symbolicName>${project.artifactId};singleton:=true</bundle.symbolicName>
+        <bundle.name>${project.artifactId}</bundle.name>
+        <import.package>
+            org.eclipse.core.runtime.*;version="${org.eclipse.core.runtime.import.version.range}";resolution:=optional,
+            org.eclipse.equinox.p2.engine.*;version="${org.eclipse.equinox.p2.engine.import.version.range}";resolution:=optional,
+            org.eclipse.equinox.p2.engine.spi.*;version="${org.eclipse.equinox.p2.touchpoint.eclipse.import.version.range}";resolution:=optional,
+        </import.package>
+        <export.package>
+            org.wso2.carbon.p2.touchpoint.*;version="${carbon.maven.version}"
+        </export.package>
+    </properties>
 </project>
 

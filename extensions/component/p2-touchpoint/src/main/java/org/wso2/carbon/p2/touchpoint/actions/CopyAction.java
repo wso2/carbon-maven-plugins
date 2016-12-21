@@ -62,7 +62,8 @@ public class CopyAction extends ProvisioningAction {
         try {
             copy(new File(source), new File(target), Boolean.parseBoolean(overwrite));
         } catch (IOException e) {
-            return new Status(IStatus.ERROR, Constants.PLUGIN_ID, "Failed to copy", e);
+            return new Status(IStatus.ERROR, Constants.PLUGIN_ID, "Failed to copy from source: " + source +
+                    " to target: " + target, e);
         }
         return Status.OK_STATUS;
     }
@@ -82,7 +83,6 @@ public class CopyAction extends ProvisioningAction {
      * @throws IOException
      */
     private static void copy(File source, File target, boolean overwrite) throws IOException {
-
         if (source.isDirectory()) {
             if (target.exists() && target.isFile()) {
                 if (!overwrite) {
