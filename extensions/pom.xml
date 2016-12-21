@@ -31,8 +31,8 @@
     <url>http://wso2.com</url>
 
     <modules>
-        <module>component/p2-touchpoint</module>
-        <module>feature/org.wso2.carbon.p2.touchpoint.feature</module>
+        <module>components/p2-touchpoint</module>
+        <module>features/org.wso2.carbon.p2.touchpoint.feature</module>
     </modules>
 
 </project>

@@ -47,7 +47,6 @@
     </dependencies>
 
     <properties>
-        <maven.bundle.plugin.extensions>true</maven.bundle.plugin.extensions>
         <bundle.symbolicName>${project.artifactId};singleton:=true</bundle.symbolicName>
         <bundle.name>${project.artifactId}</bundle.name>
         <import.package>

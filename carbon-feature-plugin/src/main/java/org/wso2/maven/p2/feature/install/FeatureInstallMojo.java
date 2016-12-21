@@ -26,7 +26,6 @@ import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 import org.eclipse.sisu.equinox.launching.EquinoxLauncher;
 import org.eclipse.tycho.BuildOutputDirectory;
-import org.eclipse.tycho.p2.tools.director.shared.DirectorRuntime;
 import org.eclipse.tycho.plugins.p2.director.DirectorMojo.DirectorRuntimeType;
 import org.eclipse.tycho.plugins.p2.director.runtime.StandaloneDirectorRuntimeFactory;
 import org.wso2.maven.p2.utils.P2Constants;
@@ -110,7 +109,7 @@ public class FeatureInstallMojo extends AbstractMojo {
      */
     public void execute() throws MojoExecutionException, MojoFailureException {
         this.runtimeLocation = new BuildOutputDirectory(this.project.getBuild().getDirectory()).getChild("director");
-        getDirectorRuntime();
+        setDirectorRuntime();
         FeatureInstaller installer = constructFeatureInstaller();
         installer.install();
     }
@@ -134,11 +133,21 @@ public class FeatureInstallMojo extends AbstractMojo {
         return new FeatureInstaller(resourceBundle);
     }
 
-    private DirectorRuntime getDirectorRuntime() throws MojoFailureException, MojoExecutionException {
+    /**
+     * Runtime in which the director application is executed.
+     * standalone (default) - to create and use a stand-alone installation of the director application. This option is
+     * needed if the product to be installed includes artifacts with meta-requirements (e.g. to a non-standard
+     * touchpoint action).
+     *
+     * @throws MojoFailureException
+     * @throws MojoExecutionException
+     */
+    private void setDirectorRuntime() throws MojoFailureException, MojoExecutionException {
         switch (directorRuntime) {
             case standalone:
-                return standaloneDirectorFactory.createStandaloneDirector(this.runtimeLocation,
+                standaloneDirectorFactory.createStandaloneDirector(this.runtimeLocation,
                         this.session.getLocalRepository(), this.forkedProcessTimeoutInSeconds);
+                return;
             default:
                 throw new MojoFailureException("Unsupported value for attribute 'directorRuntime': \"" +
                         directorRuntime + "\"");

@@ -93,10 +93,8 @@ public class CopyAction extends ProvisioningAction {
                     throw new IOException("Failed to delete target: " + target.toString());
                 }
             }
-            if (!target.exists()) {
-                if (!target.mkdirs()) {
-                    throw new IOException("Unable to create Target: " + target.toString());
-                }
+            if (!target.exists() && !target.mkdirs()) {
+                throw new IOException("Unable to create Target: " + target.toString());
             }
             File[] children = source.listFiles();
             if (children == null) {
