@@ -42,10 +42,10 @@ public class FeatureUnInstallMojo extends AbstractMojo {
     @Parameter(required = true)
     private String destination;
     /**
-     * Target profile.
+     * Target runtime.
      */
     @Parameter(required = true)
-    private String profile;
+    private String runtime;
 
     /**
      * List of features.
@@ -81,7 +81,7 @@ public class FeatureUnInstallMojo extends AbstractMojo {
         unInstaller.setDestination(this.destination);
         unInstaller.setFeatures(this.features);
         unInstaller.setLauncher(this.launcher);
-        unInstaller.setProfile(this.profile);
+        unInstaller.setProfile(this.runtime);
         unInstaller.setProject(this.project);
         unInstaller.setForkedProcessTimeoutInSeconds(this.forkedProcessTimeoutInSeconds);
 

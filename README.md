@@ -2,16 +2,15 @@
 
 This repository provides supplementary maven plugins for WSO2 carbon developers.
 
-carbon-feature-plugin
-=====================
+Follow the link below for details of plugins:
 
-Carbon-Feature-Plugin (formerly known as carbon-p2-plugin) is a maven plugin developed within the WSO2 and maintained by WSO2 carbon team.
+* [Carbon Feature Plugin](docs/CarbonFeaturePlugin.md)
 
-##How to Contribute
-* Please report issues at [WSO2 JIRA](https://wso2.org/jira/browse/CMVNPLG).
+# How to Contribute
+* Please report issues at [Issues](https://github.com/wso2/carbon-maven-plugins/issues).
 * Send your pull requests to [master branch](https://github.com/wso2/carbon-maven-plugins/tree/master)
 
-##Contact us
+#Contact us
 WSO2 developers can be contacted via the mailing lists:
 * WSO2 Developers List : dev@wso2.org
 * WSO2 Architecture List : architecture@wso2.org
