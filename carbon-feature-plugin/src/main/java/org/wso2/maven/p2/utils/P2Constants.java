@@ -50,5 +50,22 @@ public class P2Constants {
         public static final String INSTALLIU = "-installIU";
     }
 
+    /**
+     * Product file constants.
+     */
+    public static class ProductFile {
+        public static final String FILE_NAME = "carbon.product";
+        public static final Float PDE_VERSION_DEFAULT = 3.5F;
+
+        public static final String PRODUCT_NAME_DEFAULT = "Carbon Product";
+        public static final String PRODUCT_UID_DEFAULT = "carbon.product.id";
+        public static final String PRODUCT_ID_DEFAULT = "carbon.product";
+        public static final String APPLICATION_DEFAULT = "carbon.application";
+        public static final Boolean USE_FEATURES_DEFAULT = true;
+        public static final Boolean INCLUDE_LAUNCHERS_DEFAULT = true;
+
+        public static final String CONFIG_INI_USE_DEFAULT = "default";
+        public static final String LAUNCHER_NAME_DEFAULT = "eclipse";
+    }
 
 }

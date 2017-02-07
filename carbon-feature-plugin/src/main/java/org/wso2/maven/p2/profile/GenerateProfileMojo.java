@@ -57,6 +57,9 @@ public class GenerateProfileMojo extends AbstractMojo {
     private File productConfigurationFile;
 
     @Parameter
+    private String productFilePath;
+
+    @Parameter
     private URL targetPath;
 
     /**
@@ -100,8 +103,17 @@ public class GenerateProfileMojo extends AbstractMojo {
     }
 
     private void deployRepository() throws MojoFailureException, IOException {
-        ProductConfiguration productConfiguration = ProductConfiguration.read(productConfigurationFile);
-        P2ApplicationLaunchManager p2LaunchManager = new P2ApplicationLaunchManager(this.launcher);
+        ProductConfiguration productConfiguration;
+        if (productConfigurationFile != null) {
+            productConfiguration = ProductConfiguration.read(productConfigurationFile);
+        } else if (productFilePath != null) {
+            File productFile = new File(productFilePath, P2Constants.ProductFile.FILE_NAME);
+            productConfiguration = ProductConfiguration.read(productFile);
+        } else {
+            throw new MojoFailureException("Cannot Proceed as product file " +
+                    "configurations are not set in distribution pom.");
+        }
+        P2ApplicationLaunchManager p2LaunchManager = new P2ApplicationLaunchManager(launcher);
         p2LaunchManager.setWorkingDirectory(project.getBasedir());
         p2LaunchManager.setApplicationName("org.eclipse.equinox.p2.director");
         p2LaunchManager.addGenerateProfileArguments(repositoryURL, productConfiguration.getId(), runtime, targetPath);
