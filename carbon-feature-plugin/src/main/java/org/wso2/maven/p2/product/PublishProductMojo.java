@@ -15,7 +15,6 @@
  */
 package org.wso2.maven.p2.product;
 
-
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -24,11 +23,14 @@ import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 import org.eclipse.sisu.equinox.launching.internal.P2ApplicationLauncher;
+import org.wso2.maven.p2.beans.carbon.product.config.ProductFileConfig;
 import org.wso2.maven.p2.utils.P2ApplicationLaunchManager;
+import org.wso2.maven.p2.utils.ProductFileUtils;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import javax.xml.bind.JAXBException;
 
 /**
  * Publish a given product using the .product file to the repository.
@@ -54,6 +56,13 @@ public class PublishProductMojo extends AbstractMojo {
      */
     @Parameter
     private File productConfigurationFile;
+
+    /**
+     * Bean to capture custom build-time product file configurations
+     * from distribution pom.
+     */
+    @Parameter
+    private ProductFileConfig productFileConfig = new ProductFileConfig();
 
     @Component
     private P2ApplicationLauncher launcher;
@@ -83,14 +92,28 @@ public class PublishProductMojo extends AbstractMojo {
     /**
      * Perform the product publish action.
      *
-     * @throws MojoFailureException throws when the tool breaks for any configuration issues
-     * @throws IOException          throws if fail to read file canonical path.
+     * @throws MojoFailureException     throws when the tool breaks for any configuration issues.
+     * @throws MojoExecutionException   throws when any runtime exception occurs.
+     *                                  i.e: fail to read write file, fail to parse a configuration xml.
+     * @throws IOException              throws if fail to read file canonical path.
      */
-    private void publishProduct() throws MojoFailureException, IOException {
-        P2ApplicationLaunchManager p2LaunchManager = new P2ApplicationLaunchManager(this.launcher);
+    private void publishProduct() throws MojoFailureException, MojoExecutionException, IOException {
+        P2ApplicationLaunchManager p2LaunchManager = new P2ApplicationLaunchManager(launcher);
         p2LaunchManager.setWorkingDirectory(project.getBasedir());
         p2LaunchManager.setApplicationName("org.eclipse.equinox.p2.publisher.ProductPublisher");
-        p2LaunchManager.addPublishProductArguments(repositoryURL, productConfigurationFile, executable);
+
+        if (productConfigurationFile != null) {
+            p2LaunchManager.addPublishProductArguments(repositoryURL, productConfigurationFile, executable);
+        } else {
+            try {
+                ProductFileUtils.writeToFile(productFileConfig, project);
+            } catch (JAXBException e) {
+                throw new MojoExecutionException("Cannot proceed as there is an error in " +
+                        "writing configurations to product file.", e);
+            }
+            File productFile = ProductFileUtils.readFile(project);
+            p2LaunchManager.addPublishProductArguments(repositoryURL, productFile, executable);
+        }
         p2LaunchManager.performAction(forkedProcessTimeoutInSeconds);
     }
 }
