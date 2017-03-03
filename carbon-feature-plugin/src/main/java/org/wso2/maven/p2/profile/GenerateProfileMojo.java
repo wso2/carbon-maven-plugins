@@ -27,6 +27,7 @@ import org.eclipse.tycho.model.ProductConfiguration;
 import org.wso2.maven.p2.utils.FileManagementUtil;
 import org.wso2.maven.p2.utils.P2ApplicationLaunchManager;
 import org.wso2.maven.p2.utils.P2Constants;
+import org.wso2.maven.p2.utils.ProductFileUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -99,9 +100,15 @@ public class GenerateProfileMojo extends AbstractMojo {
         }
     }
 
-    private void deployRepository() throws MojoFailureException, IOException {
-        ProductConfiguration productConfiguration = ProductConfiguration.read(productConfigurationFile);
-        P2ApplicationLaunchManager p2LaunchManager = new P2ApplicationLaunchManager(this.launcher);
+    private void deployRepository() throws MojoFailureException, MojoExecutionException, IOException {
+        ProductConfiguration productConfiguration;
+        if (productConfigurationFile != null) {
+            productConfiguration = ProductConfiguration.read(productConfigurationFile);
+        } else {
+            File productFile = ProductFileUtils.readFile(project);
+            productConfiguration = ProductConfiguration.read(productFile);
+        }
+        P2ApplicationLaunchManager p2LaunchManager = new P2ApplicationLaunchManager(launcher);
         p2LaunchManager.setWorkingDirectory(project.getBasedir());
         p2LaunchManager.setApplicationName("org.eclipse.equinox.p2.director");
         p2LaunchManager.addGenerateProfileArguments(repositoryURL, productConfiguration.getId(), runtime, targetPath);

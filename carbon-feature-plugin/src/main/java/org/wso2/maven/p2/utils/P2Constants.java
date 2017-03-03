@@ -50,5 +50,37 @@ public class P2Constants {
         public static final String INSTALLIU = "-installIU";
     }
 
+    /**
+     * Constants class related to product file default settings.
+     */
+    public static class ProductFileDefaults {
+        public static final String NAME = "carbon.product";
+        public static final String TARGET_DIRECTORY = "target";
+        public static final Float PDE_VERSION = 3.5F;
+
+        /**
+         * Constants class related to Product element default settings of product file.
+         */
+        public static class Product {
+            public static final String NAME = "Carbon Product";
+            public static final String UID = "carbon.product.id";
+            public static final String ID = "carbon.product";
+            public static final String APPLICATION = "carbon.application";
+            public static final String RUNTIME_FEATURE = "org.wso2.carbon.runtime";
+            public static final Boolean USE_FEATURES = true;
+            public static final Boolean INCLUDE_LAUNCHERS = true;
+            public static final String CONFIG_INI_USE = "default";
+            public static final String LAUNCHER_NAME = "eclipse";
+        }
+
+        /**
+         * Constants class related to default character replacement settings of
+         * version values appearing in a product file.
+         */
+        public static class Feature {
+            public static final String VERSION_CHAR_REPLACEMENT = ".";
+            public static final String VERSION_CHAR_REPLACED = "-";
+        }
+    }
 
 }
