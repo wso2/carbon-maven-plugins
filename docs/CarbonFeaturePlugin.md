@@ -67,13 +67,16 @@ A sample pom.xml file configuration of the `publish-product` Maven goal is shown
                         <!-- configurations related to this goal go under here -->
                                 <!-- [1] product file related configurations :
                                 
-                                        You can keep no configuration at all. This would check if a product file 
-                                        already exists in the target directory of the project. If not, plugin 
-                                        will dynamically generate a product file during build-time with 
-                                        default settings and use it. But if <productConfigurationFile> element is 
-                                        present, that will override any other configuration related to a product file 
-                                        and refer to any already existing (static) product file located at a path 
+                                        You can keep no configuration at all. This would check if 
+                                        a product file already exists in the target directory 
+                                        of the project. If not, plugin will dynamically generate 
+                                        a product file during build-time with default settings and 
+                                        use it. But if <productConfigurationFile> element is 
+                                        present, that will override any other configuration related 
+                                        to a product file and refer to any already existing 
+                                        (static) product file located at a path 
                                         specified by the value of the element.
+                                        
                                         For example, please refer to the following. -->
                                         
                                                 <productConfigurationFile>
@@ -81,7 +84,8 @@ A sample pom.xml file configuration of the `publish-product` Maven goal is shown
                                                 </productConfigurationFile>
 
                                         <!-- following is optional and can be used if customization 
-                                        is required for a dynamically generated product file during build-time. -->
+                                        is required for a dynamically generated product file 
+                                        during build-time. -->
                                         
                                                 <productFileConfig>
                                                         <!-- see `productFileConfig` section for 
@@ -97,7 +101,8 @@ A sample pom.xml file configuration of the `publish-product` Maven goal is shown
                                 <!-- [3] Carbon feature repository based configurations : -->
                                 
                                                 <repositoryURL>
-                                                        <!-- Carbon feature repository path is given here. -->
+                                                        <!-- Carbon feature repository path 
+                                                        is given here. -->
                                                 </repositoryURL>
                                                 
                 </configuration>
@@ -136,7 +141,8 @@ In the meantime, each element is described as follows.
                 <!-- [4] application (String): If not set, default value is 'carbon.application'. -->
                 <application>.....</application>
                 
-                <!-- [5] version (String): If not set, carbon runtime version will be taken as default value. -->
+                <!-- [5] version (String): If not set, carbon runtime version will be 
+                taken as default value. -->
                 <version>.....</version>
             
                 <!-- [6] includeLaunchers (true or false): If not set, default value is 'true'. -->
@@ -208,13 +214,16 @@ A sample pom.xml file configuration of the `generate-runtime` Maven goal is show
                         <!-- configurations related to this goal go under here -->
                                 <!-- [1] product file related configurations : 
                                 
-                                You can keep no configuration at all. This would check if a product file 
-                                already exists in the target directory of the project. If not, plugin 
-                                will dynamically generate a product file during build-time with 
-                                default settings and use it. But if <productConfigurationFile> element is 
-                                present, that will override any other configuration related to a product file 
-                                and refer to any already existing (static) product file located at a path 
+                                You can keep no configuration at all. This would check if 
+                                a product file already exists in the target directory 
+                                of the project. If not, plugin will dynamically generate 
+                                a product file during build-time with default settings and 
+                                use it. But if <productConfigurationFile> element is 
+                                present, that will override any other configuration related 
+                                to a product file and refer to any already existing 
+                                (static) product file located at a path 
                                 specified by the value of the element.
+                                                                        
                                 For example, please refer to the following. -->
                                                                         
                                         <productConfigurationFile>
@@ -222,7 +231,8 @@ A sample pom.xml file configuration of the `generate-runtime` Maven goal is show
                                         </productConfigurationFile>
                                 
                                 <!-- following is optional and can be used if customization 
-                                is required for a dynamically generated product file during build-time. -->
+                                is required for a dynamically generated 
+                                product file during build-time. -->
                                                                         
                                         <productFileConfig>
                                                 <!-- see `productFileConfig` section for 
@@ -232,14 +242,16 @@ A sample pom.xml file configuration of the `generate-runtime` Maven goal is show
                                 <!-- [2] Carbon feature repository based configurations : -->
                                 
                                         <repositoryURL>
-                                                <!-- Carbon feature repository path is given here. -->
+                                                <!-- Carbon feature repository path 
+                                                is given here. -->
                                         </repositoryURL>
                                 
-                                <!-- [3] Target location for the carbon features to be copied in server pack : -->
+                                <!-- [3] Target location for the carbon features 
+                                to be copied in server pack : -->
                                 
                                         <targetPath>
-                                                <!-- Target location for the carbon features to be copied 
-                                                in server pack is given here. -->
+                                                <!-- Target location for the carbon features to be 
+                                                copied in server pack is given here. -->
                                         </targetPath>
                                         
                                 <!-- [4] Runtime type : -->
@@ -284,7 +296,8 @@ In the meantime, each element is described as follows.
                     <!-- [4] application (String): If not set, default value is 'carbon.application'. -->
                     <application>.....</application>
                     
-                    <!-- [5] version (String): If not set, carbon runtime version will be taken as default value. -->
+                    <!-- [5] version (String): If not set, carbon runtime version will be 
+                    taken as default value. -->
                     <version>.....</version>
                 
                     <!-- [6] includeLaunchers (true or false): If not set, default value is 'true'. -->
