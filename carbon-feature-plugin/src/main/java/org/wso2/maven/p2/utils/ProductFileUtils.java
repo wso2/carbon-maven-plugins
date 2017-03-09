@@ -46,16 +46,17 @@ public class ProductFileUtils {
     /**
      * Write Product bean as an XML to a product file.
      *
-     * @param productFileConfig productFileConfig bean as read from project pom.
-     * @param mavenProject mavenProject bean as read from project pom.
-     * @throws javax.xml.bind.JAXBException Is thrown if an error occurs in writing configurations into product file.
+     * @param productFileConfig         productFileConfig bean as read from project pom.
+     * @param mavenProject              mavenProject bean as read from project pom.
+     * @throws JAXBException            Is thrown if an error occurs in writing configurations into a string.
+     * @throws MojoExecutionException   Is thrown if maven project is not been able to be read.
+     * @throws IOException              Is thrown if an error occurs in writing configurations into a product file.
      */
-    public static void generateProductFile(ProductFileConfig productFileConfig,
-                                           MavenProject mavenProject)
-                                           throws JAXBException, MojoExecutionException, IOException {
+    public static void generateProductFile(ProductFileConfig productFileConfig, MavenProject mavenProject) throws
+            JAXBException, MojoExecutionException, IOException {
         // validating version and featureConfig values captured from project pom
-        ProductConfig validatedProductConfig = ProductFileUtils
-                .validateProductConfig(productFileConfig.getProductConfig(), mavenProject);
+        ProductConfig validatedProductConfig = ProductFileUtils.validateProductConfig(productFileConfig.
+                getProductConfig(), mavenProject);
 
         // populating a product instance with validated values for writing to a product file
         Product product = new Product();
@@ -68,16 +69,15 @@ public class ProductFileUtils {
         product.setIncludeLaunchers(validatedProductConfig.getIncludeLaunchers());
         product.setConfigIni(validatedProductConfig.getConfigIni());
         product.setLauncher(validatedProductConfig.getLauncher());
-        product.setConfigurations(new Configurations(validatedProductConfig.getPluginConfig(),
-                validatedProductConfig.getPropertyConfig()));
+        product.setConfigurations(new Configurations(validatedProductConfig.getPluginConfig(), validatedProductConfig
+                .getPropertyConfig()));
 
         // writing to a product file
         StringWriter stringWriter = new StringWriter();
         stringWriter.append("<?xml version=\"").append(P2Constants.ProductFile.XML_VERSION.toString())
-                    .append("\" encoding=\"").append(P2Constants.DEFAULT_ENCODING).append("\"?>")
-                    .append(System.lineSeparator())
-                    .append("<?pde version=\"").append(productFileConfig.getPdeVersion().toString()).append("\"?>")
-                    .append(System.lineSeparator());
+                .append("\" encoding=\"").append(P2Constants.DEFAULT_ENCODING).append("\"?>").append(System
+                .lineSeparator()).append("<?pde version=\"").append(productFileConfig.getPdeVersion().toString())
+                .append("\"?>").append(System.lineSeparator());
 
         JAXBContext jaxbContext = JAXBContext.newInstance(Product.class);
         Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
@@ -86,40 +86,46 @@ public class ProductFileUtils {
         jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
         jaxbMarshaller.marshal(product, stringWriter);
 
-        Files.write(Paths.get(ProductFileUtils.getProductFilePath(mavenProject)),
-                stringWriter.toString().getBytes(Charset.forName(P2Constants.DEFAULT_ENCODING)));
+        Files.write(Paths.get(ProductFileUtils.getProductFilePath(mavenProject)), stringWriter.toString()
+                .getBytes(Charset.forName(P2Constants.DEFAULT_ENCODING)));
     }
 
+    /**
+     * Get path to dynamically generated product file.
+     *
+     * @param mavenProject              bean as read from project pom.
+     * @return String                   Path to dynamically generated product file.
+     * @throws MojoExecutionException   Is thrown if maven project is not been able to be read.
+     */
     public static String getProductFilePath(MavenProject mavenProject) throws MojoExecutionException {
         if (mavenProject == null) {
             throw new MojoExecutionException("Unable to read maven project for finding project path.");
         } else {
-            return mavenProject.getBasedir().getAbsolutePath() + File.separator +
-                P2Constants.ProductFile.TARGET_DIRECTORY + File.separator + P2Constants.ProductFile.NAME;
+            return mavenProject.getBasedir().getAbsolutePath() + File.separator + P2Constants.ProductFile
+                    .TARGET_DIRECTORY + File.separator + P2Constants.ProductFile.NAME;
         }
     }
 
-    private static ProductConfig
-        validateProductConfig(ProductConfig productConfig, MavenProject mavenProject)
-            throws MojoExecutionException {
+    private static ProductConfig validateProductConfig(ProductConfig productConfig, MavenProject mavenProject) throws
+            MojoExecutionException {
         if (productConfig.getVersion() == null) {
-            productConfig.setVersion(ProductFileUtils.getDependencyVersion(mavenProject,
-                    P2Constants.ProductFile.Product.RUNTIME_FEATURE));
+            productConfig.setVersion(ProductFileUtils.getDependencyVersion(mavenProject, P2Constants.ProductFile
+                    .Product.RUNTIME_FEATURE));
         }
         return productConfig;
     }
 
     private static String validateProductVersion(String version) {
-        if (version != null && !version.isEmpty() &&
-                version.contains(P2Constants.ProductFile.Feature.VERSION_CHAR_REPLACED)) {
-            version = version.replaceAll(P2Constants.ProductFile.Feature.VERSION_CHAR_REPLACED,
-                    P2Constants.ProductFile.Feature.VERSION_CHAR_REPLACEMENT);
+        if (version != null && !version.isEmpty() && version.contains(P2Constants.ProductFile.Feature
+                .VERSION_CHAR_REPLACED)) {
+            version = version.replaceAll(P2Constants.ProductFile.Feature.VERSION_CHAR_REPLACED, P2Constants
+                    .ProductFile.Feature.VERSION_CHAR_REPLACEMENT);
         }
         return version;
     }
 
-    private static String getDependencyVersion(MavenProject mavenProject,
-                                               String dependency) throws MojoExecutionException {
+    private static String getDependencyVersion(MavenProject mavenProject, String dependency) throws
+            MojoExecutionException {
         if (mavenProject == null) {
             throw new MojoExecutionException("Unable to read maven project for finding dependencies.");
         } else if (dependency == null || dependency.isEmpty()) {
