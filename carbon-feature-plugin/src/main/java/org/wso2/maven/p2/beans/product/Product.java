@@ -17,7 +17,9 @@
 package org.wso2.maven.p2.beans.product;
 
 import org.wso2.maven.p2.beans.product.config.ProductConfig;
+import org.wso2.maven.p2.utils.P2Constants;
 
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -31,7 +33,19 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class Product extends ProductConfig {
 
+    private Boolean useFeatures = P2Constants.ProductFile.Product.USE_FEATURES;
     private Configurations configurations;
+
+    @SuppressWarnings("unused")
+    public Boolean getUseFeatures() {
+        return useFeatures;
+    }
+
+    @XmlAttribute
+    @SuppressWarnings("unused")
+    public void setUseFeatures(Boolean useFeatures) {
+        this.useFeatures = useFeatures;
+    }
 
     @SuppressWarnings("unused")
     public Configurations getConfigurations() {

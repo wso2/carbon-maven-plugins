@@ -65,7 +65,6 @@ public class ProductFileUtils {
         product.setId(validatedProductConfig.getId());
         product.setApplication(validatedProductConfig.getApplication());
         product.setVersion(validateProductVersion(validatedProductConfig.getVersion()));
-        product.setUseFeatures(validatedProductConfig.getUseFeatures());
         product.setIncludeLaunchers(validatedProductConfig.getIncludeLaunchers());
         product.setConfigIni(validatedProductConfig.getConfigIni());
         product.setLauncher(validatedProductConfig.getLauncher());

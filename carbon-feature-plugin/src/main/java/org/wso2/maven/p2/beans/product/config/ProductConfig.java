@@ -45,7 +45,6 @@ public class ProductConfig {
     private String id = ProductFile.Product.ID;
     private String application = ProductFile.Product.APPLICATION;
     private String version; // If not set in project pom, carbon runtime version will be set by default.
-    private Boolean useFeatures = ProductFile.Product.USE_FEATURES;
     private Boolean includeLaunchers = ProductFile.Product.INCLUDE_LAUNCHERS;
     private ConfigIni configIni = new ConfigIni();
     private Launcher launcher = new Launcher();
@@ -95,15 +94,6 @@ public class ProductConfig {
     @XmlAttribute
     public void setVersion(String version) {
         this.version = version;
-    }
-
-    public Boolean getUseFeatures() {
-        return useFeatures;
-    }
-
-    @XmlAttribute
-    public void setUseFeatures(Boolean useFeatures) {
-        this.useFeatures = useFeatures;
     }
 
     public Boolean getIncludeLaunchers() {
