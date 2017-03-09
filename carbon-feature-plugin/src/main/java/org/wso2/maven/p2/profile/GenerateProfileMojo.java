@@ -24,13 +24,17 @@ import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 import org.eclipse.sisu.equinox.launching.internal.P2ApplicationLauncher;
 import org.eclipse.tycho.model.ProductConfiguration;
+import org.wso2.maven.p2.beans.product.config.ProductFileConfig;
 import org.wso2.maven.p2.utils.FileManagementUtil;
 import org.wso2.maven.p2.utils.P2ApplicationLaunchManager;
 import org.wso2.maven.p2.utils.P2Constants;
+import org.wso2.maven.p2.utils.ProductFileUtils;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Paths;
+import javax.xml.bind.JAXBException;
 
 /**
  * Mojo responsible for generating a runtime.
@@ -55,6 +59,13 @@ public class GenerateProfileMojo extends AbstractMojo {
      */
     @Parameter(defaultValue = "${productConfiguration}")
     private File productConfigurationFile;
+
+    /**
+     * Bean to capture build-time product file customizations
+     * from pom level configurations.
+     */
+    @Parameter
+    private ProductFileConfig productFileConfig = new ProductFileConfig();
 
     @Parameter
     private URL targetPath;
@@ -99,9 +110,24 @@ public class GenerateProfileMojo extends AbstractMojo {
         }
     }
 
-    private void deployRepository() throws MojoFailureException, IOException {
-        ProductConfiguration productConfiguration = ProductConfiguration.read(productConfigurationFile);
-        P2ApplicationLaunchManager p2LaunchManager = new P2ApplicationLaunchManager(this.launcher);
+    private void deployRepository() throws MojoFailureException, MojoExecutionException, IOException {
+        ProductConfiguration productConfiguration;
+        if (productConfigurationFile != null) {
+            productConfiguration = ProductConfiguration.read(productConfigurationFile);
+        } else {
+            // going ahead with a dynamically generated product file during build-time
+            File productFile = Paths.get(ProductFileUtils.getProductFilePath(project)).toFile();
+            if (!productFile.exists()) {
+                try {
+                    ProductFileUtils.generateProductFile(productFileConfig, project);
+                } catch (JAXBException e) {
+                    throw new MojoExecutionException("Cannot proceed as there is an error in " +
+                            "writing configurations to product file.", e);
+                }
+            }
+            productConfiguration = ProductConfiguration.read(productFile);
+        }
+        P2ApplicationLaunchManager p2LaunchManager = new P2ApplicationLaunchManager(launcher);
         p2LaunchManager.setWorkingDirectory(project.getBasedir());
         p2LaunchManager.setApplicationName("org.eclipse.equinox.p2.director");
         p2LaunchManager.addGenerateProfileArguments(repositoryURL, productConfiguration.getId(), runtime, targetPath);
