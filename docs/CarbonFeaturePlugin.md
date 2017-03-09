@@ -139,33 +139,20 @@ In the meantime, each element is described as follows.
                 <!-- [5] version (String): If not set, carbon runtime version will be taken as default value. -->
                 <version>.....</version>
             
-                <!-- [6] useFeatures (true or false): If not set, default value is 'true'. -->
-                <useFeatures>.....</useFeatures>
-            
-                <!-- [7] includeLaunchers (true or false): If not set, default value is 'true'. -->
+                <!-- [6] includeLaunchers (true or false): If not set, default value is 'true'. -->
                 <includeLaunchers>.....</includeLaunchers>
                 
-                <!-- [8] configIni: If not set, default value for use is 'default'. -->
+                <!-- [7] configIni: If not set, default value for use is 'default'. -->
                 <configIni>
                         <use>.....</use>
                 </configIni>
                 
-                <!-- [9] launcher: If not set, default value for name is 'eclipse'. -->
+                <!-- [8] launcher: If not set, default value for name is 'eclipse'. -->
                 <launcher>
                         <name>eclipse</name>
                 </launcher>
                 
-                <!-- [10] featureConfig: If not set, by default, 
-                featureConfig will hold 'org.wso2.carbon.runtime' feature. -->
-                <featureConfig>
-                        <feature>
-                                <id>.....</id>
-                                <version>.....</version>
-                        </feature>
-                        .....
-                </featureConfig>
-                
-                <!-- [11] pluginConfig: If not set, by default, 
+                <!-- [9] pluginConfig: If not set, by default, 
                 pluginConfig will hold 6 plugins, namely 
                 org.eclipse.core.runtime, org.eclipse.equinox.common,
                 org.eclipse.equinox.ds, org.eclipse.equinox.p2.reconciler.dropins, 
@@ -181,7 +168,7 @@ In the meantime, each element is described as follows.
                         <plugin></plugin>
                 </pluginConfig>
                 
-                <!-- [12] propertyConfig: If not set, by default, 
+                <!-- [10] propertyConfig: If not set, by default, 
                 propertyConfig will hold 2 properties, namely org.eclipse.update.reconcile and 
                 org.eclipse.update.recon. -->
                 <propertyConfig>
@@ -280,80 +267,67 @@ In the meantime, each element is described as follows.
     dynamically generated product file during build-time over provided default settings.
     
     Available customization options:
-    
+        
     \<productFileConfig\>
-    
-        <!-- [1] pdeVersion (Number): Default value is 3.5. -->
-        <pdeVersion>.....</pdeVersion>
         
-        <productConfig>
-        
-                <!-- [2] name (String): If not set, default value is 'Carbon Product'. -->
-                <name>.....</name>
+            <!-- [1] pdeVersion (Number): Default value is 3.5. -->
+            <pdeVersion>.....</pdeVersion>
             
-                <!-- [3] uid (String): If not set, default value is 'carbon.product.id'. -->
-                <uid>.....</uid>
+            <productConfig>
             
-                <!-- [4] application (String): If not set, default value is 'carbon.application'. -->
-                <application>.....</application>
+                    <!-- [2] name (String): If not set, default value is 'Carbon Product'. -->
+                    <name>.....</name>
                 
-                <!-- [5] version (String): If not set, carbon runtime version will be taken as default value. -->
-                <version>.....</version>
+                    <!-- [3] uid (String): If not set, default value is 'carbon.product.id'. -->
+                    <uid>.....</uid>
+                
+                    <!-- [4] application (String): If not set, default value is 'carbon.application'. -->
+                    <application>.....</application>
+                    
+                    <!-- [5] version (String): If not set, carbon runtime version will be taken as default value. -->
+                    <version>.....</version>
+                
+                    <!-- [6] includeLaunchers (true or false): If not set, default value is 'true'. -->
+                    <includeLaunchers>.....</includeLaunchers>
+                    
+                    <!-- [7] configIni: If not set, default value for use is 'default'. -->
+                    <configIni>
+                            <use>.....</use>
+                    </configIni>
+                    
+                    <!-- [8] launcher: If not set, default value for name is 'eclipse'. -->
+                    <launcher>
+                            <name>eclipse</name>
+                    </launcher>
+                    
+                    <!-- [9] pluginConfig: If not set, by default, 
+                    pluginConfig will hold 6 plugins, namely 
+                    org.eclipse.core.runtime, org.eclipse.equinox.common,
+                    org.eclipse.equinox.ds, org.eclipse.equinox.p2.reconciler.dropins, 
+                    org.eclipse.equinox.simpleconfigurator,
+                    and org.eclipse.update.configurator. -->
+                    <pluginConfig>
+                            <plugin>
+                                    <id>.....</id>
+                                    <autoStart>.....</autoStart>
+                                    <startLevel>.....</startLevel>
+                            </plugin>
+                            .....                    
+                            <plugin></plugin>
+                    </pluginConfig>
+                    
+                    <!-- [10] propertyConfig: If not set, by default, 
+                    propertyConfig will hold 2 properties, namely org.eclipse.update.reconcile and 
+                    org.eclipse.update.recon. -->
+                    <propertyConfig>
+                            <property>
+                                    <name>.....</name>
+                                    <value>.....</value>
+                            </property>
+                            .....
+                    </propertyConfig>
+            </productConfig>
             
-                <!-- [6] useFeatures (true or false): If not set, default value is 'true'. -->
-                <useFeatures>.....</useFeatures>
-            
-                <!-- [7] includeLaunchers (true or false): If not set, default value is 'true'. -->
-                <includeLaunchers>.....</includeLaunchers>
-                
-                <!-- [8] configIni: If not set, default value for use is 'default'. -->
-                <configIni>
-                        <use>.....</use>
-                </configIni>
-                
-                <!-- [9] launcher: If not set, default value for name is 'eclipse'. -->
-                <launcher>
-                        <name>eclipse</name>
-                </launcher>
-                
-                <!-- [10] featureConfig: If not set, by default, 
-                featureConfig will hold 'org.wso2.carbon.runtime' feature. -->
-                <featureConfig>
-                        <feature>
-                                <id>.....</id>
-                                <version>.....</version>
-                        </feature>
-                        .....
-                </featureConfig>
-                
-                <!-- [11] pluginConfig: If not set, by default, 
-                pluginConfig will hold 6 plugins, namely 
-                org.eclipse.core.runtime, org.eclipse.equinox.common,
-                org.eclipse.equinox.ds, org.eclipse.equinox.p2.reconciler.dropins, 
-                org.eclipse.equinox.simpleconfigurator,
-                and org.eclipse.update.configurator. -->
-                <pluginConfig>
-                        <plugin>
-                                <id>.....</id>
-                                <autoStart>.....</autoStart>
-                                <startLevel>.....</startLevel>
-                        </plugin>
-                        .....                    
-                        <plugin></plugin>
-                </pluginConfig>
-                
-                <!-- [12] propertyConfig: If not set, by default, 
-                propertyConfig will hold 2 properties, namely org.eclipse.update.reconcile and 
-                org.eclipse.update.recon. -->
-                <propertyConfig>
-                        <property>
-                                <name>.....</name>
-                                <value>.....</value>
-                        </property>
-                        .....
-                </propertyConfig>
-        </productConfig>
-        
     \</productFileConfig\>
     
 3. `repositoryURL`: Carbon feature repository based configurations.
