@@ -48,7 +48,9 @@ public class ProductFileUtils {
      *
      * @param productFileConfig productFileConfig bean as read from project pom.
      * @param mavenProject mavenProject bean as read from project pom.
-     * @throws javax.xml.bind.JAXBException Is thrown if an error occurs in writing configurations into product file.
+     * @throws JAXBException Is thrown if an error occurs in writing configurations into a string.
+     * @throws MojoExecutionException Is thrown if maven project is not been able to be read.
+     * @throws IOException Is thrown if an error occurs in writing configurations into a product file.
      */
     public static void generateProductFile(ProductFileConfig productFileConfig,
                                            MavenProject mavenProject)
@@ -90,6 +92,13 @@ public class ProductFileUtils {
                 stringWriter.toString().getBytes(Charset.forName(P2Constants.DEFAULT_ENCODING)));
     }
 
+    /**
+     * Get path to dynamically generated product file.
+     *
+     * @param mavenProject bean as read from project pom.
+     * @return String Path to dynamically generated product file.
+     * @throws MojoExecutionException Is thrown if maven project is not been able to be read.
+     */
     public static String getProductFilePath(MavenProject mavenProject) throws MojoExecutionException {
         if (mavenProject == null) {
             throw new MojoExecutionException("Unable to read maven project for finding project path.");
