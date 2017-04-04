@@ -110,7 +110,7 @@ public class ProductFileUtils {
             MojoExecutionException {
         if (productConfig.getVersion() == null) {
             productConfig.setVersion(ProductFileUtils.getDependencyVersion(mavenProject, P2Constants.ProductFile
-                    .Product.RUNTIME_FEATURE));
+                    .Product.OSGI_RUNTIME_FEATURE));
         }
         return productConfig;
     }
