@@ -66,7 +66,7 @@ public class P2Constants {
             public static final String UID = "carbon.product.id";
             public static final String ID = "carbon.product";
             public static final String APPLICATION = "carbon.application";
-            public static final String RUNTIME_FEATURE = "org.wso2.carbon.runtime";
+            public static final String OSGI_RUNTIME_FEATURE = "org.wso2.carbon.osgi";
             public static final Boolean USE_FEATURES = false;
             public static final Boolean INCLUDE_LAUNCHERS = true;
             public static final String CONFIG_INI_USE = "default";
