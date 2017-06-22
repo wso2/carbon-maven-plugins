@@ -111,9 +111,9 @@ public class P2ApplicationLaunchManager {
                 // the location of where the plug-ins and features will be stored. This value is only taken into account
                 // when a new profile is created. For an application where all the bundles are located into the
                 // plugins/ folder of the destination, set it to <destination>
-                // use a shared location for the install. The path defaults to ${user.home}/.p2
-                "-shared", Paths.get(destination + File.separator + "p2").toString(),
-                "-destination", Paths.get(destination + File.separator + profile).toString(),
+                // to support shared installation in carbon
+                "-shared", Paths.get(destination, "lib", "p2").toString(),
+                "-destination", Paths.get(destination, profile).toString(),
                 "-profile", profile
         );
     }
