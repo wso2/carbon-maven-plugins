@@ -153,7 +153,7 @@ public class FeatureInstaller {
     private void writeEclipseIni() throws IOException {
         String profileLocation = resourceBundle.getDestination() + File.separator + resourceBundle.getProfile();
 
-        File eclipseIni = Paths.get(profileLocation + File.separator + "eclipse.ini").toFile();
+        File eclipseIni = Paths.get(profileLocation, "eclipse.ini").toFile();
         if (eclipseIni.exists()) {
             updateFile(eclipseIni, profileLocation);
         }
